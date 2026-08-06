@@ -1,0 +1,39 @@
+.overlay { position: fixed; inset: 0; z-index: 10; pointer-events: none; transition: opacity 120ms linear; }
+.primary, .secondary, .portfolios, .cta { opacity: 0; filter: blur(10px); transform: translateY(18px); transition: opacity 1.05s var(--ease-out), filter 1.05s var(--ease-out), transform 1.05s var(--ease-out); }
+.active .primary, .active .secondary, .active .portfolios, .active .cta { opacity: 1; filter: blur(0); transform: translateY(0); }
+.primary { position: absolute; top: 8.4vw; left: 1.667vw; width: 38vw; }
+.secondary { position: absolute; right: 1.667vw; bottom: 1.667vw; width: 44vw; text-align: right; transition-delay: 120ms; }
+.portfolios { position: absolute; top: 47%; left: 50%; display: grid; grid-template-columns: repeat(2, 19vw); gap: .55vw; transform: translate(-50%, -50%) translateY(18px); transition-delay: 180ms; }
+.active .portfolios { transform: translate(-50%, -50%); }
+.card { min-height: 8.4vw; padding: 1.2vw; border: 1px solid rgba(255,255,255,.15); background: rgba(0,0,0,.55); backdrop-filter: blur(10px); pointer-events: auto; transition: color .22s, border-color .22s; }
+.card:hover { color: var(--cyan-hot); border-color: var(--cyan-hot); }
+.card span { color: rgba(255,255,255,.45); }
+.card h3 { margin: 1.25vw 0 .45vw; font-size: 1.35vw; font-weight: 400; }
+.card p { margin: 0; max-width: 15vw; color: rgba(255,255,255,.65); font-size: .84vw; line-height: 1.35; }
+.card:hover span, .card:hover p { color: currentColor; }
+.cta { position: absolute; left: 1.667vw; bottom: 1.667vw; padding-bottom: .4vw; border-bottom: 1px solid currentColor; font: 400 1.111vw/1.2 "Mulish", sans-serif; text-transform: uppercase; pointer-events: auto; transition-delay: 280ms; }
+.cta:hover { color: var(--cyan-hot); }
+
+@media (max-width: 1023.98px) {
+  .overlay { padding: 6rem 1.5rem 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .primary, .secondary, .portfolios, .cta { position: static; width: auto; }
+  .primary { font-size: 3.2rem; }
+  .secondary { margin-top: .75rem; font-size: 2.1rem; text-align: center; }
+  .portfolios { margin-top: 2rem; grid-template-columns: repeat(2, minmax(0, 18rem)); gap: .6rem; transform: translateY(18px); }
+  .active .portfolios { transform: translateY(0); }
+  .card { min-height: 8.2rem; padding: 1rem; text-align: left; }
+  .card h3 { margin: 1rem 0 .4rem; font-size: 1.2rem; }
+  .card p { max-width: none; font-size: .8rem; }
+  .cta { margin-top: 1.5rem; font-size: .9rem; }
+}
+
+@media (max-width: 599px) {
+  .overlay { padding: 5.5rem 1rem 1rem; }
+  .primary { font-size: 2.65rem; }
+  .secondary { font-size: 1.55rem; }
+  .portfolios { width: 100%; margin-top: 1rem; grid-template-columns: 1fr; }
+  .card { min-height: auto; padding: .7rem; }
+  .card h3 { display: inline; margin-left: .8rem; font-size: 1rem; }
+  .card p { margin-top: .35rem; }
+  .cta { margin-top: .8rem; }
+}
