@@ -138,7 +138,7 @@
   .mobileMenu nav a span {
     width: 3rem;
     color: var(--cyan);
-    font: 400 .7rem/1 "Mulish", sans-serif;
+    font: 400 .6rem/1 "Mulish", sans-serif;
     letter-spacing: .08em;
   }
 

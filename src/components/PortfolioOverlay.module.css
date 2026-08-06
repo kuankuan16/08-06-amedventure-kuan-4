@@ -7,7 +7,7 @@
 .active .portfolios { transform: translate(-50%, -50%); }
 .card { min-height: 8.4vw; padding: 1.2vw; border: 1px solid rgba(255,255,255,.15); background: rgba(0,0,0,.55); backdrop-filter: blur(10px); pointer-events: auto; transition: color .22s, border-color .22s; }
 .card:hover { color: var(--cyan-hot); border-color: var(--cyan-hot); }
-.card span { color: var(--cyan); font-size: .78vw; }
+.card span { color: var(--cyan); font-size: .64vw; }
 .card h3 { margin: 1.25vw 0 .45vw; font-size: 1.35vw; font-weight: 400; }
 .card p { margin: 0; max-width: 15vw; color: rgba(255,255,255,.65); font-size: .84vw; line-height: 1.35; }
 .card:hover span, .card:hover p { color: currentColor; }
@@ -23,7 +23,7 @@
   .active .portfolios { transform: translateY(0); }
   .card { min-height: 8.2rem; padding: 1rem; text-align: left; }
   .card h3 { margin: 1rem 0 .4rem; font-size: 1.2rem; }
-  .card span { font-size: .68rem; }
+  .card span { font-size: .58rem; }
   .card p { max-width: none; font-size: .8rem; }
   .cta { margin-top: 1.5rem; font-size: .9rem; }
 }

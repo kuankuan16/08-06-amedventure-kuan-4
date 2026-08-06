@@ -42,12 +42,12 @@
 .focus:nth-child(3) { transition-delay: 140ms; }
 .focus:nth-child(4) { transition-delay: 210ms; }
 .focus:hover { color: var(--cyan-hot); }
-.index { display: block; color: var(--cyan); font-size: .78vw; }
+.index { display: block; color: var(--cyan); font-size: .64vw; }
 .focus h3 { margin: 2.1vw 0 .75vw; font-weight: 300; font-size: 1.75vw; line-height: 1; letter-spacing: -.025em; }
 .focus p { max-width: 18vw; margin: 0; color: rgba(255,255,255,.62); font-size: .91vw; line-height: 1.35; }
 .focus:hover p, .focus:hover .index { color: currentColor; }
 
-.investors { display: flex; align-items: center; justify-content: space-between; min-height: 5.2vw; padding: 0 1.667vw; transition-delay: 260ms; }
+.investors { display: flex; align-items: center; justify-content: space-between; min-height: 3.6vw; padding: 0 1.667vw; transition-delay: 260ms; }
 .investors p { color: rgba(255,255,255,.48); font-size: .82vw; }
 .wordmarks { display: flex; align-items: center; gap: 3.4vw; }
 .wordmarks span { font-size: .82vw; font-weight: 500; letter-spacing: -.02em; }
@@ -61,7 +61,7 @@
   .focus:nth-child(2) { border-right: 0; }
   .focus:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.2); }
   .focus h3 { margin: 1rem 0 .45rem; font-size: 1.35rem; }
-  .index { font-size: .68rem; }
+  .index { font-size: .58rem; }
   .focus p { max-width: 25rem; font-size: .78rem; }
   .investors { min-height: auto; padding: 1rem 0 0; align-items: flex-start; gap: .8rem; flex-direction: column; }
   .wordmarks { width: 100%; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
