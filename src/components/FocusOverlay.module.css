@@ -42,7 +42,7 @@
 .focus:nth-child(3) { transition-delay: 140ms; }
 .focus:nth-child(4) { transition-delay: 210ms; }
 .focus:hover { color: var(--cyan-hot); }
-.index { display: block; color: rgba(255,255,255,.55); }
+.index { display: block; color: var(--cyan); font-size: .78vw; }
 .focus h3 { margin: 2.1vw 0 .75vw; font-weight: 300; font-size: 1.75vw; line-height: 1; letter-spacing: -.025em; }
 .focus p { max-width: 18vw; margin: 0; color: rgba(255,255,255,.62); font-size: .91vw; line-height: 1.35; }
 .focus:hover p, .focus:hover .index { color: currentColor; }
@@ -61,6 +61,7 @@
   .focus:nth-child(2) { border-right: 0; }
   .focus:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.2); }
   .focus h3 { margin: 1rem 0 .45rem; font-size: 1.35rem; }
+  .index { font-size: .68rem; }
   .focus p { max-width: 25rem; font-size: .78rem; }
   .investors { min-height: auto; padding: 1rem 0 0; align-items: flex-start; gap: .8rem; flex-direction: column; }
   .wordmarks { width: 100%; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
