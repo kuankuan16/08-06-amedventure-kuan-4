@@ -38,7 +38,7 @@ export function PitchFooter() {
         <div className={styles.rule} />
         <div className={styles.bottom}>
           <div className={styles.identity}>
-            <Image src="/brand/amed-logo-light.png" alt="AMED Ventures" width={320} height={120} />
+            <Image src="/brand/amed-logo-white.png" alt="AMED Ventures" width={320} height={120} />
             <p className="amed-tag">San Francisco Bay Area · US &amp; Asia</p>
           </div>
           <nav className={styles.nav} aria-label="Footer navigation">

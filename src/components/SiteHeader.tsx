@@ -35,7 +35,7 @@ export function SiteHeader() {
         <a className={styles.logoLink} href="#top" aria-label="AMED Ventures home">
           <Image
             className={styles.logo}
-            src="/brand/amed-logo-light.png"
+            src="/brand/amed-logo-white.png"
             alt="AMED Ventures"
             width={600}
             height={178}
