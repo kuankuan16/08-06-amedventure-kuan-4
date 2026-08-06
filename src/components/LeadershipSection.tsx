@@ -40,7 +40,7 @@ export function LeadershipSection() {
 
         <figure className={`${styles.figure} ${visible ? styles.figureVisible : ""}`}>
           <Image
-            src="/images/amed/leadership-founders.jpg"
+            src="/images/amed/leadership-founders-v2.jpg"
             alt="MedTech founders in conversation in a luminous clinical setting"
             fill
             sizes="(max-width: 1024px) calc(100vw - 6rem), 39vw"
