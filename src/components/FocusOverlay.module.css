@@ -48,9 +48,9 @@
 .focus:hover p, .focus:hover .index { color: currentColor; }
 
 .investors { display: flex; align-items: center; justify-content: space-between; min-height: 5.2vw; padding: 0 1.667vw; transition-delay: 260ms; }
-.investors p { color: rgba(255,255,255,.48); }
+.investors p { color: rgba(255,255,255,.48); font-size: .82vw; }
 .wordmarks { display: flex; align-items: center; gap: 3.4vw; }
-.wordmarks span { font-size: 1.05vw; font-weight: 500; letter-spacing: -.02em; }
+.wordmarks span { font-size: .82vw; font-weight: 500; letter-spacing: -.02em; }
 
 @media (max-width: 1023.98px) {
   .intro { top: 6rem; width: calc(100% - 3rem); }
@@ -64,7 +64,7 @@
   .focus p { max-width: 25rem; font-size: .78rem; }
   .investors { min-height: auto; padding: 1rem 0 0; align-items: flex-start; gap: .8rem; flex-direction: column; }
   .wordmarks { width: 100%; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-  .wordmarks span { font-size: .8rem; }
+  .investors p, .wordmarks span { font-size: .72rem; }
 }
 
 @media (max-width: 599px) {
