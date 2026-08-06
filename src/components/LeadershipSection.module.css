@@ -12,7 +12,7 @@
 .highlight { min-height: 12vw; padding: 1.35vw 1.4vw 0 0; border-right: 1px solid var(--line-light); }
 .highlight:not(:first-child) { padding-left: 1.4vw; }
 .highlight:last-child { border-right: 0; }
-.highlight span { color: rgba(7,16,34,.45); }
+.highlight span { color: var(--cyan); font-size: .78vw; }
 .highlight h3 { margin: 2.2vw 0 .7vw; font-size: 1.55vw; font-weight: 400; letter-spacing: -.025em; }
 .highlight p { width: 86%; margin: 0; color: rgba(7,16,34,.62); font-size: .88vw; line-height: 1.35; }
 
@@ -29,6 +29,7 @@
   .highlight, .highlight:not(:first-child) { min-height: 0; padding: 1.25rem 0; border-right: 0; border-bottom: 1px solid var(--line-light); }
   .highlight:last-child { border-bottom: 0; }
   .highlight h3 { margin: .8rem 0 .4rem; font-size: 1.35rem; }
+  .highlight span { font-size: .68rem; }
   .highlight p { width: min(34rem, 100%); font-size: .9rem; }
 }
 
