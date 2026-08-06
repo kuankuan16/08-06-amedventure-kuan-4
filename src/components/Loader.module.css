@@ -5,8 +5,8 @@
   overflow: hidden;
   color: #fff;
   background: #000;
-  font: 400 1.111vw/1.2 "Mulish", sans-serif;
-  text-transform: uppercase;
+  font: 400 14px/1.43 "SF Pro Text", system-ui, -apple-system, sans-serif;
+  letter-spacing: -.224px;
   transform-origin: center;
 }
 
@@ -38,11 +38,11 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  font-size: .972vw;
+  font-size: 14px;
 }
 
 .progressRow > span:first-child { opacity: .4; }
-.counter { font-size: 1.111vw; font-variant-numeric: tabular-nums; opacity: .8; }
+.counter { font-size: 14px; font-variant-numeric: tabular-nums; opacity: .8; }
 .counter i { padding-left: .18em; font-style: normal; opacity: .44; }
 
 .track { height: 1px; overflow: hidden; background: rgba(255, 255, 255, .12); }
@@ -50,7 +50,7 @@
   width: 0;
   height: 100%;
   display: block;
-  background: #fff;
+  background: var(--primary);
   transition: width 220ms cubic-bezier(.23, 1, .32, 1);
 }
 
