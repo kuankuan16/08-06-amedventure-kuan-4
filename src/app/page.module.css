@@ -10,7 +10,7 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #000;
+  background: #020615;
 }
 
 .media video {
@@ -18,13 +18,15 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: saturate(.72) contrast(1.04);
+  filter: saturate(.9) contrast(1.08);
 }
 
 .mediaVeil {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.38);
+  background:
+    linear-gradient(90deg, rgba(2,6,21,.72) 0%, rgba(2,6,21,.28) 52%, rgba(2,6,21,.44) 100%),
+    radial-gradient(circle at 70% 50%, transparent 0%, rgba(2,6,21,.22) 58%, rgba(2,6,21,.72) 100%);
 }
 
 .anchorTrack {
@@ -48,5 +50,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .media video { display: none; }
-  .media { background: #000 url('/images/amed/hero-vascular.jpg') center/cover no-repeat; }
+  .media { background: #020615 url('/images/amed/hero-vascular.jpg') center/cover no-repeat; }
 }
