@@ -5,9 +5,9 @@ import Image from "next/image";
 import styles from "./LeadershipSection.module.css";
 
 const highlights = [
-  ["Silicon Valley Network", "Direct access to the builders, clinicians and capital shaping the next generation of care."],
-  ["FDA & Regulatory Expertise", "Practical guidance that keeps evidence, product strategy and the regulatory path moving together."],
-  ["Asian Supply Chain Bridge", "Cross-border fluency that connects ambitious medical technology with trusted manufacturing and market partners."],
+  ["Silicon Valley Network", "A San Francisco Bay Area vantage point on the entrepreneurs, clinicians and capital shaping the next generation of care."],
+  ["FDA & Regulatory Expertise", "Operational perspective that keeps clinical evidence, product strategy and the regulatory path moving together."],
+  ["Asian Supply Chain Bridge", "Cross-border fluency connecting medical technology with manufacturing, strategic and market partners across Asia."],
 ] as const;
 
 export function LeadershipSection() {
@@ -34,7 +34,7 @@ export function LeadershipSection() {
             Led by seasoned MedTech entrepreneurs &amp; global investors.
           </h2>
           <p className={`${styles.body} amed-body`}>
-            We work beside founders from the first clinical signal through regulatory strategy and cross-border scale—bringing an operator&apos;s discipline to every inflection point.
+            AMED brings investment, business-development and operating experience from public companies and startups, providing founders and portfolio companies with value beyond capital.
           </p>
         </div>
 

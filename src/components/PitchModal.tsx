@@ -50,10 +50,13 @@ export function PitchModal({ open, onClose }: PitchModalProps) {
         <button className={styles.close} type="button" onClick={close} aria-label="Close pitch form">×</button>
         {submitted ? (
           <div className={styles.confirmation} role="status">
-            <p className="amed-tag">Submission received</p>
-            <h2 className="amed-display">Thank you for building what matters.</h2>
-            <p>We&apos;ve recorded your introduction locally for this prototype. AMED&apos;s investment team would normally follow up from here.</p>
-            <button className="amed-button" type="button" onClick={close}>Close</button>
+            <p className="amed-tag">Ready for official submission</p>
+            <h2 className="amed-display">Continue your conversation with AMED.</h2>
+            <p>This landing page does not store personal or company information. Use AMED Ventures&apos; official contact page to submit your introduction.</p>
+            <div className={styles.confirmationActions}>
+              <a className="amed-button" href="https://www.amedventures.com/contact" target="_blank" rel="noreferrer">Open Official Contact</a>
+              <button className="amed-button amed-button--ghost" type="button" onClick={close}>Close</button>
+            </div>
           </div>
         ) : (
           <>
@@ -66,7 +69,7 @@ export function PitchModal({ open, onClose }: PitchModalProps) {
               <label>Company<input name="company" autoComplete="organization" required /></label>
               <label>Stage<select name="stage" defaultValue="" required><option value="" disabled>Select stage</option><option>Pre-seed</option><option>Seed</option><option>Series A</option><option>Series B+</option></select></label>
               <label className={styles.thesis}>Short thesis<textarea name="thesis" rows={4} placeholder="The clinical problem, your approach and the evidence so far." required /></label>
-              <button className={`${styles.submit} amed-button`} type="submit">Send introduction</button>
+              <button className={`${styles.submit} amed-button`} type="submit">Review &amp; Continue</button>
             </form>
           </>
         )}

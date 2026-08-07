@@ -7,10 +7,10 @@ import styles from "./FocusOverlay.module.css";
 type FocusOverlayProps = { clock?: number };
 
 const focuses = [
-  { index: "01", title: "Cardiovascular", copy: "Restoring circulation with minimally invasive systems designed for decisive moments in care." },
-  { index: "02", title: "Neurovascular", copy: "Advancing intervention and intelligent recovery across the continuum of stroke." },
-  { index: "03", title: "Oncology & Embolization", copy: "Backing precise delivery and controlled occlusion where therapeutic accuracy matters most." },
-  { index: "04", title: "Surgical Innovations", copy: "Equipping clinicians with instrumentation that expands what is possible in the operating room." },
+  { index: "01", title: "Cardiovascular", copy: "Advancing catheter-based therapies and circulatory support for high-risk cardiovascular care." },
+  { index: "02", title: "Neurovascular", copy: "Connecting stroke intervention with intelligent recovery across the patient journey." },
+  { index: "03", title: "Oncology & Embolization", copy: "Backing targeted embolic platforms for interventional oncology and peripheral hemostasis." },
+  { index: "04", title: "Surgical Innovations", copy: "Equipping clinicians with precision instruments and enabling technologies for surgery and ophthalmic care." },
 ];
 
 const investors = ["Bain Capital Life Sciences", "Novo Holdings", "Cormorant", "D1 Capital"];

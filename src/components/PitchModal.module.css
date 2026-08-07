@@ -15,7 +15,9 @@
 .confirmation { min-height: 28rem; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
 .confirmation h2 { max-width: 34rem; margin: 1.2rem 0; font-size: clamp(2.6rem, 5vw, 5rem); }
 .confirmation > p:not(:first-child) { max-width: 30rem; color: rgba(7,16,34,.62); line-height: 1.45; }
-.confirmation button { margin-top: 1.5rem; background: var(--ink); color: #fff; }
+.confirmationActions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.5rem; }
+.confirmationActions > :first-child { background: var(--ink); color: #fff; }
+.confirmationActions button { border-color: rgba(7,16,34,.35); color: var(--ink); }
 
 @media (max-width: 599px) {
   .backdrop { padding: .75rem; }

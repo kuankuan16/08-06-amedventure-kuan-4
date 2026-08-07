@@ -9,7 +9,7 @@ const footerLinks = [
   ["Focus", "#focus"],
   ["Portfolio", "#portfolio"],
   ["Team", "#team"],
-  ["Contact", "mailto:hello@amedventures.com"],
+  ["Contact", "https://www.amedventures.com/contact"],
 ] as const;
 
 export function PitchFooter() {
@@ -42,7 +42,9 @@ export function PitchFooter() {
             <p className="amed-tag">San Francisco Bay Area · US &amp; Asia</p>
           </div>
           <nav className={styles.nav} aria-label="Footer navigation">
-            {footerLinks.map(([label, href]) => <a href={href} key={label}>{label}</a>)}
+            {footerLinks.map(([label, href]) => (
+              <a href={href} key={label} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>{label}</a>
+            ))}
           </nav>
           <p className={styles.copyright}>© {new Date().getFullYear()} AMED Ventures. Investing in health that moves forward.</p>
         </div>

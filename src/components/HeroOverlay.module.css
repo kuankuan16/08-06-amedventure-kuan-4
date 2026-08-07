@@ -56,10 +56,11 @@
   filter: blur(10px);
   transform: translateY(20px);
   transition: opacity 1000ms var(--ease-out) 820ms, filter 1000ms var(--ease-out) 820ms, transform 1000ms var(--ease-out) 820ms;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .revealed .actions { opacity: 1; filter: blur(0); transform: translateY(0); }
+.interactive .actions { pointer-events: auto; }
 
 .metrics {
   position: absolute;

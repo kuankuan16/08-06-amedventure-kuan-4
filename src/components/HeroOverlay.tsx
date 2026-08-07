@@ -84,7 +84,7 @@ export function HeroOverlay() {
   return (
     <section
       id="top"
-      className={`${styles.hero} amed-overlay`}
+      className={`${styles.hero} ${opacity > .05 ? styles.interactive : ""} amed-overlay`}
       aria-label="AMED Ventures introduction"
       ref={(element) => {
         rootRef.current = element;

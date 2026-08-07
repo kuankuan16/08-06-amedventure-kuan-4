@@ -36,7 +36,8 @@
 
 .lower { position: absolute; inset: auto 0 0; }
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2); }
-.focus { min-height: 13.2vw; padding: 1.45vw 1.65vw 1.55vw; border-right: 1px solid rgba(255,255,255,.2); pointer-events: auto; transition-property: opacity, filter, transform, color; }
+.focus { min-height: 13.2vw; padding: 1.45vw 1.65vw 1.55vw; border-right: 1px solid rgba(255,255,255,.2); pointer-events: none; transition-property: opacity, filter, transform, color; }
+.active .focus { pointer-events: auto; }
 .focus:last-child { border-right: 0; }
 .focus:nth-child(2) { transition-delay: 70ms; }
 .focus:nth-child(3) { transition-delay: 140ms; }

@@ -5,13 +5,16 @@
 .secondary { position: absolute; right: 1.667vw; bottom: 1.667vw; width: 44vw; text-align: right; transition-delay: 120ms; }
 .portfolios { position: absolute; top: 47%; left: 50%; display: grid; grid-template-columns: repeat(2, 19vw); gap: .55vw; transform: translate(-50%, -50%) translateY(18px); transition-delay: 180ms; }
 .active .portfolios { transform: translate(-50%, -50%); }
-.card { min-height: 8.4vw; padding: 1.2vw; border: 1px solid rgba(255,255,255,.15); background: rgba(0,0,0,.55); backdrop-filter: blur(10px); pointer-events: auto; transition: color .22s, border-color .22s; }
+.card { display: block; min-height: 8.4vw; padding: 1.2vw; border: 1px solid rgba(255,255,255,.15); background: rgba(0,0,0,.55); backdrop-filter: blur(10px); pointer-events: none; transition: color .22s, border-color .22s, background-color .22s; }
+.active .card { pointer-events: auto; }
 .card:hover { color: var(--cyan-hot); border-color: var(--cyan-hot); }
+.card:focus-visible { outline: 2px solid var(--cyan-hot); outline-offset: 3px; }
 .card span { color: var(--cyan); font-size: .64vw; }
 .card h3 { margin: 1.25vw 0 .45vw; font-size: 1.35vw; font-weight: 400; }
 .card p { margin: 0; max-width: 15vw; color: rgba(255,255,255,.65); font-size: .84vw; line-height: 1.35; }
 .card:hover span, .card:hover p { color: currentColor; }
-.cta { position: absolute; left: 1.667vw; bottom: 1.667vw; padding-bottom: .4vw; border-bottom: 1px solid currentColor; font: 400 1.111vw/1.2 "Mulish", sans-serif; text-transform: uppercase; pointer-events: auto; transition-delay: 280ms; }
+.cta { position: absolute; left: 1.667vw; bottom: 1.667vw; padding-bottom: .4vw; border-bottom: 1px solid currentColor; font: 400 1.111vw/1.2 "Mulish", sans-serif; text-transform: uppercase; pointer-events: none; transition-delay: 280ms; }
+.active .cta { pointer-events: auto; }
 .cta:hover { color: var(--cyan-hot); }
 
 @media (max-width: 1023.98px) {

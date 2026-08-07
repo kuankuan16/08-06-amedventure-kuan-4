@@ -7,10 +7,26 @@ import styles from "./PortfolioOverlay.module.css";
 type PortfolioOverlayProps = { clock?: number };
 
 const companies = [
-  ["Imperative Care", "Ischemic stroke & vascular intervention systems."],
-  ["Supira Medical", "Next-gen percutaneous ventricular assist device (pVAD)."],
-  ["Instylla", "Hydrogel embolics for oncology & hemorrhage control."],
-  ["Kandu Health", "BCI-enabled digital stroke recovery platform."],
+  {
+    name: "Imperative Care",
+    description: "Connected stroke and vascular-intervention technologies spanning treatment and recovery.",
+    href: "https://imperativecare.com/",
+  },
+  {
+    name: "Supira Medical",
+    description: "A low-profile, high-flow pVAD for high-risk PCI and cardiogenic shock.",
+    href: "https://supiramedical.com/",
+  },
+  {
+    name: "Instylla",
+    description: "Resorbable hydrogel embolics for interventional oncology and peripheral hemostasis.",
+    href: "https://instylla.com/",
+  },
+  {
+    name: "Kandu Health",
+    description: "Integrated BCI rehabilitation and personalized telehealth for stroke recovery.",
+    href: "https://kanduhealth.com/",
+  },
 ] as const;
 
 export function PortfolioOverlay({ clock: providedClock }: PortfolioOverlayProps) {
@@ -23,15 +39,15 @@ export function PortfolioOverlay({ clock: providedClock }: PortfolioOverlayProps
       <h2 className={`${styles.primary} amed-display`}>Proof, not promise.</h2>
       <p className={`${styles.secondary} amed-display`}>Built beside the breakthroughs.</p>
       <div className={styles.portfolios}>
-        {companies.map(([name, description], index) => (
-          <article className={styles.card} key={name}>
+        {companies.map(({ name, description, href }, index) => (
+          <a className={styles.card} href={href} target="_blank" rel="noreferrer" key={name} aria-label={`Visit ${name}`}>
             <span className="amed-tag">[ 0{index + 1} ]</span>
             <h3>{name}</h3>
             <p>{description}</p>
-          </article>
+          </a>
         ))}
       </div>
-      <a className={styles.cta} href="#portfolio">View All Companies <span aria-hidden>→</span></a>
+      <a className={styles.cta} href="https://www.amedventures.com/portfolio" target="_blank" rel="noreferrer">View All Companies <span aria-hidden>→</span></a>
     </section>
   );
 }
