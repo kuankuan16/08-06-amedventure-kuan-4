@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./SiteHeader.module.css";
 
@@ -11,7 +12,10 @@ const navItems = [
 ] as const;
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const onHome = pathname === "/";
+  const sectionHref = (href: string) => onHome ? href : `/${href}`;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -32,7 +36,7 @@ export function SiteHeader() {
   return (
     <>
       <header className={styles.header}>
-        <a className={styles.logoLink} href="#top" aria-label="AMED Ventures home">
+        <a className={styles.logoLink} href={onHome ? "#top" : "/"} aria-label="AMED Ventures home">
           <Image
             className={styles.logo}
             src="/brand/amed-logo-white.png"
@@ -44,10 +48,10 @@ export function SiteHeader() {
         </a>
         <nav className={styles.desktopNav} aria-label="Primary navigation">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href}>{item.label}</a>
+            <a key={item.href} href={sectionHref(item.href)}>{item.label}</a>
           ))}
         </nav>
-        <a className={styles.contact} href="#contact">
+        <a className={styles.contact} href={sectionHref("#contact")}>
           <span>Contact Us</span><i aria-hidden="true" />
         </a>
         <button
@@ -69,11 +73,11 @@ export function SiteHeader() {
       >
         <nav aria-label="Mobile navigation">
           {navItems.map((item, index) => (
-            <a key={item.href} href={item.href} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+            <a key={item.href} href={sectionHref(item.href)} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
               <span>0{index + 1}</span>{item.label}
             </a>
           ))}
-          <a href="#contact" onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+          <a href={sectionHref("#contact")} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
             <span>04</span>Contact Us
           </a>
         </nav>
