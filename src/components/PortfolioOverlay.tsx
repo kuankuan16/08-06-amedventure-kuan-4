@@ -47,7 +47,7 @@ export function PortfolioOverlay({ clock: providedClock }: PortfolioOverlayProps
           </a>
         ))}
       </div>
-      <a className={styles.cta} href="https://www.amedventures.com/portfolio" target="_blank" rel="noreferrer">View All Companies <span aria-hidden>→</span></a>
+      <a className={styles.cta} href="https://www.amedventures.com/portfolio">View All Companies <span aria-hidden>→</span></a>
     </section>
   );
 }
