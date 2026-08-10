@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./LeadershipSection.module.css";
+import { AnimatedHeading } from "./AnimatedHeading";
 
 const highlights = [
   ["Silicon Valley Network", "A San Francisco Bay Area vantage point on the entrepreneurs, clinicians and capital shaping the next generation of care."],
@@ -30,9 +31,7 @@ export function LeadershipSection() {
       <div className={`${styles.card} ${visible ? styles.visible : ""}`}>
         <div className={styles.copy}>
           <p className={`${styles.eyebrow} amed-tag`}>Partnership in practice</p>
-          <h2 className={`${styles.heading} amed-display`}>
-            Led by seasoned MedTech entrepreneurs &amp; global investors.
-          </h2>
+          <AnimatedHeading reveal={visible} lines={["Led by seasoned", "MedTech", "entrepreneurs &", "global investors."]} className={`${styles.heading} amed-display`}>Led by seasoned MedTech entrepreneurs &amp; global investors.</AnimatedHeading>
           <p className={`${styles.body} amed-body`}>
             AMED brings investment, business-development and operating experience from public companies and startups, providing founders and portfolio companies with value beyond capital.
           </p>

@@ -10,21 +10,17 @@
   width: 49vw;
 }
 
-.letterLine, .wordLine {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: .25em;
-}
+.letterLine, .wordLine { display: block; }
 
-.letterWord { display: inline-flex; white-space: nowrap; }
+.letterWord { display: block; overflow: hidden; padding-bottom: .07em; white-space: nowrap; }
 
 .letterWord > span {
-  opacity: 0;
-  filter: blur(12px);
-  transition: opacity 1000ms var(--ease-out), filter 1000ms var(--ease-out);
+  display: block;
+  transform: translateY(105%);
+  transition: transform 850ms cubic-bezier(.22, 1, .36, 1);
 }
 
-.wordMask { overflow: hidden; display: inline-flex; }
+.wordMask { overflow: hidden; display: inline-flex; margin-right: .25em; }
 .wordMask > span {
   display: inline-block;
   opacity: 0;
@@ -33,14 +29,15 @@
   transition: opacity 1200ms var(--ease-out), filter 1200ms var(--ease-out), transform 1200ms var(--ease-out);
 }
 
-.revealed .letterWord > span { opacity: 1; filter: blur(0); }
+.revealed .letterWord > span { transform: translateY(0); }
 .revealed .wordMask > span { opacity: 1; filter: blur(0); transform: translateY(0); }
 
 .message {
   position: absolute;
-  top: 9.5vw;
   right: 1.667vw;
+  bottom: 15vw;
   width: 27.5vw;
+  text-align: left;
 }
 
 .subheadline {
@@ -51,6 +48,7 @@
 .actions {
   margin-top: 2.5vw;
   display: flex;
+  justify-content: flex-start;
   gap: .278vw;
   opacity: 0;
   filter: blur(10px);
@@ -59,8 +57,18 @@
   pointer-events: none;
 }
 
+.actions .amed-button {
+  flex: 0 0 auto;
+  width: 10vw;
+  min-height: 2vw;
+  padding: 0 .4vw;
+  font-size: .5vw;
+  letter-spacing: .02em;
+}
+
 .revealed .actions { opacity: 1; filter: blur(0); transform: translateY(0); }
 .interactive .actions { pointer-events: auto; }
+
 
 .metrics {
   position: absolute;
@@ -121,7 +129,10 @@
     position: static;
     width: min(100%, 31rem);
     margin-top: 2rem;
+    text-align: left;
   }
+
+  .actions .amed-button { width: 100%; min-height: 3.2rem; padding-inline: .65rem; font-size: .62rem; }
 
   .subheadline { max-width: none; font-size: .9375rem; }
   .actions { margin-top: 1.5rem; gap: .35rem; }

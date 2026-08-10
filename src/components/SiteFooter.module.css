@@ -1,0 +1,34 @@
+.rule { border-top: 1px solid rgba(255,255,255,.15); }
+.bottom { width: 96.667vw; margin: 0 auto; padding: .9vw 0 1vw; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1vw; }
+/* Logo, then a hairline, then the location and copyright stacked beside it. */
+.identity { display: flex; align-items: center; gap: 1.1vw; }
+.lockup { flex: none; display: block; opacity: .9; transition: opacity .22s; }
+.lockup:hover { opacity: 1; }
+.identity img { flex: none; width: 7vw; height: auto; max-height: 2.9vw; object-fit: contain; object-position: left center; }
+.identityMeta { padding-left: 1.1vw; border-left: 1px solid rgba(255,255,255,.18); display: flex; flex-direction: column; gap: .3vw; }
+.identityMeta p { max-width: 34vw; margin: 0; color: rgba(255,255,255,.55); }
+.copyright { color: rgba(255,255,255,.38); font-size: .66vw; }
+.nav { display: flex; gap: 3.8vw; }
+.nav a { color: rgba(255,255,255,.68); font-size: 1.111vw; transition: color .2s; }
+/* Footer links brighten to white on hover rather than taking the section accent. */
+.nav a:hover { color: var(--chalk); }
+
+@media (max-width: 1023.98px) {
+  .bottom { width: 100%; padding: .9rem 1.5rem 1.25rem; grid-template-columns: 1fr 1fr; }
+  .identity { gap: 1rem; }
+  .identity img { width: 6.75rem; max-height: 2.6rem; }
+  .identityMeta { padding-left: 1rem; gap: .35rem; }
+  .identityMeta p { max-width: 22rem; }
+  .copyright { font-size: .68rem; }
+  .nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2.5rem; }
+  .nav a { font-size: 1rem; }
+}
+
+@media (max-width: 599px) {
+  .bottom { padding-inline: 1rem; grid-template-columns: 1fr; }
+  .identity { gap: .8rem; }
+  .identity img { width: 5.5rem; }
+  .identityMeta { padding-left: .8rem; }
+  .identityMeta p { max-width: none; }
+  .nav { margin-top: 1rem; }
+}

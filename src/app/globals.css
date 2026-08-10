@@ -10,10 +10,39 @@
   --chalk: #ffffff;
   --ink: #071022;
   --signal: #40deec;
+
+  /* One primary per section. `--section-accent` is switched by <SectionAccent> writing
+     data-amed-section on <html>; components read the section vars, never the raw hues. */
+  /* Sampled from the AMED lockup so the hero reads as the brand blue. */
+  --accent-hero: #00a8d0;
+  --accent-hero-hot: #7fd6ea;
+  --accent-focus: #8ea2ff;
+  --accent-focus-hot: #bcc6ff;
+  --accent-portfolio: #14c9bb;
+  --accent-portfolio-hot: #7ff0e2;
+  --accent-team: #ff7a1a;
+  --accent-team-hot: #ffb066;
+  /* The companies route is the portfolio section continued, so it inherits its green. */
+  --accent-companies: var(--accent-portfolio);
+  --accent-companies-hot: var(--accent-portfolio-hot);
+  /* `-ink` cuts are the same hues darkened for legibility on the opaque white cards. */
+  --accent-hero-ink: #00708b;
+  --accent-focus-ink: #4a52c4;
+  --accent-portfolio-ink: #0b7d73;
+  --accent-team-ink: #c25200;
+  --accent-companies-ink: var(--accent-portfolio-ink);
+  --section-accent: var(--accent-hero);
+  --section-accent-hot: var(--accent-hero-hot);
+  --section-accent-ink: var(--accent-hero-ink);
   --line-dark: rgba(255,255,255,.14);
   --line-light: rgba(7,16,34,.15);
   --ease-out: cubic-bezier(.23,1,.32,1);
 }
+
+:root[data-amed-section="focus"] { --section-accent: var(--accent-focus); --section-accent-hot: var(--accent-focus-hot); --section-accent-ink: var(--accent-focus-ink); }
+:root[data-amed-section="portfolio"] { --section-accent: var(--accent-portfolio); --section-accent-hot: var(--accent-portfolio-hot); --section-accent-ink: var(--accent-portfolio-ink); }
+:root[data-amed-section="team"] { --section-accent: var(--accent-team); --section-accent-hot: var(--accent-team-hot); --section-accent-ink: var(--accent-team-ink); }
+:root[data-amed-section="companies"] { --section-accent: var(--accent-companies); --section-accent-hot: var(--accent-companies-hot); --section-accent-ink: var(--accent-companies-ink); }
 
 * { box-sizing: border-box; }
 html { font-size: 16px; -webkit-font-smoothing: antialiased; overflow-x: clip; }
@@ -24,7 +53,7 @@ button, a { color: inherit; }
 a { text-decoration: none; }
 button { border: 0; background: none; cursor: pointer; }
 img, video { display: block; }
-::selection { color: var(--ink); background: var(--cyan-hot); }
+::selection { color: var(--ink); background: var(--section-accent-hot); }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
 
 .amed-display { margin: 0; font-family: "General Sans", Arial, sans-serif; font-weight: 300; font-size: 5.556vw; line-height: .9; letter-spacing: -.045em; }
@@ -32,22 +61,25 @@ img, video { display: block; }
 .amed-body { margin: 0; font-size: 1.111vw; line-height: 1.25; }
 .amed-overlay { position: fixed; inset: 0; z-index: 10; pointer-events: none; }
 .amed-glass { border: 1px solid rgba(255,255,255,.12); background: rgba(2,6,21,.78); backdrop-filter: blur(10px); }
-.amed-button { min-height: 3.542vw; padding: 0 2.2vw; display: inline-flex; align-items: center; justify-content: center; background: var(--chalk); color: var(--ink); font-size: 1.111vw; font-weight: 500; transition: color .22s, background .22s, border-color .22s; }
-.amed-button:hover { background: var(--cyan-hot); }
+.amed-button { min-height: 2.48vw; padding: 0 1.54vw; display: inline-flex; align-items: center; justify-content: center; background: var(--chalk); color: var(--ink); font-size: .78vw; font-weight: 500; transition: color .22s, background .22s, border-color .22s; }
+.amed-button:hover { background: var(--section-accent); }
 .amed-button--ghost { color: var(--chalk); background: rgba(3,8,28,.72); border: 1px solid rgba(255,255,255,.3); }
-.amed-button--ghost:hover { color: var(--ink); border-color: var(--cyan-hot); background: var(--cyan-hot); }
+.amed-button--ghost:hover { color: var(--ink); border-color: var(--section-accent); background: var(--section-accent); }
 .amed-tracks { position: relative; pointer-events: none; }
 .amed-track { height: 200lvh; }
 .amed-trailing { height: 100lvh; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.amed-heading-reveal { overflow: hidden; }
+.amed-heading-line { display: block; max-width: 100%; overflow: hidden; padding-bottom: .07em; line-height: 1; }
+.amed-heading-line > span { display: block; max-width: 100%; overflow-wrap: break-word; transform: translateY(105%); transition: transform 850ms cubic-bezier(.22,1,.36,1); }
+.amed-heading-reveal--visible .amed-heading-line > span { transform: translateY(0); }
 
 @media (max-width: 1023.98px) {
   .amed-display { font-size: clamp(3rem, 8vw, 4.5rem); }
   .amed-tag, .amed-body { font-size: .9375rem; }
-  .amed-button { min-height: 3.25rem; padding: 0 2rem; font-size: 1rem; }
+  .amed-button { min-height: 2.6rem; padding: 0 1.4rem; font-size: .85rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
 }
-

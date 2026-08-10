@@ -43,7 +43,13 @@
   transition: color .22s ease;
 }
 
-.desktopNav a:hover { color: var(--cyan-hot); }
+/* Each link carries its own destination's colour, in hover and in the active state alike. */
+.desktopNav a[data-accent="focus"], .mobileMenu a[data-accent="focus"] { --link-accent: var(--accent-focus); }
+.desktopNav a[data-accent="portfolio"], .mobileMenu a[data-accent="portfolio"] { --link-accent: var(--accent-portfolio); }
+.desktopNav a[data-accent="team"], .mobileMenu a[data-accent="team"] { --link-accent: var(--accent-team); }
+
+.desktopNav a:hover { color: var(--link-accent, var(--section-accent)); }
+.activeNav { color: var(--link-accent, var(--section-accent)); }
 
 .contact {
   align-self: stretch;
@@ -51,22 +57,17 @@
   padding: 0 1.111vw;
   display: flex;
   align-items: center;
-  gap: .694vw;
   border: 1px solid rgba(255, 255, 255, .35);
   border-radius: 999px;
   font-size: 1.111vw;
-  transition: color .22s ease, border-color .22s ease;
+  transition: color .22s ease, border-color .22s ease, background .22s ease;
 }
 
-.contact i {
-  width: .208vw;
-  height: .208vw;
-  background: currentColor;
-}
-
+/* Inverts on hover on every route: white pill, ink label — deliberately not section-tinted. */
 .contact:hover {
-  color: var(--cyan-hot);
-  border-color: var(--cyan-hot);
+  color: var(--ink);
+  border-color: var(--chalk);
+  background: var(--chalk);
 }
 
 .burger, .mobileMenu { display: none; }
@@ -137,7 +138,7 @@
 
   .mobileMenu nav a span {
     width: 3rem;
-    color: var(--cyan);
+    color: var(--link-accent, var(--section-accent));
     font: 400 .6rem/1 "Mulish", sans-serif;
     letter-spacing: .08em;
   }

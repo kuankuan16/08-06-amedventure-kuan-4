@@ -22,6 +22,7 @@ const vertexShader = /* glsl */ `
   uniform float uPixelRatio;
 
   varying vec3 vColor;
+  varying vec3 vPeak;
   varying float vHalo;
   varying float vAlpha;
 
@@ -53,12 +54,18 @@ const vertexShader = /* glsl */ `
     gl_Position = projectionMatrix * mv;
     float phase = sin(aSeed * 31.0 + uClock * 1.8) * 0.5 + 0.5;
     float vertical = clamp(p.y * 0.28 + 0.5, 0.0, 1.0);
-    vec3 indigo = vec3(0.0497, 0.0497, 0.2159);
-    vec3 cyan = vec3(0.0030, 0.4287, 0.6240);
-    vec3 ice = vec3(0.1812, 0.8632, 1.0);
-    vColor = mix(indigo, cyan, vertical);
-    vColor = mix(vColor, ice, smoothstep(0.72, 1.0, vertical + phase * 0.18));
-    vColor = mix(vColor, ice, pointerHalo * 0.82);
+    // One palette per section, blended across the same clock windows the overlays gate on:
+    // hero = the brand blue sampled from the logo, focus = indigo violet, portfolio = teal, team = bright orange.
+    float toFocusPalette = smoothstep(0.30, 0.80, uClock);
+    float toProofPalette = smoothstep(2.05, 2.80, uClock);
+    float toTeamPalette = smoothstep(3.15, 3.70, uClock);
+    vec3 deep = mix(mix(mix(vec3(0.0052, 0.0080, 0.0452), vec3(0.0103, 0.0086, 0.0613), toFocusPalette), vec3(0.0012, 0.0194, 0.0273), toProofPalette), vec3(0.0423, 0.0070, 0.0015), toTeamPalette);
+    vec3 mid = mix(mix(mix(vec3(0.0, 0.3915, 0.6308), vec3(0.0782, 0.0666, 0.4796), toFocusPalette), vec3(0.0070, 0.5842, 0.4969), toProofPalette), vec3(1.0, 0.1946, 0.0103), toTeamPalette);
+    vec3 peak = mix(mix(mix(vec3(0.2122, 0.6725, 0.8227), vec3(0.2706, 0.3613, 1.0), toFocusPalette), vec3(0.6939, 1.0, 0.9473), toProofPalette), vec3(1.0, 0.5272, 0.2543), toTeamPalette);
+    vColor = mix(deep, mid, vertical);
+    vColor = mix(vColor, peak, smoothstep(0.72, 1.0, vertical + phase * 0.18));
+    vColor = mix(vColor, peak, pointerHalo * 0.82);
+    vPeak = peak;
     vHalo = pointerHalo;
     vAlpha = 0.44 + vertical * 0.34 + phase * 0.16;
     gl_PointSize = (7.6 + phase * 2.5 + pointerHalo * 8.0) * uPixelRatio / max(1.0, -mv.z * 0.72);
@@ -69,6 +76,7 @@ const vertexShader = /* glsl */ `
 const fragmentShader = /* glsl */ `
   precision highp float;
   varying vec3 vColor;
+  varying vec3 vPeak;
   varying float vHalo;
   varying float vAlpha;
 
@@ -78,8 +86,10 @@ const fragmentShader = /* glsl */ `
     if (radius > 0.5) discard;
     float halo = pow(smoothstep(0.5, 0.0, radius), 2.0);
     float core = smoothstep(0.16, 0.0, radius);
-    vec3 color = vColor * (0.62 + halo * 0.9) + vec3(0.75, 0.98, 1.0) * core * 1.25;
-    color += vec3(0.05, 0.7, 0.9) * vHalo * halo;
+    // Core highlight and pointer glow ride the section palette instead of a fixed cyan.
+    vec3 coreTint = mix(vPeak, vec3(1.0), 0.4);
+    vec3 color = vColor * (0.62 + halo * 0.9) + coreTint * core * 1.25;
+    color += vPeak * vHalo * halo * 0.85;
     gl_FragColor = vec4(color, halo * vAlpha);
   }
 `;
@@ -118,9 +128,17 @@ const backdropFragmentShader = /* glsl */ `
     float field = noise(uv * 2.15 + warp * 1.25 + vec2(t, -t));
     float wash = smoothstep(0.34, 0.92, field) * (0.72 - abs(uv.y) * 0.24);
     vec3 base = vec3(0.0006, 0.0018, 0.0070);
-    vec3 indigo = vec3(0.016, 0.015, 0.10);
-    vec3 cyan = vec3(0.0, 0.11, 0.17);
-    vec3 color = base + mix(indigo, cyan, smoothstep(0.5, 2.8, uClock)) * wash;
+    // Background wash follows the same four-section palette as the point cloud.
+    vec3 tint = mix(
+      mix(
+        mix(vec3(0.004, 0.045, 0.085), vec3(0.030, 0.020, 0.105), smoothstep(0.30, 0.80, uClock)),
+        vec3(0.000, 0.095, 0.085),
+        smoothstep(2.05, 2.80, uClock)
+      ),
+      vec3(0.105, 0.035, 0.004),
+      smoothstep(3.15, 3.70, uClock)
+    );
+    vec3 color = base + tint * wash;
     float vignette = 1.0 - smoothstep(0.35, 1.5, length(uv));
     float alpha = mix(0.82, 1.0, smoothstep(0.42, 0.95, uClock));
     gl_FragColor = vec4(color * (0.58 + 0.42 * vignette), alpha);

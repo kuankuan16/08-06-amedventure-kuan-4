@@ -1,0 +1,38 @@
+.cue {
+  position: fixed;
+  z-index: 45;
+  right: 1.5vw;
+  bottom: 1.5vw;
+  width: 1.9vw;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 50%;
+  color: rgba(255,255,255,.86);
+  font: 300 .85vw/1 "General Sans", sans-serif;
+  animation: cuePulse 2.4s ease-in-out infinite;
+  transition: color .25s, border-color .25s, background .25s;
+}
+
+.cue span { animation: cueFloat 1.5s ease-in-out infinite; }
+.cue:hover { border-color: var(--section-accent-hot); background: color-mix(in srgb, var(--section-accent-hot) 14%, transparent); color: var(--section-accent-hot); }
+.cue:focus-visible { outline: 2px solid var(--section-accent-hot); outline-offset: 4px; }
+
+@keyframes cuePulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50% { box-shadow: 0 0 0 .25vw color-mix(in srgb, var(--section-accent-hot) 9%, transparent); }
+}
+
+@keyframes cueFloat {
+  0%, 100% { transform: translateY(-.08vw); }
+  50% { transform: translateY(.18vw); }
+}
+
+@media (max-width: 1023.98px) {
+  .cue { right: 1rem; bottom: 1rem; width: 2.25rem; font-size: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue, .cue span { animation: none; }
+}

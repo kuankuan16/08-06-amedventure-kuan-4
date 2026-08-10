@@ -3,6 +3,7 @@
 import { FormEvent, MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./PitchModal.module.css";
+import { AnimatedHeading } from "./AnimatedHeading";
 
 type PitchModalProps = {
   open: boolean;
@@ -51,7 +52,7 @@ export function PitchModal({ open, onClose }: PitchModalProps) {
         {submitted ? (
           <div className={styles.confirmation} role="status">
             <p className="amed-tag">Ready for official submission</p>
-            <h2 className="amed-display">Continue your conversation with AMED.</h2>
+            <AnimatedHeading className="amed-display">Continue your conversation with AMED.</AnimatedHeading>
             <p>This landing page does not store personal or company information. Use AMED Ventures&apos; official contact page to submit your introduction.</p>
             <div className={styles.confirmationActions}>
               <a className="amed-button" href="https://www.amedventures.com/contact" target="_blank" rel="noreferrer">Open Official Contact</a>

@@ -2,24 +2,27 @@
 
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { clamp01, scrollTarget } from "@/lib/scroll";
+import { AnimatedNumber } from "./AnimatedNumber";
 import styles from "./HeroOverlay.module.css";
 
-const metrics = [
-  ["$100M+", "Capital Deployed"],
-  ["12+", "MedTech Portfolio Companies"],
-  ["5+", "FDA Breakthroughs / Clearances"],
-  ["US & Asia", "Cross-Border Network"],
+type Metric =
+  | { target: number; prefix: string; suffix: string; label: string }
+  | { text: string; label: string };
+
+const metrics: readonly Metric[] = [
+  { target: 100, prefix: "$", suffix: "M+", label: "Capital Deployed" },
+  { target: 12, prefix: "", suffix: "+", label: "MedTech Portfolio Companies" },
+  { target: 5, prefix: "", suffix: "+", label: "FDA Breakthroughs / Clearances" },
+  { text: "US & Asia", label: "Cross-Border Network" },
 ] as const;
 
 const headline = "Funding MedTech Innovations that Matter.";
 const subheadline = "Strategic Capital & Global Expertise for Breakthrough Medical Device Founders.";
 
-function splitLetters(text: string): ReactNode {
-  return text.split(" ").map((word, wordIndex) => (
-    <span className={styles.letterWord} key={`${word}-${wordIndex}`}>
-      {[...word].map((letter, index) => (
-        <span data-reveal-letter key={`${letter}-${index}`}>{letter}</span>
-      ))}
+function splitHeadline(): ReactNode {
+  return ["Funding MedTech", "Innovations that", "Matter."].map((line, index) => (
+    <span className={styles.letterWord} key={line}>
+      <span data-reveal-line style={{ transitionDelay: `${100 + index * 90}ms` }}>{line}</span>
     </span>
   ));
 }
@@ -32,10 +35,15 @@ function splitWords(text: string): ReactNode {
   ));
 }
 
+function AnimatedMetric({ metric }: { metric: Metric }) {
+  if ("text" in metric) return <strong>{metric.text}</strong>;
+  return <strong><AnimatedNumber target={metric.target} prefix={metric.prefix} suffix={metric.suffix} /></strong>;
+}
+
 function scheduleReveal(root: HTMLElement, baseDelay: number) {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  root.querySelectorAll<HTMLElement>("[data-reveal-letter]").forEach((item, index) => {
-    item.style.transitionDelay = reducedMotion ? "0ms" : `${baseDelay + index * 26}ms`;
+  root.querySelectorAll<HTMLElement>("[data-reveal-line]").forEach((item, index) => {
+    item.style.transitionDelay = reducedMotion ? "0ms" : `${baseDelay + index * 90}ms`;
   });
   root.querySelectorAll<HTMLElement>("[data-reveal-word]").forEach((item, index) => {
     item.style.transitionDelay = reducedMotion ? "0ms" : `${baseDelay + 300 + index * 42}ms`;
@@ -71,21 +79,20 @@ export function HeroOverlay() {
   }, []);
 
   useEffect(() => {
-    const reveal = () => {
-      if (revealedRef.current || !rootRef.current) return;
-      revealedRef.current = true;
-      scheduleReveal(rootRef.current, 200);
-    };
-    window.addEventListener("amed:intro", reveal);
-    if (document.documentElement.dataset.amedIntro === "ready") reveal();
-    return () => window.removeEventListener("amed:intro", reveal);
+    if (revealedRef.current || !rootRef.current) return;
+    revealedRef.current = true;
+    scheduleReveal(rootRef.current, 100);
   }, []);
+
+  const interactive = opacity > .05;
 
   return (
     <section
       id="top"
-      className={`${styles.hero} ${opacity > .05 ? styles.interactive : ""} amed-overlay`}
+      className={`${styles.hero} ${interactive ? styles.interactive : ""} amed-overlay`}
       aria-label="AMED Ventures introduction"
+      aria-hidden={!interactive}
+      inert={!interactive}
       ref={(element) => {
         rootRef.current = element;
         if (element) element.style.opacity = String(opacity);
@@ -93,7 +100,7 @@ export function HeroOverlay() {
     >
       <h1 className={`${styles.title} amed-display`}>
         <span className="sr-only">{headline}</span>
-        <span className={styles.letterLine} aria-hidden="true">{splitLetters(headline)}</span>
+        <span className={styles.letterLine} aria-hidden="true">{splitHeadline()}</span>
       </h1>
 
       <div className={styles.message}>
@@ -103,17 +110,17 @@ export function HeroOverlay() {
         </p>
         <div className={styles.actions} data-unit-reveal>
           <a className="amed-button" href="#portfolio">Explore Portfolio</a>
-          <a className="amed-button amed-button--ghost" href="#contact">Contact Us</a>
         </div>
       </div>
 
       <div className={styles.metrics} aria-label="AMED Ventures key metrics">
-        {metrics.map(([value, label]) => (
-          <div className={styles.metric} data-unit-reveal key={label}>
-            <strong>{value}</strong><span>{label}</span>
+        {metrics.map((metric) => (
+          <div className={styles.metric} data-unit-reveal key={metric.label}>
+            <AnimatedMetric metric={metric} /><span>{metric.label}</span>
           </div>
         ))}
       </div>
+
     </section>
   );
 }

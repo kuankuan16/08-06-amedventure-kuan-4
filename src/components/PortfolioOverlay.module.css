@@ -1,40 +1,46 @@
-.overlay { position: fixed; inset: 0; z-index: 10; pointer-events: none; transition: opacity 120ms linear; }
+/* The support copy and the CTA share one right-hand column: the button's left edge tracks the
+   paragraph's left edge, and --aside-gap holds them the same distance apart as the hero's
+   paragraph-to-button spacing (HeroOverlay .actions), no matter how either box changes. */
+/* Section accent — the teal half of the canvas palette for this scroll window. */
+.overlay { position: fixed; inset: 0; z-index: 10; pointer-events: none; transition: opacity 120ms linear; --accent: var(--accent-portfolio); --accent-hot: var(--accent-portfolio-hot); --row-height: 13.2vw; --row-clearance: 2.6vw; --aside-right: 1.667vw; --aside-width: 27.5vw; --aside-gap: 2.5vw; --cta-width: 11.6vw; --cta-height: 2.48vw; --aside-bottom: calc(var(--row-height) + var(--row-clearance) + var(--cta-height) + var(--aside-gap)); }
 .primary, .secondary, .portfolios, .cta { opacity: 0; filter: blur(10px); transform: translateY(18px); transition: opacity 1.05s var(--ease-out), filter 1.05s var(--ease-out), transform 1.05s var(--ease-out); }
 .active .primary, .active .secondary, .active .portfolios, .active .cta { opacity: 1; filter: blur(0); transform: translateY(0); }
-.primary { position: absolute; top: 8.4vw; left: 1.667vw; width: 38vw; }
-.secondary { position: absolute; right: 1.667vw; bottom: 1.667vw; width: 44vw; text-align: right; transition-delay: 120ms; }
-.portfolios { position: absolute; top: 47%; left: 50%; display: grid; grid-template-columns: repeat(2, 19vw); gap: .55vw; transform: translate(-50%, -50%) translateY(18px); transition-delay: 180ms; }
-.active .portfolios { transform: translate(-50%, -50%); }
-.card { display: block; min-height: 8.4vw; padding: 1.2vw; border: 1px solid rgba(255,255,255,.15); background: rgba(0,0,0,.55); backdrop-filter: blur(10px); pointer-events: none; transition: color .22s, border-color .22s, background-color .22s; }
+.primary { position: absolute; top: 9.028vw; left: 1.667vw; width: 49vw; }
+.secondary { position: absolute; right: var(--aside-right); bottom: var(--aside-bottom); width: var(--aside-width); text-align: left; color: rgba(255,255,255,.76); transition-delay: 120ms; }
+/* Bottom-anchored ruled row, matching the focus grid on the same page. */
+.portfolios { position: absolute; inset: auto 0 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.2); transition-delay: 180ms; }
+.card { display: block; min-height: var(--row-height); padding: 1.45vw 1.65vw 1.55vw; border-right: 1px solid rgba(255,255,255,.2); pointer-events: none; transition: color .22s, border-color .22s; }
+.card:last-child { border-right: 0; }
 .active .card { pointer-events: auto; }
-.card:hover { color: var(--cyan-hot); border-color: var(--cyan-hot); }
-.card:focus-visible { outline: 2px solid var(--cyan-hot); outline-offset: 3px; }
-.card span { color: var(--cyan); font-size: .64vw; }
-.card h3 { margin: 1.25vw 0 .45vw; font-size: 1.35vw; font-weight: 400; }
-.card p { margin: 0; max-width: 15vw; color: rgba(255,255,255,.65); font-size: .84vw; line-height: 1.35; }
+.card:hover { color: var(--accent-hot); }
+.card:focus-visible { outline: 2px solid var(--accent-hot); outline-offset: 3px; }
+.card span { display: block; color: var(--accent); font-size: .64vw; }
+.card h3 { margin: 2.1vw 0 .75vw; font-weight: 300; font-size: 1.75vw; line-height: 1; letter-spacing: -.025em; }
+.card p { margin: 0; max-width: 18vw; color: rgba(255,255,255,.62); font-size: .91vw; line-height: 1.35; }
 .card:hover span, .card:hover p { color: currentColor; }
-.cta { position: absolute; left: 1.667vw; bottom: 1.667vw; padding-bottom: .4vw; border-bottom: 1px solid currentColor; font: 400 1.111vw/1.2 "Mulish", sans-serif; text-transform: uppercase; pointer-events: none; transition-delay: 280ms; }
+.cta { position: absolute; right: calc(var(--aside-right) + var(--aside-width) - var(--cta-width)); bottom: calc(var(--aside-bottom) - var(--aside-gap) - var(--cta-height)); width: var(--cta-width); min-height: var(--cta-height); white-space: nowrap; padding: 0 .4vw; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--chalk); background: var(--chalk); color: var(--ink); font: 500 .78vw/1.2 "Mulish", sans-serif; pointer-events: none; transition-delay: 280ms; transition-property: opacity, filter, transform, color, background, border-color; }
 .active .cta { pointer-events: auto; }
-.cta:hover { color: var(--cyan-hot); }
+.cta span { margin-left: .4em; }
+.cta:hover { border-color: var(--accent); background: var(--accent); color: var(--ink); }
+.cta:focus-visible { outline: 2px solid var(--accent-hot); outline-offset: 4px; }
 
 @media (max-width: 1023.98px) {
   .overlay { padding: 6rem 1.5rem 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .primary, .secondary, .portfolios, .cta { position: static; width: auto; }
   .primary { font-size: 3.2rem; }
-  .secondary { margin-top: .75rem; font-size: 2.1rem; text-align: center; }
-  .portfolios { margin-top: 2rem; grid-template-columns: repeat(2, minmax(0, 18rem)); gap: .6rem; transform: translateY(18px); }
-  .active .portfolios { transform: translateY(0); }
-  .card { min-height: 8.2rem; padding: 1rem; text-align: left; }
+  .secondary { max-width: 26rem; margin-top: .9rem; font-size: .9375rem; text-align: left; }
+  .portfolios { margin-top: 2rem; grid-template-columns: repeat(2, minmax(0, 18rem)); gap: .6rem; border-top: 0; }
+  .card { min-height: 8.2rem; padding: 1rem; border: 1px solid rgba(255,255,255,.15); background: rgba(0,0,0,.55); backdrop-filter: blur(10px); text-align: left; }
   .card h3 { margin: 1rem 0 .4rem; font-size: 1.2rem; }
   .card span { font-size: .58rem; }
   .card p { max-width: none; font-size: .8rem; }
-  .cta { margin-top: 1.5rem; font-size: .9rem; }
+  .cta { width: min(100%, 22rem); min-height: 3.2rem; margin-top: 1.5rem; padding: .8rem 1.5rem; font-size: .9rem; }
 }
 
 @media (max-width: 599px) {
   .overlay { padding: 5.5rem 1rem 1rem; }
   .primary { font-size: 2.65rem; }
-  .secondary { font-size: 1.55rem; }
+  .secondary { font-size: .875rem; }
   .portfolios { width: 100%; margin-top: 1rem; grid-template-columns: 1fr; }
   .card { min-height: auto; padding: .7rem; }
   .card h3 { display: inline; margin-left: .8rem; font-size: 1rem; }

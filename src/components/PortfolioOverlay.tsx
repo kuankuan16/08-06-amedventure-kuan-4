@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { smoothstep } from "@/lib/scroll";
 import { useScrollClock } from "./useScrollClock";
+import { AnimatedHeading } from "./AnimatedHeading";
 import styles from "./PortfolioOverlay.module.css";
 
 type PortfolioOverlayProps = { clock?: number };
@@ -35,9 +37,11 @@ export function PortfolioOverlay({ clock: providedClock }: PortfolioOverlayProps
   const active = clock > 2.55 && clock < 3.7;
 
   return (
-    <section className={`${styles.overlay} ${active ? styles.active : ""}`} style={{ opacity }} aria-hidden={!active}>
-      <h2 className={`${styles.primary} amed-display`}>Proof, not promise.</h2>
-      <p className={`${styles.secondary} amed-display`}>Built beside the breakthroughs.</p>
+    <section className={`${styles.overlay} ${active ? styles.active : ""}`} style={{ opacity }} aria-hidden={!active} inert={!active}>
+      <AnimatedHeading reveal={active} as="h2" lines={["Proof, not", "promise."]} className={`${styles.primary} amed-display`}>Proof, not promise.</AnimatedHeading>
+      <p className={`${styles.secondary} amed-body`}>
+        A selection of the medical-device companies AMED backs — from first clinical evidence through commercial scale.
+      </p>
       <div className={styles.portfolios}>
         {companies.map(({ name, description, href }, index) => (
           <a className={styles.card} href={href} target="_blank" rel="noreferrer" key={name} aria-label={`Visit ${name}`}>
@@ -47,7 +51,7 @@ export function PortfolioOverlay({ clock: providedClock }: PortfolioOverlayProps
           </a>
         ))}
       </div>
-      <a className={styles.cta} href="/companies">View All Companies <span aria-hidden>→</span></a>
+      <Link className={styles.cta} href="/companies">View All Companies <span aria-hidden>→</span></Link>
     </section>
   );
 }

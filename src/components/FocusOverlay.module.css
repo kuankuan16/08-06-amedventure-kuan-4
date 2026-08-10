@@ -4,13 +4,21 @@
   z-index: 10;
   pointer-events: none;
   transition: opacity 120ms linear;
+  /* Section accent — the indigo-violet half of the canvas palette for this scroll window. */
+  --accent: #8ea2ff;
+  --accent-hot: #bcc6ff;
 }
 
+/* Centred in the band above the focus grid, so the block sits in the middle of the free height. */
 .intro {
   position: absolute;
-  top: 6.25vw;
+  top: 0;
+  bottom: 13.2vw;
   left: 50%;
   width: 56vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
   transform: translateX(-50%);
 }
@@ -22,6 +30,7 @@
   transition: opacity 1s var(--ease-out), filter 1s var(--ease-out), transform 1s var(--ease-out);
 }
 
+.eyebrow { color: var(--accent); }
 .heading { margin-top: 1.1vw; }
 .support { width: 31vw; margin: 1.5vw auto 0; color: rgba(255,255,255,.7); }
 
@@ -35,15 +44,15 @@
 .active .support { transition-delay: 140ms; }
 
 .lower { position: absolute; inset: auto 0 0; }
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.2); border-bottom: 0; }
 .focus { min-height: 13.2vw; padding: 1.45vw 1.65vw 1.55vw; border-right: 1px solid rgba(255,255,255,.2); pointer-events: none; transition-property: opacity, filter, transform, color; }
 .active .focus { pointer-events: auto; }
 .focus:last-child { border-right: 0; }
 .focus:nth-child(2) { transition-delay: 70ms; }
 .focus:nth-child(3) { transition-delay: 140ms; }
 .focus:nth-child(4) { transition-delay: 210ms; }
-.focus:hover { color: var(--cyan-hot); }
-.index { display: block; color: var(--cyan); font-size: .64vw; }
+.focus:hover { color: var(--accent-hot); }
+.index { display: block; color: var(--accent); font-size: .64vw; }
 .focus h3 { margin: 2.1vw 0 .75vw; font-weight: 300; font-size: 1.75vw; line-height: 1; letter-spacing: -.025em; }
 .focus p { max-width: 18vw; margin: 0; color: rgba(255,255,255,.62); font-size: .91vw; line-height: 1.35; }
 .focus:hover p, .focus:hover .index { color: currentColor; }
@@ -54,7 +63,7 @@
 .wordmarks span { font-size: .82vw; font-weight: 500; letter-spacing: -.02em; }
 
 @media (max-width: 1023.98px) {
-  .intro { top: 6rem; width: calc(100% - 3rem); }
+  .intro { top: 6rem; bottom: auto; display: block; width: calc(100% - 3rem); }
   .support { width: min(32rem, 90%); margin-top: 1.25rem; }
   .lower { padding: 0 1.5rem 1rem; }
   .grid { grid-template-columns: repeat(2, 1fr); }

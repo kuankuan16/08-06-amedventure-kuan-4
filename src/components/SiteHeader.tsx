@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
+import { sectionFromClock } from "./SectionAccent";
+import { useScrollClock } from "./useScrollClock";
 import styles from "./SiteHeader.module.css";
 
+/** `accent` names the section palette each link carries — fixed, not the section you are in. */
 const navItems = [
-  { label: "Focus", href: "#focus" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Team", href: "#team" },
+  { label: "Focus", href: "#focus", accent: "focus" },
+  { label: "Portfolio", href: "#portfolio", accent: "portfolio" },
+  { label: "Team", href: "#team", accent: "team" },
 ] as const;
 
 export function SiteHeader() {
@@ -16,6 +19,15 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const onHome = pathname === "/";
   const sectionHref = (href: string) => onHome ? href : `/${href}`;
+  // Scrolling into a section lights its link in that section's own colour.
+  const clock = useScrollClock(onHome ? undefined : 0);
+  const activeAccent = onHome ? sectionFromClock(clock) : null;
+
+  const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!onHome || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    window.location.assign("/");
+  };
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -36,7 +48,7 @@ export function SiteHeader() {
   return (
     <>
       <header className={styles.header}>
-        <a className={styles.logoLink} href={onHome ? "#top" : "/"} aria-label="AMED Ventures home">
+        <a className={styles.logoLink} href={onHome ? "#top" : "/"} onClick={handleLogoClick} aria-label="AMED Ventures home">
           <Image
             className={styles.logo}
             src="/brand/amed-logo-white.png"
@@ -48,11 +60,11 @@ export function SiteHeader() {
         </a>
         <nav className={styles.desktopNav} aria-label="Primary navigation">
           {navItems.map((item) => (
-            <a key={item.href} href={sectionHref(item.href)}>{item.label}</a>
+            <a className={activeAccent === item.accent ? styles.activeNav : ""} data-accent={item.accent} key={item.href} href={sectionHref(item.href)}>{item.label}</a>
           ))}
         </nav>
         <a className={styles.contact} href={sectionHref("#contact")}>
-          <span>Contact Us</span><i aria-hidden="true" />
+          <span>Contact Us</span>
         </a>
         <button
           className={`${styles.burger} ${menuOpen ? styles.burgerOpen : ""}`}
@@ -70,14 +82,15 @@ export function SiteHeader() {
         id="mobile-navigation"
         className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ""}`}
         aria-hidden={!menuOpen}
+        inert={!menuOpen}
       >
         <nav aria-label="Mobile navigation">
           {navItems.map((item, index) => (
-            <a key={item.href} href={sectionHref(item.href)} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+            <a className={activeAccent === item.accent ? styles.activeNav : ""} data-accent={item.accent} key={item.href} href={sectionHref(item.href)} onClick={closeMenu}>
               <span>0{index + 1}</span>{item.label}
             </a>
           ))}
-          <a href={sectionHref("#contact")} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+          <a href={sectionHref("#contact")} onClick={closeMenu}>
             <span>04</span>Contact Us
           </a>
         </nav>

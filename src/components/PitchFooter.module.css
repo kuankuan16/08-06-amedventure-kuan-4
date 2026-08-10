@@ -1,36 +1,22 @@
-.footer { position: relative; z-index: 10; min-height: 100lvh; padding-top: 8vw; color: #fff; }
+.footer { position: relative; z-index: 10; min-height: 0; padding-top: 7vw; color: #fff; }
 .pitch { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .eyebrow, .heading, .button { opacity: 0; filter: blur(10px); transition: opacity 1s var(--ease-out), filter 1s var(--ease-out); }
 .heading { max-width: 76vw; margin-top: 1.6vw; }
-.button { margin-top: 3vw; transition-property: opacity, filter, color, background; transition-delay: 240ms; }
+.button { margin-top: 2.2vw; transition-property: opacity, filter, color, background; transition-delay: 240ms; }
 .visible .eyebrow, .visible .heading, .visible .button { opacity: 1; filter: blur(0); }
 .visible .heading { transition-delay: 90ms; }
-.rule { margin-top: 9vw; border-top: 1px solid rgba(255,255,255,.15); }
-.bottom { width: 96.667vw; margin: 0 auto; padding: 2.2vw 0 3.5vw; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 3vw; }
-.identity img { width: 9.5vw; height: auto; max-height: 4vw; object-fit: contain; object-position: left center; }
-.identity p { max-width: 27vw; margin-top: 1.2vw; color: rgba(255,255,255,.55); }
-.nav { display: flex; gap: 3.8vw; }
-.nav a { color: rgba(255,255,255,.68); font-size: 1.111vw; transition: color .2s; }
-.nav a:hover { color: var(--cyan-hot); }
-.copyright { grid-column: 1 / -1; margin: 3.5vw 0 0; color: rgba(255,255,255,.38); font-size: .8vw; }
+/* Breathing room under the pitch CTA, before the shared SiteFooter hairline. */
+.shared { margin-top: 7vw; }
 
 @media (max-width: 1023.98px) {
-  .footer { min-height: 46rem; padding: 7rem 1.5rem 0; }
+  .footer { min-height: 0; padding: 6rem 0 0; }
+  .pitch { padding-inline: 1.5rem; }
   .heading { max-width: 50rem; margin-top: 1.25rem; }
-  .button { margin-top: 2rem; }
-  .rule { margin-top: 7rem; }
-  .bottom { width: 100%; padding: 2rem 0 3rem; grid-template-columns: 1fr 1fr; }
-  .identity img { width: 9rem; max-height: 3.5rem; }
-  .identity p { max-width: 19rem; margin-top: 1rem; }
-  .nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2.5rem; }
-  .nav a { font-size: 1rem; }
-  .copyright { margin-top: 2rem; font-size: .75rem; }
+  .button { margin-top: 1.6rem; }
+  .shared { margin-top: 6rem; }
 }
 
 @media (max-width: 599px) {
-  .footer { padding-inline: 1rem; }
+  .pitch { padding-inline: 1rem; }
   .heading { font-size: 2.7rem; }
-  .bottom { grid-template-columns: 1fr; }
-  .nav { margin-top: 1rem; }
-  .copyright { grid-column: auto; }
 }

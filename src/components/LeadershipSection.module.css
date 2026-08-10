@@ -1,28 +1,28 @@
 .wrapper { width: 96.667vw; margin: 0 auto 1.667vw; perspective: 1400px; scroll-margin-top: 5rem; }
 .card { position: relative; min-height: 50vw; overflow: hidden; border: 1px solid rgba(255,255,255,.1); background: #fff; color: var(--ink); opacity: 0; filter: blur(14px); transform: scale(.94) rotateX(12deg); transform-origin: bottom; transition: opacity 1.2s var(--ease-out), filter 1.2s var(--ease-out), transform 1.2s var(--ease-out); }
 .visible { opacity: 1; filter: blur(0); transform: scale(1) rotateX(0); }
-.copy { position: absolute; top: 2.222vw; left: 2.222vw; width: 48vw; }
-.eyebrow { color: rgba(7,16,34,.55); }
-.heading { margin-top: 1.25vw; }
+.copy { position: absolute; top: 2.222vw; left: 2.222vw; width: 40vw; padding-right: 2vw; overflow: hidden; }
+.eyebrow { color: var(--accent-team-ink); }
+.heading { max-width: 100%; margin-top: 1.25vw; font-size: 4.5vw; line-height: .95; overflow: hidden; }
 .body { width: 29vw; margin-top: 2.2vw; color: rgba(7,16,34,.67); }
-.figure { position: absolute; top: 2.222vw; right: 2.222vw; width: 38.5vw; height: 25.5vw; margin: 0; overflow: hidden; clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease-out) 160ms; }
+.figure { position: absolute; top: 2.222vw; right: 2.222vw; width: 34vw; height: 25.5vw; margin: 0; overflow: hidden; clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease-out) 160ms; }
 .figureVisible { clip-path: inset(0 0 0 0); }
 .figure img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
 .highlights { position: absolute; left: 2.222vw; right: 2.222vw; bottom: 2.5vw; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line-light); }
 .highlight { min-height: 12vw; padding: 1.35vw 1.4vw 0 0; border-right: 1px solid var(--line-light); }
 .highlight:not(:first-child) { padding-left: 1.4vw; }
 .highlight:last-child { border-right: 0; }
-.highlight span { color: var(--cyan); font-size: .64vw; }
+.highlight span { color: var(--accent-team-ink); font-size: .64vw; }
 .highlight h3 { margin: 2.2vw 0 .7vw; font-size: 1.55vw; font-weight: 400; letter-spacing: -.025em; }
 .highlight p { width: 86%; margin: 0; color: rgba(7,16,34,.62); font-size: .88vw; line-height: 1.35; }
 
 @media (max-width: 1023.98px) {
   .wrapper { width: calc(100% - 3rem); margin-bottom: 1rem; }
   .card { min-height: 0; padding: 1.5rem; }
-  .copy, .highlights { position: static; width: auto; }
+  .copy, .highlights { position: static; width: auto; padding-right: 0; }
   .figure { position: relative; width: auto; }
   .copy { display: flex; flex-direction: column; }
-  .heading { margin-top: 1rem; }
+  .heading { margin-top: 1rem; font-size: 2.55rem; }
   .body { width: min(38rem, 100%); margin-top: 1.5rem; }
   .figure { height: clamp(18rem, 55vw, 30rem); margin-top: 2rem; }
   .highlights { margin-top: 2rem; grid-template-columns: 1fr; }
