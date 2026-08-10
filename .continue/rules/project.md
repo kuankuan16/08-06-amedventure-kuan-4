@@ -11,7 +11,40 @@ alwaysApply: true
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+# Current Project: AMED Ventures
+
+**Read `docs/PROJECT_HANDOFF.md` before your first edit.** This repo started from the
+website-cloner template below, but the live deliverable is the AMED Ventures site. Where the
+two conflict, **the project rules here win over the template sections below.**
+
+- **What is built:** `/` — a single scroll experience (fixed overlays over one three.js
+  canvas, all timed off a shared 0→4 scroll clock in `src/lib/scroll.ts`); `/companies` — a
+  standalone dark portfolio index.
+- **Styling is CSS Modules + CSS custom properties, NOT Tailwind.** Zero Tailwind utility
+  classes exist in any component; do not introduce them. Global primitives (`.amed-display`,
+  `.amed-button`, `.amed-overlay`, …) and tokens (`--cyan-hot`, `--ink`, `--ease-out`, …)
+  live in `src/app/globals.css`. Inline `style` is allowed only for computed animation
+  values (clock-driven opacity, stagger delays).
+- **Desktop is a 1440px artboard:** `vw` units everywhere, switching to `rem`/`clamp()`
+  below `1023.98px`. Keep that two-regime pattern in every component.
+- **Static export only** (`output: "export"`, `distDir: "dist/client"`). No server runtime —
+  no route handlers, server actions, or middleware. `npm run build` also emits a
+  Cloudflare-compatible worker bundle via `scripts/prepare-sites-dist.mjs`.
+- **Motion rules:** blur + translate reveals on `var(--ease-out)`; controls never scale on
+  hover (colour only); every animation must handle `prefers-reduced-motion`.
+- **Design language is Vesper × AMED.** `docs/research/DESIGN_TOKENS.md` is the token
+  authority; `docs/research/BEHAVIORS.md` + `docs/research/components/*.spec.md` are the
+  behaviour specs (note: partly stale against the current working tree — see the handoff).
+  A prior redesign away from this language was tried and reverted; stay inside it.
+- **Copy is real client copy** — do not paraphrase headlines, metrics, or company names.
+- **Current state:** a substantial uncommitted WIP revision sits in the working tree
+  (`npm run check` passes). It is itemised in `docs/PROJECT_HANDOFF.md` §7, with the open
+  loose ends in §8 — start there.
+
 # Website Reverse-Engineer Template
+
+> Generic template documentation. Superseded by the project section above wherever the two
+> disagree (notably: Tailwind-first styling, Vercel deployment, "no inline styles").
 
 ## What This Is
 A reusable template for reverse-engineering any website into a clean, modern Next.js codebase using AI coding agents. The Next.js + shadcn/ui + Tailwind v4 base is pre-scaffolded — just run `/clone-website <url1> [<url2> ...]`.
