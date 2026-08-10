@@ -2,8 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SectionAccent } from "@/components/SectionAccent";
 import styles from "./page.module.css";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
+import { ScrollCue } from "@/components/ScrollCue";
+import { AnimatedNumber } from "@/components/AnimatedNumber";
 
 type Filter = "All" | "Cardiovascular" | "Neurovascular" | "Embolization" | "Surgical" | "Digital Health";
 
@@ -13,26 +19,28 @@ type Company = {
   focus: Exclude<Filter, "All">[];
   href: string;
   status?: string;
+  /** Official logo fetched from the company's own site by scripts/fetch-company-logos.mjs. */
+  logo?: string;
 };
 
 const filters: Filter[] = ["All", "Cardiovascular", "Neurovascular", "Embolization", "Surgical", "Digital Health"];
 
 const companies: Company[] = [
-  { name: "Imperative Care", description: "Connected technologies advancing stroke intervention, vascular care and recovery.", focus: ["Neurovascular", "Cardiovascular"], href: "https://imperativecare.com/" },
-  { name: "Supira Medical", description: "A low-profile, high-flow percutaneous ventricular assist device for high-risk PCI and cardiogenic shock.", focus: ["Cardiovascular"], href: "https://supiramedical.com/" },
-  { name: "Instylla", description: "Resorbable hydrogel embolics engineered for interventional oncology and peripheral hemostasis.", focus: ["Embolization"], href: "https://instylla.com/" },
-  { name: "Kandu", description: "An integrated stroke-recovery platform combining BCI rehabilitation with personalized telehealth.", focus: ["Neurovascular", "Digital Health"], href: "https://kandu.com/" },
-  { name: "Tioga Medical", description: "A transcatheter mitral valve replacement system designed to treat more patients with mitral regurgitation.", focus: ["Cardiovascular"], href: "https://tiogacardiovascular.com/" },
-  { name: "Adona Medical", description: "Interatrial shunting and remote bi-atrial pressure monitoring for advanced heart failure.", focus: ["Cardiovascular", "Digital Health"], href: "https://adonamed.com/" },
-  { name: "Truvic Medical", description: "Peripheral thrombectomy innovation now operating as Imperative Care Vascular.", focus: ["Cardiovascular"], href: "https://imperativecare.com/", status: "Acquired by Imperative Care" },
-  { name: "Atia Vision", description: "A modular, shape-changing intraocular lens intended to restore a full functional range of vision.", focus: ["Surgical"], href: "https://atiavision.com/" },
-  { name: "Tulavi Therapeutics", description: "A fully absorbable hydrogel platform designed to support peripheral nerve healing.", focus: ["Surgical"], href: "https://tulavi.com/" },
-  { name: "Rejoni", description: "Hydrogel-based solutions created to preserve uterine health and reduce post-surgical adhesions.", focus: ["Surgical"], href: "https://rejoni.com/" },
-  { name: "Neurolutions", description: "The FDA-cleared IpsiHand brain-computer interface for at-home upper-extremity stroke rehabilitation.", focus: ["Neurovascular", "Digital Health"], href: "https://www.neurolutions.com/", status: "Merged into Kandu" },
-  { name: "NuVera Medical", description: "Advanced intracardiac ultrasound imaging technology for complex cardiac procedures.", focus: ["Cardiovascular"], href: "https://www.prnewswire.com/news-releases/shifamed-announces-successful-acquisition-of-nuvera-medical-the-sixth-company-to-exit-associated-with-the-innovation-hub-301385956.html", status: "Acquired by Biosense Webster" },
-  { name: "Ostial Corporation", description: "Dual-balloon angioplasty systems designed for precise aorto-ostial stent apposition.", focus: ["Cardiovascular"], href: "https://ostialflash.com/" },
-  { name: "Akura Medical", description: "The Katana thrombectomy platform for efficient treatment of venous thromboembolism.", focus: ["Cardiovascular"], href: "https://www.akuramedical.com/" },
-  { name: "Sealonix", description: "Next-generation biomaterial sealant patches for rapid hemostasis in surgery.", focus: ["Surgical"], href: "https://sealonix.com/" },
+  { name: "Imperative Care", description: "Connected technologies advancing stroke intervention, vascular care and recovery.", focus: ["Neurovascular", "Cardiovascular"], href: "https://imperativecare.com/", logo: "/images/logos/imperative-care.svg" },
+  { name: "Supira Medical", description: "A low-profile, high-flow percutaneous ventricular assist device for high-risk PCI and cardiogenic shock.", focus: ["Cardiovascular"], href: "https://supiramedical.com/", logo: "/images/logos/supira-medical.svg" },
+  { name: "Instylla", description: "Resorbable hydrogel embolics engineered for interventional oncology and peripheral hemostasis.", focus: ["Embolization"], href: "https://instylla.com/", logo: "/images/logos/instylla.svg" },
+  { name: "Kandu", description: "An integrated stroke-recovery platform combining BCI rehabilitation with personalized telehealth.", focus: ["Neurovascular", "Digital Health"], href: "https://kandu.com/", logo: "/images/logos/kandu.svg" },
+  { name: "Tioga Medical", description: "A transcatheter mitral valve replacement system designed to treat more patients with mitral regurgitation.", focus: ["Cardiovascular"], href: "https://tiogacardiovascular.com/", logo: "/images/logos/tioga-medical.png" },
+  { name: "Adona Medical", description: "Interatrial shunting and remote bi-atrial pressure monitoring for advanced heart failure.", focus: ["Cardiovascular", "Digital Health"], href: "https://adonamed.com/", logo: "/images/logos/adona-medical.png" },
+  { name: "Truvic Medical", description: "Peripheral thrombectomy innovation now operating as Imperative Care Vascular.", focus: ["Cardiovascular"], href: "https://imperativecare.com/", status: "Acquired by Imperative Care", logo: "/images/logos/truvic-medical.png" },
+  { name: "Atia Vision", description: "A modular, shape-changing intraocular lens intended to restore a full functional range of vision.", focus: ["Surgical"], href: "https://atiavision.com/", logo: "/images/logos/atia-vision.svg" },
+  { name: "Tulavi Therapeutics", description: "A fully absorbable hydrogel platform designed to support peripheral nerve healing.", focus: ["Surgical"], href: "https://tulavi.com/", logo: "/images/logos/tulavi-therapeutics.svg" },
+  { name: "Rejoni", description: "Hydrogel-based solutions created to preserve uterine health and reduce post-surgical adhesions.", focus: ["Surgical"], href: "https://rejoni.com/", logo: "/images/logos/rejoni.png" },
+  { name: "Neurolutions", description: "The FDA-cleared IpsiHand brain-computer interface for at-home upper-extremity stroke rehabilitation.", focus: ["Neurovascular", "Digital Health"], href: "https://www.neurolutions.com/", status: "Merged into Kandu", logo: "/images/logos/neurolutions.png" },
+  { name: "NuVera Medical", description: "Advanced intracardiac ultrasound imaging technology for complex cardiac procedures.", focus: ["Cardiovascular"], href: "https://www.prnewswire.com/news-releases/shifamed-announces-successful-acquisition-of-nuvera-medical-the-sixth-company-to-exit-associated-with-the-innovation-hub-301385956.html", status: "Acquired by Biosense Webster", logo: "/images/logos/nuvera-medical.png" },
+  { name: "Ostial Corporation", description: "Dual-balloon angioplasty systems designed for precise aorto-ostial stent apposition.", focus: ["Cardiovascular"], href: "https://ostialflash.com/", logo: "/images/logos/ostial-corporation.png" },
+  { name: "Akura Medical", description: "The Katana thrombectomy platform for efficient treatment of venous thromboembolism.", focus: ["Cardiovascular"], href: "https://www.akuramedical.com/", logo: "/images/logos/akura-medical.svg" },
+  { name: "Sealonix", description: "Next-generation biomaterial sealant patches for rapid hemostasis in surgery.", focus: ["Surgical"], href: "https://sealonix.com/", logo: "/images/logos/sealonix.png" },
 ];
 
 export default function CompaniesPage() {
@@ -61,21 +69,26 @@ export default function CompaniesPage() {
 
   return (
     <main className={styles.page}>
+      <SectionAccent section="companies" />
       <SiteHeader />
+      <ScrollCue
+        href="#all-companies"
+        label="Scroll to all companies"
+        hideAfter="closing"
+      />
 
       <section className={styles.hero}>
-        <Image className={styles.heroImage} src="/images/amed/hero-vascular.jpg" alt="" fill priority sizes="100vw" />
+        <Image className={styles.heroImage} src="/images/amed/companies-hero-light.jpg" alt="" fill priority sizes="100vw" />
         <div className={styles.heroVeil} />
-        <div className={styles.orbit} aria-hidden="true"><i /><i /><i /></div>
-        <p className={`${styles.kicker} amed-tag`}>[ Selected investments · 01—15 ]</p>
-        <h1 className={`${styles.title} amed-display`}>Built beside the breakthroughs.</h1>
+        <p className={`${styles.kicker} amed-tag`}>[ Selected investments ]</p>
+        <AnimatedHeading as="h1" lines={["Built beside the", "breakthroughs."]} className={`${styles.title} amed-display`}>Built beside the breakthroughs.</AnimatedHeading>
         <div className={styles.heroAside}>
           <p>AMED partners with medical technology companies translating difficult clinical problems into precise, scalable systems of care.</p>
           <a href="#all-companies">Explore the portfolio <span aria-hidden>↓</span></a>
         </div>
         <div className={styles.heroStats}>
-          <div><strong>15</strong><span>Selected investments</span></div>
-          <div><strong>05</strong><span>Investment themes</span></div>
+          <div><strong><AnimatedNumber target={15} pad={2} delay={900} /></strong><span>Selected investments</span></div>
+          <div><strong><AnimatedNumber target={5} pad={2} delay={1050} /></strong><span>Investment themes</span></div>
           <div><strong>US ↔ ASIA</strong><span>Cross-border perspective</span></div>
         </div>
       </section>
@@ -105,11 +118,12 @@ export default function CompaniesPage() {
 
         <div className={styles.grid} ref={gridRef} aria-live="polite">
           {visibleCompanies.map((company) => {
-            const index = companies.indexOf(company) + 1;
             return (
               <a data-company-card className={styles.company} href={company.href} target="_blank" rel="noreferrer" key={company.name}>
                 <div className={styles.companyTop}>
-                  <span className={styles.number}>[ {String(index).padStart(2, "0")} ]</span>
+                  {company.logo
+                    ? <Image className={styles.logo} src={company.logo} alt={`${company.name} logo`} width={240} height={72} />
+                    : <span className={styles.wordmark}>{company.name}</span>}
                   {company.status && <span className={styles.status}>{company.status}</span>}
                 </div>
                 <h3>{company.name}</h3>
@@ -124,19 +138,17 @@ export default function CompaniesPage() {
         </div>
       </section>
 
-      <section className={styles.closing}>
+      <section className={styles.closing} id="closing">
         <p className="amed-tag">[ The next company ]</p>
-        <h2 className="amed-display">Building the next clinical standard?</h2>
+        <AnimatedHeading lines={["Building the next", "clinical standard?"]} className="amed-display">Building the next clinical standard?</AnimatedHeading>
         <div className={styles.closingActions}>
-          <a className="amed-button" href="/#contact">Pitch Your Company</a>
-          <a className="amed-button amed-button--ghost" href="/">Back to AMED</a>
+          <Link className="amed-button" href="/#contact">Pitch Your Company</Link>
+          <Link className="amed-button amed-button--ghost" href="/">Back to AMED</Link>
         </div>
       </section>
 
       <footer className={styles.footer}>
-        <Image src="/brand/amed-logo-white.png" alt="AMED Ventures" width={320} height={120} />
-        <p>San Francisco Bay Area · US &amp; Asia</p>
-        <p>Portfolio shown reflects AMED&apos;s publicly listed selected investments. Company status may evolve.</p>
+        <SiteFooter />
       </footer>
     </main>
   );

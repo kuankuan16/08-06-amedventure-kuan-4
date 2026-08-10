@@ -19,6 +19,9 @@ Files:
 - `public/images/amed/focus-oncology.png` / `.jpg`
 - `public/images/amed/focus-surgical.png` / `.jpg`
 - `public/images/amed/leadership-founders.png` / `.jpg`
+- `public/images/amed/companies-hero-light.png` / `.jpg` — added 2026-08-07 via the Higgsfield
+  MCP (`gpt_image_2`, 16:9, 1k, quality low) as the high-key banner for `/companies`; prompt is
+  kept in `scripts/generate-companies-hero.mjs`.
 
 ## Motion
 
