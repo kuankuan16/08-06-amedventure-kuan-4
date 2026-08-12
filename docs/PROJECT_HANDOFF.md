@@ -32,6 +32,7 @@ Two source languages were merged:
 | `/` | `src/app/page.tsx` | Design-review portal with thumbnail cards linking all available versions. |
 | `/a` | `src/app/a/page.tsx` | The scroll experience. Fixed overlays over one WebGL canvas. |
 | `/b` | `src/app/b/page.tsx` | Editorial concept with portfolio, team, stories and contact in one flow. |
+| `/c` | `src/app/c/page.tsx` | Human-centred evolution of B with documentary founder and clinician hero storytelling. |
 | `/companies` | `src/app/companies/page.tsx` | Standalone dark portfolio index with filters. Has its own layout + CSS module and does *not* use the canvas. |
 
 Concept A (`/a`) composition (order matters — z-index and clock windows depend on it):

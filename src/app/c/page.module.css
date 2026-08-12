@@ -1,0 +1,638 @@
+/* Proposal B — bright, editorial and institutional, in the register of sequoiacap.com:
+   warm near-black on paper, one signature accent in the AMED brand blue, near-square corners, hairline rules and an
+   article-feed rhythm. A deliberate counterpoint to proposal A's dark WebGL experience. */
+.page {
+  /* Sequoia's design system, sampled from sequoiacap.com's own custom properties, with the
+     brand hue swapped to the AMED lockup blue. Their palette already carries a matching deep
+     blue (#006d96), so the accent stays inside one coherent system. */
+  --paper: #f3f3f2;          /* sequoia-white */
+  --section-tail: calc(var(--s80) + var(--s70));  /* the deep close the about band and the companies index share */
+  --ink-b: #1b1916;          /* sequoia-black */
+  --brand: var(--cyan);      /* AMED lockup blue, in place of sequoia-green */
+  --brand-deep: #006d96;     /* their dark-blue, the deep cut of the same hue */
+  --grey: #928c86;           /* dark-grey */
+  --grey-light: #a8a39e;     /* light-grey */
+  --sand: #eceae5;
+  --deep: #303070;           /* AMED wordmark navy, for the footer band */
+  --realized: #14877c;       /* the portfolio green, darkened to hold white type */
+  --deep-ink: #1d1c4a;       /* a darker cut of it, for type on the light band */
+  --band: #9070c8;           /* solid band behind the About section, sampled from the reference */
+  --muted: #6f6a65;         /* one grey for every piece of secondary copy, a shade deeper than --grey */
+  --hairline: rgba(27, 25, 22, .16);
+
+  /* Their spacing scale (0.44 → 5.06rem) and layout widths. */
+  --s20: .44rem; --s30: .67rem; --s40: 1rem; --s50: 1.5rem; --s60: 2.25rem; --s70: 3.38rem; --s80: 5.06rem;
+  --content: 62rem;
+  --wide: 78rem;
+  --gutter: 4.8rem;
+
+  /* Their type sizes: 13 / 20 / 36 / 42px, plus a display step for the hero statement. */
+  --t-small: 0.9375rem; --t-medium: 1.25rem; --t-large: 2.25rem; --t-xlarge: 2.625rem;
+  /* All major English display headings use one serif family and rhythm across the page. */
+  --serif: "Lora", Georgia, "Times New Roman", serif;
+  --display-face: var(--serif);
+
+  /* The AMED mark is built from generously rounded squares — not pills, not sharp corners. */
+  --r-sm: var(--radius-control);
+  --r-md: 1rem;
+  --r-lg: 1.5rem;
+  position: relative;
+  min-height: 100vh;
+  overflow: clip;
+  background: var(--paper);
+  color: var(--ink-b);
+}
+
+.page ::selection { color: var(--paper); background: var(--brand); }
+
+/* ---------- shared section furniture ---------- */
+.section { width: min(92vw, var(--wide)); margin: 0 auto; padding: var(--s80) 0; }
+.tag { margin: 0; display: inline-flex; align-items: center; gap: var(--s30); color: var(--brand); font: 500 var(--t-small)/1 "Mulish", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.tag::before { content: ""; width: 1.6rem; height: 1px; background: currentColor; }
+.display { margin: var(--s60) 0 0; font-family: var(--display-face); font-weight: 300; font-size: clamp(var(--t-large), 5.2vw, 4.2rem); line-height: .98; letter-spacing: 0; text-wrap: balance; }
+.lede { max-width: var(--content); margin: var(--s50) 0 0; color: var(--muted); font-size: var(--t-medium); line-height: 1.55; }
+
+/* ---------- header ---------- */
+.header { position: fixed; z-index: 40; top: 0; right: 0; left: 0; display: flex; align-items: center; gap: 2rem; padding: 1.1rem max(1.25rem, 4vw, calc((100vw - var(--wide)) / 2)); background: color-mix(in srgb, #fff 88%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+.headerScrolled { border-bottom-color: var(--hairline); }
+.brand { display: flex; align-items: center; }
+.brand img { width: 7.5rem; height: auto; }
+.nav { margin-left: auto; display: flex; gap: 2.4rem; }
+.nav a { position: relative; color: var(--ink-b); font-size: 0.9375rem; letter-spacing: .05em; text-transform: uppercase; transition: color .22s; }
+.nav a::after { content: ""; position: absolute; right: 0; bottom: -.35rem; left: 0; height: 1px; background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform .32s cubic-bezier(.22,1,.36,1); }
+.nav a:hover { color: var(--brand); }
+.nav a:hover::after { transform: scaleX(1); }
+/* Pill controls: a solid fill and an outline, both uppercase and letterspaced. Filled controls
+   reverse to light type on the brand blue. */
+.pill { padding: .85rem 1.75rem; border-radius: 999px; font: 500 0.9375rem/1 "Mulish", sans-serif; letter-spacing: .12em; text-transform: uppercase; transition: background .24s, color .24s, border-color .24s; }
+.pillSolid { background: var(--brand); color: var(--paper); border: 1px solid var(--brand); }
+.pillSolid:hover { background: var(--ink-b); border-color: var(--ink-b); color: var(--paper); }
+.pillOutline { border: 1px solid var(--brand); color: var(--brand); background: transparent; }
+.pillOutline:hover { border-color: var(--brand); background: var(--brand); color: var(--paper); }
+.headerCta { padding: .72rem 1.5rem; letter-spacing: normal; }
+.headerCta:focus-visible { outline: none; background: color-mix(in srgb, var(--brand) 10%, transparent); }
+.mobileMenuButton, .mobileNav { display: none; }
+.backToTop { position: fixed; z-index: 39; right: 1rem; bottom: 1.25rem; width: 2.625rem; height: 2.625rem; display: grid; place-items: center; border: 1px solid #777c82; border-radius: 50%; background: color-mix(in srgb, #fff 92%, transparent); color: #4b5056; opacity: 0; transform: translateY(.75rem); pointer-events: none; transition: opacity .35s var(--ease-out), transform .35s var(--ease-out), background .22s, color .22s, border-color .22s; }
+.backToTop svg { width: 1.1rem; height: 1.1rem; transform: rotate(-90deg); }
+.backToTop:hover { border-color: #4b5056; background: #4b5056; color: #fff; }
+.backToTopVisible { opacity: 1; transform: none; pointer-events: auto; }
+
+/* ---------- hero ---------- */
+/* The hero sits on white; the rest of the page keeps the warmer paper tone. */
+.heroBand { background: #fff; }
+.hero { position: relative; padding: 9rem 0 1.25rem; }
+/* One centred statement carries the hero; the accented words stand in for Sequoia's circled word. */
+/* Two hand-broken lines, centred; the reserved height keeps the frame below perfectly still. */
+.slogan { display: grid; place-content: center; min-height: 2.2em; width: 100%; max-width: none; margin: 0 auto 3.5rem; font-family: var(--display-face); font-weight: 300; font-size: clamp(1.85rem, 3.3vw, 3.1rem); line-height: 1.08; letter-spacing: 0; text-align: center; text-wrap: balance; }
+.slogan > span { display: block; overflow: hidden; padding-bottom: .1em; }
+.slogan > span > span { display: block; animation: lineUp .8s var(--ease-out) both; }
+.slogan > span:nth-child(2) > span { animation-delay: .1s; }
+.slogan em { font-style: normal; color: var(--brand); }
+@keyframes lineUp { from { transform: translateY(115%); } to { transform: none; } }
+
+.heroFigure { position: relative; margin-top: 0; overflow: hidden; border-radius: var(--r-lg); aspect-ratio: 16 / 6.2; background: var(--paper); }
+/* Slides cross-fade in place so the frame never jumps between images of different weight. */
+.heroSlide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 52% 46%; opacity: 0; transform: scale(1.025); transition: opacity .85s var(--ease-out), transform 1.2s var(--ease-out); will-change: opacity, transform; }
+.heroSlideActive { opacity: 1; transform: scale(1); }
+
+.heroCarousel { display: grid; gap: 1.25rem 1.5rem; justify-items: center; }
+.heroCarousel > .heroFigure { width: 100%; }
+/* Controls sit on the paper below the frame rather than over the photograph. */
+.carouselControls { display: flex; align-items: center; gap: .9rem; }
+.carouselArrow { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border: 1px solid var(--brand); border-radius: 999px; color: var(--brand); transition: background .22s, color .22s; }
+.carouselArrow svg { width: 1.05rem; height: 1.05rem; display: block; }
+.carouselArrow:hover { background: var(--brand); color: var(--paper); }
+.carouselDots { display: flex; align-items: center; gap: .45rem; }
+.carouselDot { width: .5rem; height: .5rem; border-radius: 999px; background: color-mix(in srgb, var(--brand) 34%, transparent); transition: background .22s, width .28s var(--ease-out); }
+.carouselDot:hover { background: color-mix(in srgb, var(--brand) 65%, transparent); }
+.carouselDotActive { width: 1.6rem; background: var(--brand); }
+
+/* ---------- concept C: human-centred hero ---------- */
+/* Only the first section differs from B. The composition distils the references into a quiet
+   healthcare-venture opening: Novo-scale purpose, Sequoia restraint, NEA's relationship-first
+   voice, Frazier's medical confidence and First Round's lived-in builder photography. */
+.heroHuman { background: #f2eee7; }
+.heroHuman .hero { padding-top: 8.25rem; }
+.heroHumanIntro { margin-bottom: 3rem; display: grid; grid-template-columns: 1.45fr .55fr; gap: 1rem 5rem; align-items: end; }
+.heroHumanLabel { grid-column: 1 / -1; margin: 0 0 1.65rem; display: flex; align-items: center; gap: .8rem; color: var(--brand-deep); font: 500 .75rem/1 "Mulish", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.heroHumanLabel::after { content: ""; width: 2.3rem; height: 1px; background: currentColor; }
+.heroHumanIntro h1 { margin: 0; font: 400 clamp(3.6rem, 5.45vw, 5.2rem)/.94 var(--serif); letter-spacing: -.028em; }
+.heroHumanIntro h1 span { display: block; }
+.heroHumanIntro h1 em { color: var(--brand); font-style: normal; }
+.heroHumanIntro > p:last-child { max-width: 24rem; margin: 0 0 .45rem; color: var(--muted); font: 400 1.05rem/1.55 "Mulish", sans-serif; }
+.heroHuman .heroCarousel { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 1rem 1.5rem; justify-items: stretch; }
+.heroHuman .slogan { position: absolute; z-index: 2; left: 1.5rem; bottom: 1.5rem; min-height: 0; width: auto; margin: 0; padding: .7rem 1rem; border-radius: 999px; background: rgba(244,239,231,.86); color: #1b1916; font: 500 .72rem/1 "Mulish", sans-serif; letter-spacing: .12em; text-align: left; text-transform: uppercase; backdrop-filter: blur(12px); }
+.heroHuman .slogan > span { padding: 0; }
+.heroHuman .heroFigure { grid-column: 1 / -1; aspect-ratio: 16 / 6.4; background: #d4c9b9; }
+.heroHuman .heroSlide { object-position: center 50%; filter: saturate(.86) contrast(.98); }
+.heroHuman .carouselControls { grid-column: 2; justify-self: end; }
+
+/* Four ruled columns under the hero — the same divider rhythm the rest of the site uses. */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 2.5rem; border-top: 1px solid var(--hairline); }
+.stat { padding: 2rem 2rem 1.25rem 0; border-right: 1px solid var(--hairline); }
+.stat:last-child { border-right: 0; }
+.stat + .stat { padding-left: 2rem; }
+.stat strong { display: block; color: var(--deep); font-family: var(--serif); font-size: clamp(1.9rem, 3.1vw, 3rem); font-weight: 400; line-height: 1; letter-spacing: -.01em; }
+/* Direct child only: the counter renders its own span inside the figure. */
+.stat > span { display: block; margin-top: .8rem; color: var(--muted); font: 400 0.9375rem/1.4 "Mulish", sans-serif; }
+
+/* ---------- about ---------- */
+/* Reversed-out band: the section carries the colour, the four cards sit on it in white. */
+.about { background: var(--band); color: var(--paper); }
+.about .tag { color: var(--deep-ink); }
+.about .display { color: var(--paper); }
+.aboutInner { display: grid; grid-template-columns: 1.35fr .65fr; align-items: start; gap: clamp(2rem, 6vw, 5rem); }
+.aboutInner > * { min-width: 0; }
+.quote { max-width: 44rem; margin: var(--s60) 0 0; font-family: var(--display-face); font-size: clamp(var(--t-large), 5.2vw, 4.2rem); font-weight: 300; line-height: .98; letter-spacing: 0; color: var(--paper); text-wrap: balance; }
+.quoteRule { width: 6rem; height: 1px; margin: var(--s70) 0 var(--s50); border: 0; background: rgba(243,243,242,.45); }
+.quoteBy { margin: 0; font-family: var(--serif); font-size: 1.25rem; color: var(--paper); }
+.quoteBy span { display: block; margin-top: .3rem; color: rgba(243,243,242,.62); font: 400 0.9375rem/1.4 "Mulish", sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+/* Black-and-white portrait clipped into the quotation mark, as in the reference. */
+.quoteFigure { margin: calc(var(--t-small) + var(--s50)) 0 0; justify-self: end; width: min(100%, 20rem); }
+.quoteFigure svg { width: 100%; height: auto; display: block; filter: grayscale(1) contrast(1.06); mix-blend-mode: overlay; }
+/* Numbered columns straight on the band — no card fills — divided by dotted rules, each closing
+   with its mark set large and low-contrast, as in the reference. */
+.pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: var(--s70); }
+/* More air below the four pillars than above them. */
+/* The about band, the companies index, the team band and the story index all close on the
+   same deep tail. */
+.about .section, .team .section, .sectionTail { padding-bottom: var(--section-tail); }
+.pillar { display: flex; flex-direction: column; min-height: 0; padding: 0 var(--s40); color: var(--deep-ink); border-left: 1px dashed color-mix(in srgb, var(--deep-ink) 34%, transparent); }
+.pillar:first-child { padding-left: 0; border-left: 0; }
+.pillar:last-child { padding-right: 0; }
+.pillar h3 { margin: 0 0 var(--s60); font-family: var(--serif); font-size: clamp(1.35rem, 1.9vw, 1.75rem); font-weight: 400; line-height: 1.18; letter-spacing: -.015em; }
+.pillar h3 span { display: block; }
+.pillar p { margin: 0; min-height: calc(3 * 1.6em); color: color-mix(in srgb, var(--deep-ink) 88%, transparent); font-size: 1.12rem; line-height: 1.6; }
+
+/* ---------- philosophy ---------- */
+/* Two joined panels follow the clinical case-study reference: evidence on the dark field,
+   the firm's conviction and a single onward action on lavender. */
+.philosophyAnchor { height: 0; }
+.firm { margin: calc(var(--s80) + 1rem) 0 calc(var(--s80) - 1rem); background: var(--paper); }
+.firm > .section { padding: 3.5rem 0 0; }
+/* The brief's investment-approach copy, under the section lede. */
+.approach { max-width: var(--content); margin: 1.2rem 0 0; color: var(--muted); font-size: 1.0625rem; line-height: 1.6; }
+.firmInner { display: grid; grid-template-columns: 1.5fr 1.2fr; gap: 2px; }
+.firmEvidence, .firmStatement { min-height: clamp(34rem, 48vw, 43rem); padding: clamp(2rem, 4vw, 3.5rem); }
+.firmEvidence { display: flex; flex-direction: column; justify-content: center; padding-inline: clamp(1.25rem, 2.5vw, 2.5rem); border-radius: 0 var(--r-lg) var(--r-lg) 0; background: #110719; color: #fff; }
+.firmStatement .firmBadge { color: #110719; }
+.highlights { flex: 1; width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); column-gap: clamp(.5rem, 1.1vw, 1.1rem); row-gap: clamp(2rem, 3vw, 3rem); margin: 0; padding: 0; list-style: none; }
+.highlights li { min-height: 0; padding: clamp(.5rem, 1vw, 1rem); display: flex; flex-direction: column; justify-content: flex-start; }
+.highlightIndex { margin-bottom: 1rem; color: rgba(187,184,241,.72); font: 500 .75rem/1.3 "Mulish", sans-serif; letter-spacing: .04em; }
+.highlights h3 { max-width: none; margin: 0; color: #bbb8f1; font-family: var(--serif); font-size: clamp(1.35rem, 1.9vw, 1.75rem); font-weight: 400; line-height: 1.18; letter-spacing: -.015em; }
+.highlights p { max-width: none; margin: var(--s60) 0 0; color: rgba(255,255,255,.74); font: 400 clamp(.88rem, 1.05vw, 1.05rem)/1.48 "Mulish", sans-serif; }
+.firmStatement { display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: clamp(4.5rem, 6.5vw, 6.5rem); border-radius: var(--r-lg) 0 0 var(--r-lg); background: #bbb8f1; color: #110719; }
+.firmStatement > div { width: 100%; max-width: 33rem; }
+.firmStatement h2 { max-width: none; margin: var(--s60) 0 0; font: 400 clamp(1.9rem, 2.9vw, 2.8rem)/1.07 var(--serif); letter-spacing: 0; text-wrap: balance; }
+.firmStatement .firmBody { position: relative; top: clamp(1.5rem, 2vw, 2rem); max-width: none; margin: var(--s60) 0 0; color: rgba(17,7,25,.72); font-size: clamp(1rem, 1.25vw, 1.18rem); line-height: 1.55; }
+.firmBody > span, .philosophyItem > p > span { display: block; overflow: hidden; }
+.firmBody > span > span, .philosophyItem > p > span > span { display: block; transform: translateY(105%); transition: transform .78s var(--ease-out); }
+.firmStatement.revealVisible .firmBody > span > span { transform: none; transition-delay: .22s; }
+.philosophyItem { --philosophy-delay: .18s; }
+.philosophyItem:nth-child(2) { --philosophy-delay: .3s; }
+.philosophyItem:nth-child(3) { --philosophy-delay: .42s; }
+.philosophyItem:nth-child(4) { --philosophy-delay: .54s; }
+.philosophyItem .lineReveal > span > span { transition-delay: var(--philosophy-delay); }
+.philosophyItem > p > span > span { transition-delay: calc(var(--philosophy-delay) + .12s); }
+.philosophyItem.revealVisible > p > span > span { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .firmBody > span > span, .philosophyItem > p > span > span, .philosophyItem .lineReveal > span > span { transform: none; transition: none; }
+}
+
+/* ---------- portfolio ---------- */
+
+/* Anything still waiting on the client is marked, not invented. */
+.pending { color: #c0392b; }
+.pendingOnGreen { color: #7a1710; }
+
+/* Companies toolbar: focus / region / status menus on the left, sort on the right. */
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--hairline); }
+.menus { display: flex; flex-wrap: wrap; gap: .5rem; }
+.menu { position: relative; }
+.menuTrigger { display: inline-flex; align-items: center; gap: .5rem; padding: .68rem 1.1rem; border: 1px solid var(--hairline); border-radius: 999px; color: var(--muted); font: 500 0.9375rem/1 "Mulish", sans-serif; letter-spacing: normal; text-transform: uppercase; transition: color .22s, border-color .22s, background .22s; }
+.menuTrigger:hover, .menuTriggerOpen { color: var(--brand); border-color: var(--brand); }
+.menuTrigger svg { transition: transform .22s var(--ease-out); }
+.menuTriggerOpen svg { transform: rotate(180deg); }
+.menuCount { display: inline-flex; align-items: center; justify-content: center; min-width: 1.4rem; height: 1.4rem; padding: 0 .45rem; border-radius: 999px; background: var(--brand); color: #fff; font-size: .8125rem; letter-spacing: .04em; text-transform: none; }
+.menuPanel { position: absolute; z-index: 20; top: calc(100% + .5rem); left: 0; min-width: 14rem; padding: .4rem; border: 1px solid var(--hairline); border-radius: var(--r-md); background: #fff; box-shadow: 0 18px 40px -24px rgba(0, 0, 0, .35); }
+.menuOption { display: flex; align-items: center; gap: .6rem; width: 100%; padding: .55rem .7rem; border-radius: var(--r-sm); color: var(--ink-b); font: 400 0.9375rem/1.3 "Mulish", sans-serif; text-align: left; transition: background .18s, color .18s; }
+.menuOption span { width: 1rem; color: var(--brand); }
+.menuOption:hover { background: color-mix(in srgb, var(--brand) 8%, #fff); color: var(--brand); }
+.menuOptionSelected { color: var(--deep-ink); font-weight: 600; }
+
+.resultBar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.5rem; margin-top: 1.1rem; }
+.resultCount { margin: 0; color: var(--muted); font-size: 0.9375rem; letter-spacing: .06em; text-transform: uppercase; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .8rem; border: 1px solid var(--hairline); border-radius: 999px; color: var(--deep-ink); font: 500 0.9375rem/1 "Mulish", sans-serif; transition: color .2s, border-color .2s; }
+.chip:hover { color: var(--brand); border-color: var(--brand); }
+.clearAll { color: var(--muted); font: 500 0.9375rem/1 "Mulish", sans-serif; letter-spacing: .06em; text-decoration: underline; text-underline-offset: .25em; transition: color .2s; }
+.clearAll:hover { color: var(--brand); }
+.empty { margin-top: 2.5rem; color: var(--muted); font-size: 1.0625rem; }
+
+/* Status marker sized like the count chip in the toolbar: a small filled pill, reversed out.
+   The deep navy keeps it from reading as one of the light-blue interactive controls. */
+.badge { position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; padding: .22rem .55rem; border-radius: 999px; background: var(--realized); color: #fff; font: 500 0.75rem/1 "Mulish", sans-serif; letter-spacing: .04em; text-transform: none; }
+.loadMore { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 2.5rem; }
+.load, .loadAll { padding: .85rem 2rem; border: 1px solid var(--hairline); border-radius: 999px; color: var(--muted); font: 500 0.9375rem/1 "Mulish", sans-serif; letter-spacing: normal; text-transform: uppercase; transition: color .22s, border-color .22s; }
+.load:hover, .loadAll:hover { color: var(--brand); border-color: var(--brand); }
+.filterActive { color: var(--paper) !important; background: var(--brand); border-color: var(--brand) !important; }
+
+/* Companies index, after the reference: a grid of colour tiles carrying the company logo in
+   flat white, with the detail held back for the dialog the tile opens. */
+.grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: .4rem; margin-top: 2.5rem; }
+.card { display: block; text-align: left; opacity: 0; transform: translateY(12px); transition: opacity .68s var(--ease-out), transform .68s var(--ease-out); }
+.cardVisible { opacity: 1; transform: translateY(0); }
+.tile { position: relative; container-type: inline-size; display: grid; place-items: center; aspect-ratio: 1 / 1; padding: 1.1rem; background: #fff; overflow: hidden; transition: background .28s; }
+/* Optical sizing: a tall stacked mark and a long wordmark look nothing alike at the same width,
+   so each logo's height is k × --logo-base with k = sqrt(15 / ink aspect ratio), which lands
+   every mark on roughly the same visual area. The grid and the dialog share the table and set
+   their own base. Re-measure the ink box if a logo file is replaced. */
+.logoMark { width: auto; max-width: 100%; height: calc(var(--logo-k, 2.4) * var(--logo-base)); max-height: 100%; object-fit: contain; }
+.logoMark[src$="benthic-genomics.png"] { --logo-k: 5.00; }
+.logoMark[src$="nuvera-medical.png"] { --logo-k: 3.79; }
+/* Optical centring: both marks carry a light wordmark under a heavier icon, so the geometric
+   middle of the file sits lower than the eye reads it. Nudge them up inside the tile. */
+.cardLogo[src$="nuvera-medical.png"] { transform: translateY(-3%); }
+.cardLogo[src$="truvic-medical.png"] { transform: translateY(-5%); }
+.logoMark[src$="truvic-medical.png"] { --logo-k: 2.40; }
+.logoMark[src$="lightningcath.png"] { --logo-k: 1.77; }
+.logoMark[src$="instylla.svg"] { --logo-k: 2.67; }
+.logoMark[src$="adona-medical.svg"] { --logo-k: 2.43; }
+.logoMark[src$="supira-medical.svg"] { --logo-k: 2.38; }
+.logoMark[src$="verge-medical.png"] { --logo-k: 2.33; }
+.logoMark[src$="tulavi-therapeutics.svg"] { --logo-k: 2.28; }
+.logoMark[src$="wiltrom.png"] { --logo-k: 2.16; }
+.logoMark[src$="atia-vision.svg"] { --logo-k: 2.14; }
+.logoMark[src$="rejoni.png"] { --logo-k: 2.13; }
+.logoMark[src$="dynaflex-technologies.png"] { --logo-k: 2.09; }
+.logoMark[src$="akura-medical.svg"] { --logo-k: 2.06; }
+.logoMark[src$="kandu.svg"] { --logo-k: 1.99; }
+.logoMark[src$="tioga-medical.png"] { --logo-k: 1.97; }
+.logoMark[src$="sealonix.png"] { --logo-k: 1.77; }
+.logoMark[src$="imperative-care.svg"] { --logo-k: 1.35; }
+.logoMark[src$="kt-medical.png"] { --logo-k: 1.24; }
+
+.cardLogo { --logo-base: 8.6cqi; object-position: center; filter: grayscale(1); opacity: .72; transition: filter .3s, opacity .3s; }
+/* Hover brings the mark to full colour; the tile and the mark hold their size. */
+.card:hover .cardLogo, .card:focus-visible .cardLogo { filter: grayscale(0); opacity: 1; }
+.tileName { color: var(--muted); font-family: var(--serif); font-size: 1.05rem; line-height: 1.2; text-align: center; }
+
+/* Detail dialog opened by a tile, after the reference panel: the logo sits straight on the
+   panel with a round link button beside it, then labelled blocks divided by hairlines. */
+.dialogBackdrop { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 1.5rem; background: rgba(24, 24, 26, .72); backdrop-filter: blur(4px); animation: fadeIn .24s var(--ease-out) both; }
+.dialog { position: relative; width: min(100%, 34rem); max-height: 86vh; overflow-y: auto; padding: 2.2rem 2.2rem 2.6rem; background: #fff; animation: dialogIn .34s var(--ease-out) both; }
+.dialogClose { position: absolute; top: 1.1rem; right: 1.1rem; width: 2.2rem; height: 2.2rem; border-radius: 999px; color: var(--muted); font-size: 1.4rem; line-height: 1; transition: background .2s, color .2s; }
+.dialogClose:hover { background: color-mix(in srgb, var(--brand) 10%, transparent); color: var(--brand); }
+/* The profile panel is a dark green field, so its close control reverses out too. */
+/* Close on top, previous and next side by side beneath it — marks only, no rings. */
+/* Close, previous, next — stacked top to bottom, the arrows still pointing left and right. */
+.personDialogTools { position: absolute; top: 1.4rem; right: 1.4rem; z-index: 1; display: grid; justify-items: center; gap: .4rem; }
+.personDialogTools button { position: static; width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border: 0; border-radius: 999px; background: none; color: rgba(38, 48, 44, .7); transition: color .22s, background .22s, transform .22s var(--ease-out); }
+.personDialogTools button:hover { background: rgba(255, 255, 255, .28); color: #26302c; }
+/* Focus reads as the same reversed disc the hover draws, not the global blue ring. */
+.personDialogTools button:focus-visible { outline: none; background: rgba(255, 255, 255, .28); color: #26302c; }
+.personDialogTools button:nth-child(2):hover { transform: translateX(-2px); }
+.personDialogTools button:nth-child(3):hover { transform: translateX(2px); }
+.personDialogTools .dialogClose { font-size: 1.5rem; line-height: 1; }
+.dialogTags { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0; padding: 0; list-style: none; }
+.dialogTags li { padding: .32rem .8rem; border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent); border-radius: 999px; color: var(--brand); font: 500 0.9375rem/1.2 "Mulish", sans-serif; }
+.dialogHead { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 7rem; margin-top: 1.2rem; }
+.dialogLogo { --logo-base: 1.39rem; max-width: 72%; object-position: left center; }
+.dialogWordmark { font-family: var(--serif); font-size: 1.9rem; letter-spacing: -.015em; }
+.dialogGlobe { flex: none; display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border: 1px solid var(--hairline); border-radius: 999px; color: var(--ink-b); transition: color .22s, border-color .22s; }
+.dialogGlobe:hover { border-color: var(--brand); color: var(--brand); }
+.dialogBlock { margin-top: 2.6rem; padding-top: .8rem; border-top: 1px solid color-mix(in srgb, var(--ink-b) 12%, transparent); }
+/* The first rule sits further below the logo than the blocks do from each other. */
+.dialogHead + .dialogBlock { margin-top: 4.2rem; }
+.dialogLabel { margin: 0 0 .6rem; color: var(--brand); font-size: 0.9375rem; }
+.dialogLabel span { margin: 0 .15em; opacity: .5; }
+.dialogLabel strong { font-weight: 700; }
+.dialogCopy { margin: 0; color: var(--ink-b); font-size: 1.1875rem; line-height: 1.5; }
+.dialogFacts { margin: 0; padding: 0; list-style: none; display: grid; gap: .45rem; }
+.dialogFacts li { color: var(--ink-b); font-size: 1.0625rem; }
+.dialogFacts strong { color: var(--ink-b); font-weight: 700; }
+.dialogFacts span { margin: 0 .15em; color: var(--ink-b); opacity: .5; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dialogIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+.realized { margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--hairline); display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem 2.5rem; }
+.realized span { color: var(--muted); font: 500 0.9375rem/1 "Mulish", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.realized li { list-style: none; font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: -.005em; }
+.realized ul { display: contents; }
+
+/* ---------- team ---------- */
+.team { background: #d2ddd4; color: var(--ink-b); }
+.team .display { color: var(--ink-b); }
+.team .tag { color: var(--deep-ink); }
+.team .lede { color: color-mix(in srgb, var(--ink-b) 72%, transparent); }
+/* Team, after the reference index: each group is a ruled row — a numeral and its label on the
+   left, the people as portrait cards on the right. */
+.teamRows { margin-top: 4rem; }
+/* No padding on the row: the hover tile meets the rule above and below it with no gap, so the
+   breathing room lives inside the card instead. */
+.teamRow { display: grid; grid-template-columns: 14% 1fr; gap: 1.5rem 2.5rem; padding: 0; border-top: 1px solid color-mix(in srgb, var(--ink-b) 18%, transparent); }
+.teamRow:last-of-type { border-bottom: 1px solid color-mix(in srgb, var(--ink-b) 18%, transparent); }
+/* The label's first line starts level with the top of the portrait disc: the card's 1.9rem of
+   padding, less the half-leading above the cap line so the ink lines up, not the text box. */
+.teamRowHead { padding-top: 1.66rem; }
+.teamRowHead h3 { margin: 0; color: var(--ink-b); font: 500 0.9375rem/1.3 "Mulish", sans-serif; letter-spacing: normal; text-transform: uppercase; }
+.teamRowHead h3 span { display: block; }
+/* Equal columns and a stretched grid, so every tile is the height of the tallest one — the two
+   line title on Michelle Tsai sets it for the whole wall. */
+.teamPeople { display: grid; grid-template-columns: repeat(4, 1fr); align-items: stretch; gap: 1px; margin: 0; padding: 0; list-style: none; }
+.teamPeople li { display: flex; }
+/* Person card: a square-cornered white tile, the portrait given as much of it as possible and
+   the role allowed to wrap in a narrow measure beneath the name. The whole tile opens a profile. */
+.person { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0; width: 100%; min-height: 100%; padding: 1.8rem 1rem 2.8rem; background: transparent; text-align: center; }
+/* The wash sits in its own layer so the portrait and the type stay at full strength. */
+.person::before { content: ""; position: absolute; inset: 0; background: #fff; opacity: 0; transition: opacity .24s; }
+.person:hover::before, .person:focus-visible::before { opacity: .45; }
+.person > * { position: relative; }
+/* The portrait keeps its distance; the name and its title read as one block. */
+.person figure { position: relative; display: grid; place-items: center; width: 12.5rem; max-width: 92%; aspect-ratio: 1 / 1; margin: 0 0 1.9rem; border-radius: 999px; overflow: hidden; background: #d8d3ce; -webkit-mask-image: radial-gradient(circle, #000 0 96.5%, transparent 100%); mask-image: radial-gradient(circle, #000 0 96.5%, transparent 100%); }
+/* The portraits are framed square with headroom baked in, so no crop offset is needed. */
+/* Pulled down a little: the reference crop leaves only a sliver of headroom. */
+.personPhoto { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
+/* Optical crop calibration: head height is normalized first, then every chin meets the same
+   baseline. Eye positions are intentionally allowed to vary with each person's face shape. */
+.portraitMichael { transform: scale(1.02) translateY(0); }
+.portraitWilliam { transform: scale(1.15) translateY(-1%); }
+.portraitJoe { transform: scale(1.01) translateY(.2%); }
+.portraitTj { transform: scale(1.02) translateY(.8%); }
+.portraitFred { transform: scale(1.02) translateY(4.8%); }
+.portraitMichelleTsai { transform: scale(1.01) translateY(.2%); }
+.portraitJeremy { transform: scale(1.02) translateY(1.8%); }
+.portraitBin { transform: scale(1.24) translateY(4.5%); }
+.portraitJonathan { transform: scale(1.15) translateY(-2.5%); }
+.portraitHank { transform: scale(1.02) translateY(2.7%); }
+.personName { display: block; margin: 0; color: #1f7145; font-family: var(--serif); font-size: 1.3rem; line-height: 1.2; letter-spacing: -.01em; }
+/* A narrow measure so long titles wrap instead of setting the width of the whole tile. */
+.personRole { display: block; max-width: 11rem; margin: .45rem auto 0; color: var(--muted); font: 400 0.9375rem/1.35 "Mulish", sans-serif; text-wrap: balance; }
+
+/* Profile dialog, after the reference partner page: a green field with the portrait on the left
+   and the name set very large beside it. Everything sits centred in the panel. */
+.personDialog { width: min(100%, 56rem); padding: 3.4rem 3rem; background: #54b18a; }
+/* Portrait at the list size, held to the top-left: its circle starts level with the cap line
+   of the name beside it. */
+.personDialogMain { display: grid; grid-template-columns: 12.5rem 1fr; align-items: start; gap: 2.6rem; }
+.personDialogPhoto { width: 12.5rem; aspect-ratio: 1 / 1; margin: .18em 0 0; border-radius: 999px; overflow: hidden; background: #d8d3ce; -webkit-mask-image: radial-gradient(circle, #000 0 96.5%, transparent 100%); mask-image: radial-gradient(circle, #000 0 96.5%, transparent 100%); }
+.personDialogPhoto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
+.personDialogName { margin: 0; color: #26302c; font-family: var(--serif); font-size: clamp(2.4rem, 4.6vw, 3.6rem); font-weight: 400; line-height: 1.02; letter-spacing: -.02em; }
+.personDialogRole { margin: .6rem 0 0; color: #26302c; font-family: var(--serif); font-size: 1.5rem; font-weight: 400; }
+.personDialogBio { margin: 1.4rem 0 0; color: #26302c; font-size: 1.0625rem; line-height: 1.6; }
+.personDialogBio:first-of-type { margin-top: 2rem; }
+/* Long biographies scroll inside the panel rather than pushing it past the viewport. */
+.personDialog { max-height: 88vh; overflow-y: auto; }
+
+.personDialogFoot { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; margin-top: 2.4rem; padding-top: 1.8rem; border-top: 1px solid rgba(38, 48, 44, .28); }
+/* Circular outlined icon buttons, as in the reference. */
+.personDialogFoot a { display: grid; place-items: center; width: 3rem; height: 3rem; border: 1px solid rgba(38, 48, 44, .35); border-radius: 999px; color: #26302c; transition: color .22s, border-color .22s, background .22s; }
+.personDialogFoot a:hover { border-color: #26302c; background: #26302c; color: #54b18a; }
+
+/* ---------- news ---------- */
+/* Story index: a pipe-separated filter above a ruled list — milestone label on the left, the
+   headline in the middle, the publisher's own picture on the right. */
+/* One colour per milestone, taken from the reference palette. Each pill and each row tag carries
+   its own; the type is set to --tag-ink so a light fill never leaves pale type on pale ground. */
+.storyFilter, .storyTable { --tag-all: var(--brand); --tag-financing: #bf8b2a; --tag-clinical: #489575; --tag-regulatory: #867dce; --tag-commercial: #d44d27; }
+/* Same pill family as the companies toolbar: hairline outline, uppercase, and the chosen one
+   filled with that category's colour. */
+.storyFilter { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: 2rem; }
+.storyFilter button { padding: .68rem 1.1rem; border: 1px solid var(--hairline); border-radius: 999px; color: var(--muted); font: 500 0.9375rem/1 "Mulish", sans-serif; letter-spacing: normal; text-transform: uppercase; transition: color .22s, border-color .22s, background .22s; }
+.storyFilter button:hover { color: var(--tag-ink, var(--brand)); border-color: var(--tag, var(--brand)); }
+.storyFilter button:nth-child(1) { --tag: var(--tag-all); --tag-ink: var(--tag-all); }
+.storyFilter button:nth-child(2) { --tag: var(--tag-financing); --tag-ink: var(--tag-financing); }
+.storyFilter button:nth-child(3) { --tag: var(--tag-clinical); --tag-ink: var(--tag-clinical); }
+.storyFilter button:nth-child(4) { --tag: var(--tag-regulatory); --tag-ink: var(--tag-regulatory); }
+.storyFilter button:nth-child(5) { --tag: var(--tag-commercial); --tag-ink: var(--tag-commercial); }
+/* Scoped to the toolbar so it outranks `.storyFilter button`, which would otherwise keep the
+   muted grey and leave the chosen pill looking blank. */
+.storyFilter .storyFilterActive, .storyFilter .storyFilterActive:hover { border-color: var(--tag); background: var(--tag); color: #fff; }
+
+/* Story table: company, story, milestone, focus, and an outbound arrow held to the right edge. */
+.storyTable { width: 100%; margin-top: 2.2rem; border-collapse: collapse; text-align: left; }
+/* Column heads: the Realized badge's size, in the logo blue. */
+.storyTable th { padding: 0 3.5rem 1rem 0; border-bottom: 1px solid var(--hairline); color: var(--brand); font: 500 0.75rem/1.3 "Mulish", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.storyTable td { padding: 1.5rem 3.5rem 2.4rem 0; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+.storyTable tr { transition: background .24s; }
+.storyTable tbody tr:hover { background: color-mix(in srgb, var(--brand) 5%, transparent); }
+
+.storyCompanyCell { width: 13rem; color: var(--ink-b); font: 600 1.0625rem/1.3 "Mulish", sans-serif; }
+/* Date and publisher are the same rank of detail, so they share one size. */
+.storyCompanyCell time { display: block; margin-top: .8rem; color: var(--muted); font: 400 0.875rem/1.3 "Mulish", sans-serif; }
+/* The headline carries the news, so it leads the row and takes the flexible column. */
+.storyTitleCell { min-width: 22rem; }
+.storyTitleCell a { color: var(--ink-b); font-family: var(--serif); font-size: clamp(1.3rem, 1.7vw, 1.5rem); line-height: 1.35; letter-spacing: -.008em; }
+/* The headline is the row's only link; the arrow at the end is decoration for the same target. */
+.storyTitleCell a::after { content: ""; position: absolute; inset: 0; }
+.storyTable tbody tr { position: relative; }
+/* Milestone tag and publisher sit together under the headline. */
+.storyTags { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem .8rem; margin-top: .8rem; }
+/* Filled like the Realized badge: the category colour solid, the label reversed out of it. */
+.storyType { padding: .28rem .7rem; border-radius: 999px; background: var(--tag); color: #fff; font: 500 0.75rem/1.2 "Mulish", sans-serif; letter-spacing: .04em; text-transform: none; }
+.storyTypeFinancing { --tag: #bf8b2a; }
+.storyTypeClinical { --tag: #489575; }
+.storyTypeRegulatory { --tag: #867dce; }
+.storyTypeCommercial { --tag: #d44d27; }
+.storySource { color: var(--muted); font: 400 0.875rem/1.3 "Mulish", sans-serif; }
+
+/* Pager: ten stories to a page. */
+.storyPager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+.storyPager p { margin: 0; color: var(--muted); font: 400 0.9375rem/1 "Mulish", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.storyPager div { display: flex; flex-wrap: wrap; gap: .4rem; }
+.storyPager button { min-width: 2.6rem; padding: .6rem .9rem; border: 1px solid var(--hairline); border-radius: 999px; color: var(--muted); font: 500 0.9375rem/1 "Mulish", sans-serif; transition: color .22s, border-color .22s, background .22s, opacity .22s; }
+.storyPager button:hover:not(:disabled) { color: var(--brand); border-color: var(--brand); }
+.storyPager button:disabled { opacity: .35; cursor: default; }
+.storyPager .storyPageActive, .storyPager .storyPageActive:hover { border-color: var(--brand); background: var(--brand); color: #fff; }
+.storyLinkCell { width: 3rem; padding-right: 0; text-align: right; }
+.storyCompanyCell, .storyTable th:last-child { padding-right: 0; }
+.storyLinkCell svg { display: inline-block; color: var(--muted); transition: color .22s, transform .28s var(--ease-out); }
+.storyTable tbody tr:hover .storyLinkCell svg { color: var(--brand); transform: translate(.2rem, -.2rem); }
+
+/* ---------- contact + footer ---------- */
+.tail .display { color: var(--paper); }
+.tail .contactPoints dd { color: rgba(243, 243, 242, .86); }
+.contactPoints { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 3.5rem; }
+.contactPoints a { color: inherit; text-decoration: underline; text-underline-offset: .25em; transition: color .22s; }
+.contactPoints a:hover { color: var(--brand); }
+.tail .pending { color: #ff9b8f; }
+.contactPoints div { position: relative; padding-top: 1.1rem; }
+.contactPoints div::before { content: ""; position: absolute; inset: 0 0 auto; height: 1px; background: rgba(243, 243, 242, .22); transform: scaleX(0); transform-origin: left; transition: transform .85s var(--ease-out); }
+.contactIn .contactPoints div::before { transform: none; }
+/* Same small blue label as the story table's column heads. */
+.contactPoints dt { color: var(--brand); font: 500 0.75rem/1.3 "Mulish", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.contactPoints dd { margin: .6rem 0 0; font-size: 1.1rem; font-weight: 300; }
+
+/* The word climbs out of its mask and moves directly into the title position. */
+.contactStage { width: min(92vw, var(--wide)); margin: 0 auto; padding-bottom: .3em; overflow: hidden; font: 300 clamp(3.5rem, 15.5vw, 13rem)/.82 var(--display-face); }
+.contactMark { display: flex; justify-content: space-between; margin: 0; color: var(--paper); letter-spacing: 0; transform: translateY(125%); transition: transform 1.1s var(--ease-out); will-change: transform; }
+.markIn { transform: translateY(18%); }
+.markUp { transform: translateY(0); }
+
+/* The content follows the word immediately as one continuous reveal. */
+.contact { background: transparent; }
+.contact > .section { padding-top: var(--s60); }
+/* Reverse cascade, as the reference runs it: the block nearest the bottom starts first. */
+.contact > .section > * { opacity: 0; transform: translateY(18px); transition: opacity .78s var(--ease-out), transform .78s var(--ease-out); }
+.contact > .section > *:nth-child(1) { transition-delay: 0s; }
+.contactIn > .section > * { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .contactMark { transform: none; transition: none; }
+  .contact > .section > * { opacity: 1; transform: none; transition: none; }
+  .contactPoints div::before { transform: none; transition: none; }
+}
+
+/* Reversed-out panel: rules under the fields rather than boxes, so the type carries the form. */
+.form { position: relative; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem 2.5rem; margin-top: 3rem; padding: clamp(1.75rem, 4vw, 3rem); background: #bed7f6; }
+.formLabel { grid-column: 1 / -1; margin: 0 0 .5rem; color: var(--navy-900); font: 400 clamp(1.65rem, 2.2vw, 2rem)/1.1 var(--serif); letter-spacing: -.015em; text-transform: none; }
+.form label { display: grid; gap: .5rem; color: var(--navy-900); font: 500 0.75rem/1.3 "Mulish", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.form input, .form select, .form textarea { padding: .55rem 0; border: 0; border-bottom: 1px solid rgba(23,32,28,.38); border-radius: 0; background: transparent; color: #17201c; font: 400 1.0625rem/1.4 "Mulish", sans-serif; letter-spacing: normal; text-transform: none; transition: border-color .22s; }
+.form select { appearance: none; }
+.form select option { color: var(--ink-b); }
+.form input::placeholder, .form textarea::placeholder { color: rgba(23,32,28,.52); }
+.form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible { outline: none; border-bottom-color: #17201c; }
+.form textarea { resize: vertical; }
+.formFoot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem 1.5rem; margin-top: .5rem; }
+.form .pillSolid { background: transparent; border-color: #17201c; color: #17201c; letter-spacing: normal; }
+.form .pillSolid:hover { background: #17201c; border-color: #17201c; color: #fff; }
+.wide { grid-column: 1 / -1; }
+.phoneRow { display: grid; grid-template-columns: 7.5rem 1fr; gap: .5rem; }
+.form button { grid-column: 1 / -1; justify-self: start; }
+.sent { grid-column: 1 / -1; margin: 0; color: var(--brand); font-size: .95rem; }
+
+/* Full-bleed closing band in the normal document flow: Contact and Footer scroll continuously
+   after Story instead of sitting beneath the page as a sticky reveal layer. */
+.pageBody { background: var(--paper); }
+.tail { position: relative; padding: var(--section-tail) 0 0; background: #26262a; color: var(--paper); }
+.footer { margin-top: 2rem; padding: 3.5rem clamp(1.25rem, 4vw, 3rem); }
+.footerInner { width: min(92vw, var(--wide)); margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr) minmax(14rem, auto); gap: 3rem; }
+.footerGroup ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .85rem; }
+.footerGroup a { color: rgba(243,243,242,.88); font-size: .98rem; transition: color .22s; }
+.footerGroup a:hover { color: var(--brand); }
+.footerIdentity img { width: 8rem; height: auto; }
+.footerIdentity p { margin: 1.6rem 0 0; color: rgba(243,243,242,.62); font: 400 0.9375rem/1.6 "Mulish", sans-serif; }
+
+/* Headline reveal: each line is masked and grows up from below, one after the other. */
+.lineReveal > span { display: block; overflow: hidden; padding-bottom: .18em; margin-bottom: -.08em; }
+.lineReveal > span > span { display: block; transform: translateY(105%); transition: transform .8s var(--ease-out); }
+.lineReveal > span:nth-child(2) > span { transition-delay: .08s; }
+.lineReveal > span:nth-child(3) > span { transition-delay: .16s; }
+.lineReveal > span:nth-child(4) > span { transition-delay: .24s; }
+.lineReveal.revealVisible > span > span { transform: none; }
+
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .76s var(--ease-out), transform .76s var(--ease-out); }
+/* Pillars grow up out of a mask, exactly like the section headline. They hold until that
+   headline has finished (line 2 starts at .1s and runs .9s), then step a third of a reveal
+   apart, so each starts as the one before it is a third of the way up. */
+.pillars .pillar { --d: .18s; }
+.pillars .pillar:nth-child(2) { --d: .3s; }
+.pillars .pillar:nth-child(3) { --d: .42s; }
+.pillars .pillar:nth-child(4) { --d: .54s; }
+.pillar h3 > span, .pillar p > span { display: block; overflow: hidden; padding-bottom: .08em; }
+.pillar h3 > span > span, .pillar p > span > span { display: block; transform: translateY(105%); transition: transform .78s var(--ease-out); transition-delay: var(--d); }
+.pillar h3 > span:nth-child(2) > span { transition-delay: calc(var(--d) + .08s); }
+.pillar p > span > span { transition-delay: calc(var(--d) + .14s); }
+.pillar.revealVisible h3 > span > span, .pillar.revealVisible p > span > span { transform: none; }
+@media (prefers-reduced-motion: reduce) { .pillar h3 > span > span, .pillar p > span > span { transition-delay: 0s; } }
+.revealVisible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1023.98px) {
+  .section { width: calc(100% - 2.5rem); padding: 4.5rem 0; }
+  .firm { margin: 5.25rem 0 3.75rem; }
+  .firm > .section { padding-top: 2.5rem; }
+  .header { gap: .75rem; padding: .85rem 1rem; }
+  .brand img { width: 6.25rem; }
+  .nav { display: none; }
+  .mobileMenuButton { margin-left: auto; width: 2.4rem; height: 2.4rem; flex: none; display: grid; place-content: center; gap: .38rem; border: 1px solid var(--brand); border-radius: 50%; color: var(--brand); }
+  .mobileMenuButton:focus-visible { outline: none; background: color-mix(in srgb, var(--brand) 10%, transparent); border-color: currentColor; }
+  .mobileMenuButton span { width: .95rem; height: 1px; display: block; background: currentColor; transition: transform .3s var(--ease-out); }
+  .mobileMenuButtonOpen span:first-child { transform: translateY(.22rem) rotate(45deg); }
+  .mobileMenuButtonOpen span:last-child { transform: translateY(-.22rem) rotate(-45deg); }
+  .mobileNav { position: fixed; z-index: 38; inset: 4.1rem 0 auto; padding: 1.5rem 1.25rem 2rem; display: grid; gap: 0; border-bottom: 1px solid var(--hairline); background: color-mix(in srgb, #fff 96%, transparent); backdrop-filter: blur(14px); opacity: 0; transform: translateY(-1rem); pointer-events: none; transition: opacity .35s var(--ease-out), transform .35s var(--ease-out); }
+  .mobileNav a { padding: 1rem 0; border-bottom: 1px solid var(--hairline); color: var(--ink-b); font: 400 1.35rem/1.1 var(--serif); }
+  .mobileNav a:last-child { border-bottom: 0; }
+  .mobileNavOpen { opacity: 1; transform: none; pointer-events: auto; }
+  .headerCta { height: 2.4rem; padding: 0 1rem; display: inline-flex; align-items: center; font-size: .75rem; letter-spacing: .04em; }
+  .backToTop { right: .75rem; bottom: .75rem; width: 2.275rem; height: 2.275rem; }
+  .hero { padding: 7rem 0 .75rem; }
+  .heroHuman .hero { padding-top: 6.5rem; }
+  .heroHumanIntro { margin-bottom: 2rem; grid-template-columns: 1fr; gap: 1.5rem; }
+  .heroHumanLabel { margin-bottom: .65rem; font-size: .68rem; }
+  .heroHumanIntro h1 { font-size: clamp(3rem, 8vw, 4.5rem); }
+  .heroHumanIntro > p:last-child { max-width: 32rem; margin: 0; font-size: .95rem; }
+  .heroHuman .heroFigure { aspect-ratio: 4 / 3; }
+  .heroHuman .slogan { left: 1rem; bottom: 1rem; font-size: .64rem; }
+  .heroHuman .carouselControls { grid-column: 1 / -1; justify-self: center; }
+  .contactPoints, .firmInner { grid-template-columns: 1fr; }
+  .firmInner { gap: 2px; }
+  .firmEvidence, .firmStatement { min-height: auto; padding: 2rem 1.5rem; }
+  .firmStatement { min-height: 32rem; justify-content: flex-start; border-radius: var(--r-md) var(--r-md) 0 0; }
+  .firmStatement .firmBody { top: 1rem; }
+  .firmEvidence { border-radius: 0 0 var(--r-md) var(--r-md); }
+  .highlights li { min-height: 10rem; padding: 1rem; justify-content: flex-start; }
+  .highlightIndex { min-height: 1em; margin-bottom: 1rem; }
+  .highlights h3 { min-height: calc(2 * 1.18em); }
+  .quoteFigure { justify-self: start; width: min(100%, 16rem); }
+  .heroFigure { margin-top: 0; aspect-ratio: 4 / 3; border-radius: var(--r-md); }
+  .heroCarousel { gap: 1rem; }
+  .carouselControls { gap: .65rem; }
+  .carouselArrow { width: 2rem; height: 2rem; }
+  .stats { grid-template-columns: repeat(2, 1fr); margin-top: 1.75rem; }
+  .heroCarousel { gap: 1rem; }
+  .slogan { margin-bottom: 2rem; }
+  .stat { padding: 1.25rem 1rem 1rem 0; }
+  .stat + .stat { padding-left: 1rem; }
+  .stat:nth-child(odd) { padding-left: 0; }
+  .stat:nth-child(2n) { border-right: 0; }
+  .stat:nth-child(-n+2) { border-bottom: 1px solid var(--hairline); }
+  .stat span { font-size: 0.9375rem; }
+  .grid { grid-template-columns: repeat(3, 1fr); gap: .4rem; }
+  .toolbar { margin-top: 4rem; }
+  .teamRow { grid-template-columns: 1fr; gap: 0; padding: 0 0 2rem; }
+  .teamRowHead { min-height: 7rem; padding: 2rem 0; display: grid; place-items: center; text-align: center; }
+  .teamRowHead h3 { font: 400 1.5rem/1.15 var(--serif); letter-spacing: 0; white-space: nowrap; text-transform: none; }
+  .teamRowHead h3 span { display: inline; }
+  .teamRowHead h3 span + span::before { content: " "; }
+  .teamPeople { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .personDialog { padding: 2.4rem 1.5rem; }
+  .personDialogMain { grid-template-columns: 1fr; gap: 1.5rem; }
+  .personDialogPhoto { justify-self: center; width: min(100%, 10rem); margin-top: 0; }
+  .personDialogMain > div { padding-top: 1.5rem; border-top: 1px solid rgba(38,48,44,.28); }
+  .pillars { grid-template-columns: repeat(2, 1fr); gap: 4.5rem 0; }
+  .pillar { min-height: 0; padding: 0 1rem; }
+  .pillar:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .pillar p { min-height: 0; margin-bottom: 0; }
+  .storyTable, .storyTable tbody { display: block; width: 100%; }
+  .storyTable thead { display: none; }
+  .storyTable tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(9rem, 28%); grid-template-rows: auto auto; column-gap: 2rem; padding: 1.5rem 0 2rem; border-bottom: 1px solid var(--hairline); }
+  .storyTable td { width: auto; padding: 0; border: 0; }
+  .storyTitleCell { grid-column: 1; grid-row: 1 / span 2; min-width: 0; }
+  .storyCompanyCell { grid-column: 2; grid-row: 1; width: auto; }
+  .storyLinkCell { grid-column: 2; grid-row: 1; align-self: start; margin-top: 0; text-align: right; }
+  .footer { margin-top: 1.5rem; padding: 3.5rem 1.25rem 2.5rem; }
+  .footerInner { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+  .footerIdentity { grid-column: 1 / -1; }
+  .form { grid-template-columns: 1fr; margin-top: 2rem; padding: 1.5rem 1.5rem 3rem; }
+  .contactMark { font-size: clamp(2.6rem, 15vw, 6rem); }
+}
+
+@media (min-width: 641px) and (max-width: 1023.98px) {
+  .aboutInner { grid-template-columns: 1.35fr .65fr; }
+  .quoteFigure { align-self: start; justify-self: end; }
+}
+
+@media (max-width: 640px) {
+  .aboutInner { grid-template-columns: 1fr; }
+  .heroHumanIntro h1 { font-size: clamp(2.25rem, 10.5vw, 2.8rem); line-height: .98; }
+  .heroHumanIntro h1 span { display: block; }
+  .heroHumanIntro > p:last-child { max-width: 21rem; font-size: .9rem; }
+  .heroHuman .slogan { display: none; }
+  .dialogWordmark { font-size: 2.15rem; }
+  .dialogCopy { font-size: 17px; line-height: 1.55; }
+  .dialogFacts { grid-template-columns: 1fr 1fr; align-items: baseline; gap: .45rem 1rem; }
+  .dialogFacts li:last-child { justify-self: end; text-align: right; }
+  .storyTable tr { grid-template-columns: minmax(0, 1.45fr) minmax(7rem, .75fr); column-gap: 1.5rem; }
+  .storyTitleCell a { font-size: 1.08rem; line-height: 1.35; }
+  .storyTags { margin-top: 1.35rem; }
+  .storyCompanyCell { font-size: .9375rem; }
+}

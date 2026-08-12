@@ -21,6 +21,15 @@ const versions = [
     image: "/images/portal/version-b.png",
     theme: "light",
   },
+  {
+    index: "03",
+    eyebrow: "Concept C · Human",
+    title: "Founder Stories",
+    description: "A warmer evolution of the editorial system, bringing founders, clinicians and the lived reality of building new care into the foreground.",
+    href: "/c",
+    image: "/images/portal/version-c.png",
+    theme: "warm",
+  },
 ] as const;
 
 export default function VersionPortal() {
@@ -37,7 +46,7 @@ export default function VersionPortal() {
       <section className={styles.intro}>
         <p className={styles.kicker}><span aria-hidden />AMED Ventures</p>
         <h1>Select a direction<br />to preview.</h1>
-        <p className={styles.lede}>Two complete website approaches, kept side by side for review. Each preview opens in a new tab so this portal stays available.</p>
+        <p className={styles.lede}>Three complete website approaches, kept side by side for review. Each preview opens in a new tab so this portal stays available.</p>
       </section>
 
       <section className={styles.versionGrid} aria-label="Website concepts">
