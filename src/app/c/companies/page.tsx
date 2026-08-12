@@ -123,7 +123,7 @@ export default function CompaniesPage() {
       <CHeader />
       <BackToTop />
       <main className={styles.companiesPage}>
-        <PageWord>PORTFOLIO</PageWord>
+        <PageWord tone="dark">PORTFOLIO</PageWord>
         <div className={`${styles.section} ${styles.standaloneSection}`}>
           <div className={styles.pageIntro}>
             <p className={styles.tag}>Portfolio</p>

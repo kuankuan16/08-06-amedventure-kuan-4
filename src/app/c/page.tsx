@@ -1,50 +1,24 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
-  type CSSProperties,
-  type PointerEvent as ReactPointerEvent,
   useEffect,
   useRef,
   useState,
 } from "react";
 import {
-  IconArrowLeft,
   IconArrowRight,
   IconArrowUpRight,
 } from "@/components/icons";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { newsTypes, portfolioNews, type NewsType } from "@/data/portfolio-news";
-import { companies } from "@/data/portfolio";
 import { BackToTop, CFooter, CHeader } from "./components";
 import { taipeiAddress, teamEmail, usOffice } from "./content";
+import { FocusParticleField } from "./FocusParticleField";
 import { FocusArtwork, type FocusArtworkKind } from "./FocusArtwork";
+import { HeroMorphField } from "./HeroMorphField";
 import { RevealHeading } from "./RevealHeading";
 import styles from "./page.module.css";
-
-const heroSlides = [
-  {
-    src: "/images/amed/hero-c-lounge.jpg",
-    alt: "MedTech founders and investors in a warm, naturally lit conversation",
-  },
-  {
-    src: "/images/amed/hero-c-whiteboard.jpg",
-    alt: "A founder and investor working through a healthcare product roadmap",
-  },
-  {
-    src: "/images/amed/hero-c-walk.jpg",
-    alt: "Colleagues walking and talking through a bright venture office",
-  },
-  {
-    src: "/images/amed/hero-c-boardroom.jpg",
-    alt: "An investment team reviewing a MedTech company together",
-  },
-] as const;
-
-const heroPortfolioLogos = companies
-  .filter((company) => company.logo)
-  .slice(0, 14);
 
 const featuredFocusAreas: {
   number: string;
@@ -100,6 +74,7 @@ function InvestmentFocus() {
       id="investment-focus"
       aria-labelledby="investment-focus-heading"
     >
+      <FocusParticleField className={styles.focusParticleField} />
       <div className={styles.focusInner}>
         <div className={styles.focusHeading}>
           <p className={styles.focusEyebrow}>AMED Ventures</p>
@@ -264,14 +239,6 @@ function KineticPitchHeading({ text }: { text: string }) {
 }
 
 export default function ProposalC() {
-  const reducedMotion = usePrefersReducedMotion();
-  const [heroSlide, setHeroSlide] = useState(0);
-  const [heroPointer, setHeroPointer] = useState({
-    x: 50,
-    y: 50,
-    tiltX: 0,
-    tiltY: 0,
-  });
   const [newsFilter, setNewsFilter] = useState<NewsType | "All">("All");
   const [newsPage, setNewsPage] = useState(0);
   const pageRef = useReveal<HTMLDivElement>(
@@ -292,174 +259,41 @@ export default function ProposalC() {
     (page + 1) * STORIES_PER_PAGE,
   );
 
-  useEffect(() => {
-    if (reducedMotion) return;
-    const timer = window.setInterval(
-      () => setHeroSlide((current) => (current + 1) % heroSlides.length),
-      6500,
-    );
-    return () => window.clearInterval(timer);
-  }, [reducedMotion]);
-
-  const moveHero = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (reducedMotion || event.pointerType === "touch") return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = Math.max(
-      0,
-      Math.min(1, (event.clientX - bounds.left) / bounds.width),
-    );
-    const y = Math.max(
-      0,
-      Math.min(1, (event.clientY - bounds.top) / bounds.height),
-    );
-    setHeroPointer({
-      x: x * 100,
-      y: y * 100,
-      tiltX: (0.5 - y) * 1.8,
-      tiltY: (x - 0.5) * 2.4,
-    });
-  };
-  const resetHero = () => setHeroPointer({ x: 50, y: 50, tiltX: 0, tiltY: 0 });
-  const stepHero = (direction: 1 | -1) =>
-    setHeroSlide(
-      (current) =>
-        (current + direction + heroSlides.length) % heroSlides.length,
-    );
-
   return (
     <div className={styles.page} ref={pageRef} id="top">
       <CHeader />
       <BackToTop />
       <main className={styles.pageBody}>
-        <section className={`${styles.heroBand} ${styles.heroHuman}`}>
-          <div className={`${styles.section} ${styles.heroFigaro}`}>
-            <div
-              className={styles.heroSloganRail}
-              aria-label="The right capital and the right partnership change how people live, heal and thrive."
-            >
-              {[0, 1].map((group) => (
-                <div
-                  className={styles.heroSloganGroup}
-                  aria-hidden={group === 1}
-                  key={group}
-                >
-                  <span>
-                    The right capital and the right <em>partnership</em> change
-                    how people live, heal and thrive.
-                  </span>
-                  <i aria-hidden="true" />
-                </div>
-              ))}
-            </div>
-            <div className={styles.heroCinema}>
-              <div
-                className={styles.heroV3Frame}
-                onPointerMove={moveHero}
-                onPointerLeave={resetHero}
-                style={
-                  {
-                    "--hero-pointer-x": `${heroPointer.x}%`,
-                    "--hero-pointer-y": `${heroPointer.y}%`,
-                    transform: `perspective(80vw) rotateX(${heroPointer.tiltX}deg) rotateY(${heroPointer.tiltY}deg)`,
-                  } as CSSProperties
-                }
-              >
-                {heroSlides.map((slide, index) => (
-                  <Image
-                    className={`${styles.heroV3Slide} ${index === heroSlide ? styles.heroV3SlideActive : ""}`}
-                    src={slide.src}
-                    alt={index === heroSlide ? slide.alt : ""}
-                    fill
-                    priority={index === 0}
-                    sizes="(max-width: 640px) 100vw, 92vw"
-                    key={slide.src}
-                  />
-                ))}
-                <div className={styles.heroCinemaCopy}>
-                  <p>
-                    AMED Ventures is a venture and growth capital investment
-                    firm dedicated to the MedTech sector.
-                  </p>
-                  <Link className={styles.heroCta} href="/c/companies">
-                    Explore our companies <IconArrowRight />
-                  </Link>
-                </div>
-                <div
-                  className={styles.heroV3Controls}
-                  role="group"
-                  aria-label="Choose a hero image"
-                >
-                  <button
-                    className={styles.heroV3Arrow}
-                    type="button"
-                    onClick={() => stepHero(-1)}
-                    aria-label="Previous image"
-                  >
-                    <IconArrowLeft />
-                  </button>
-                  <div className={styles.heroV3Dots}>
-                    {heroSlides.map((slide, index) => (
-                      <button
-                        type="button"
-                        key={slide.src}
-                        onClick={() => setHeroSlide(index)}
-                        aria-label={`Show image ${index + 1}`}
-                        aria-current={index === heroSlide}
-                      >
-                        <span />
-                      </button>
-                    ))}
-                  </div>
-                  <button
-                    className={styles.heroV3Arrow}
-                    type="button"
-                    onClick={() => stepHero(1)}
-                    aria-label="Next image"
-                  >
-                    <IconArrowRight />
-                  </button>
-                </div>
+        <section className={styles.heroMorph} data-morph-hero>
+          <div className={styles.heroMorphSticky}>
+            <HeroMorphField className={styles.heroMorphField} />
+            <div className={`${styles.section} ${styles.heroMorphContent}`}>
+              <p className={styles.heroMorphEyebrow}>
+                <i aria-hidden="true" />
+                AMED Ventures · Medical technology venture capital
+              </p>
+              <h1>
+                <span><span>The right capital and</span></span>
+                <span><span>the right <em>partnership</em></span></span>
+                <span><span>change how people live,</span></span>
+                <span><span>heal and thrive.</span></span>
+              </h1>
+              <div className={styles.heroMorphSupport}>
+                <p>
+                  AMED Ventures is a venture and growth capital investment firm
+                  dedicated to the MedTech sector.
+                </p>
+                <Link className={styles.heroMorphCta} href="/c/companies">
+                  Explore our portfolio <IconArrowRight />
+                </Link>
+              </div>
+              <div className={styles.heroMorphMeta} aria-label="Investment profile">
+                <p><strong>US · Asia</strong><span>Investment footprint</span></p>
+                <p><strong>Early–Growth</strong><span>Stage focus</span></p>
               </div>
             </div>
-            <div
-              className={styles.heroPositions}
-              aria-label="Investment profile"
-            >
-              <div className={styles.heroPosition}>
-                <strong>US · Asia</strong>
-                <span>Investment footprint</span>
-              </div>
-              <div className={styles.heroPosition}>
-                <strong>Early–Growth</strong>
-                <span>Stage focus</span>
-              </div>
-            </div>
-            <div
-              className={styles.heroLogoRail}
-              aria-label="AMED Ventures portfolio companies"
-            >
-              {[0, 1].map((group) => (
-                <div
-                  className={styles.heroLogoGroup}
-                  aria-hidden={group === 1}
-                  key={group}
-                >
-                  {heroPortfolioLogos.map((company) => (
-                    <span
-                      className={styles.heroLogoItem}
-                      key={`${group}-${company.name}`}
-                    >
-                      <Image
-                        src={company.logo!}
-                        alt={group === 0 ? company.name : ""}
-                        width={210}
-                        height={72}
-                        sizes="12vw"
-                      />
-                    </span>
-                  ))}
-                </div>
-              ))}
+            <div className={styles.heroMorphScroll} aria-hidden="true">
+              <span>Scroll</span><i><b /></i>
             </div>
           </div>
         </section>
