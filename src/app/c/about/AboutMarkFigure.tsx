@@ -110,7 +110,7 @@ export function AboutMarkFigure() {
           </clipPath>
         </defs>
         <image
-          href="/images/amed/about-hands-medtech.png"
+          href="/images/amed/about-hands-medtech.jpg"
           x="-34"
           y="-52"
           width="462"
