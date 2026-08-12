@@ -122,10 +122,10 @@ export default function CompaniesPage() {
       <CHeader />
       <BackToTop />
       <main className={styles.companiesPage}>
-        <PageWord>COMPANIES</PageWord>
+        <PageWord>PORTFOLIO</PageWord>
         <div className={`${styles.section} ${styles.standaloneSection}`}>
           <div className={styles.pageIntro}>
-            <p className={styles.tag}>Companies</p>
+            <p className={styles.tag}>Portfolio</p>
             <h1 className={styles.display}>
               Every company we back represents
               <br />
@@ -181,8 +181,8 @@ export default function CompaniesPage() {
           <div className={styles.resultBar}>
             <p className={styles.resultCount} aria-live="polite">
               {activeFilters.length > 0
-                ? `Showing ${shownCompanies.length} of ${visibleCompanies.length} companies`
-                : "Companies"}
+                ? `Showing ${shownCompanies.length} of ${visibleCompanies.length} portfolio companies`
+                : "Portfolio"}
             </p>
             {activeFilters.length > 0 && (
               <div className={styles.chips}>

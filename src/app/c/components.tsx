@@ -10,7 +10,7 @@ import { taipeiAddress, usOffice } from "./content";
 
 const links = [
   ["About", "/c/about"],
-  ["Companies", "/c/companies"],
+  ["Portfolio", "/c/companies"],
   ["Team", "/c/team"],
 ] as const;
 
@@ -140,7 +140,7 @@ export function CFooter() {
               <Link href="/c/about">About</Link>
             </li>
             <li>
-              <Link href="/c/companies">Companies</Link>
+              <Link href="/c/companies">Portfolio</Link>
             </li>
             <li>
               <Link href="/c#news">Story</Link>
