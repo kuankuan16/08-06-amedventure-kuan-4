@@ -126,19 +126,19 @@ const menuClasses = {
 /* Philosophy keeps the brief's four facts, with a short editorial heading for each. */
 const firmHighlights = [
   {
-    title: "Focused by design",
+    title: ["Focused by", "design"],
     copy: "A venture capital firm dedicated to MedTech and healthcare.",
   },
   {
-    title: "Built across markets",
+    title: ["Built across", "markets"],
     copy: "A global investment portfolio spanning North America and Asia.",
   },
   {
-    title: "Investing across stages",
+    title: ["Investing", "across stages"],
     copy: "Active investments from early-stage through growth-stage companies.",
   },
   {
-    title: "Beyond capital",
+    title: ["Beyond", "capital"],
     copy: "A long-term investment partner providing strategic support.",
   },
 ] as const;
@@ -502,9 +502,11 @@ export default function ProposalB() {
             <article className={`${styles.firmEvidence} ${styles.reveal}`} data-reveal>
               <ol className={styles.highlights}>
               {firmHighlights.map((item, index) => (
-                  <li className={styles.philosophyItem} data-reveal key={item.title}>
+                  <li className={styles.philosophyItem} data-reveal key={item.title.join(" ")}>
                     <span className={styles.highlightIndex}>{String(index + 1).padStart(2, "0")}</span>
-                    <h3 className={styles.lineReveal} data-reveal><span><span>{item.title}</span></span></h3>
+                    <h3 className={styles.lineReveal} data-reveal>
+                      {item.title.map((line) => <span key={line}><span>{line}</span></span>)}
+                    </h3>
                     <p><span><span>{item.copy}</span></span></p>
                   </li>
               ))}
