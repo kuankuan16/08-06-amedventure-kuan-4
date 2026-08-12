@@ -17,16 +17,16 @@ const navItems = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const onHome = pathname === "/";
-  const sectionHref = (href: string) => onHome ? href : `/${href}`;
+  const onExperience = pathname === "/a";
+  const sectionHref = (href: string) => onExperience ? href : `/a${href}`;
   // Scrolling into a section lights its link in that section's own colour.
-  const clock = useScrollClock(onHome ? undefined : 0);
-  const activeAccent = onHome ? sectionFromClock(clock) : null;
+  const clock = useScrollClock(onExperience ? undefined : 0);
+  const activeAccent = onExperience ? sectionFromClock(clock) : null;
 
   const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (!onHome || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!onExperience || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
-    window.location.assign("/");
+    window.location.assign("/a");
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export function SiteHeader() {
   return (
     <>
       <header className={styles.header}>
-        <a className={styles.logoLink} href={onHome ? "#top" : "/"} onClick={handleLogoClick} aria-label="AMED Ventures home">
+        <a className={styles.logoLink} href={onExperience ? "#top" : "/a"} onClick={handleLogoClick} aria-label="AMED Ventures home">
           <Image
             className={styles.logo}
             src="/brand/amed-logo-white.png"

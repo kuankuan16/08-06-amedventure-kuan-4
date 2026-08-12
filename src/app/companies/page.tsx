@@ -137,8 +137,8 @@ export default function CompaniesPage() {
         <p className="amed-tag">[ The next company ]</p>
         <AnimatedHeading lines={["Building the next", "clinical standard?"]} className="amed-display">Building the next clinical standard?</AnimatedHeading>
         <div className={styles.closingActions}>
-          <Link className="amed-button" href="/#contact">Pitch Your Company</Link>
-          <Link className="amed-button amed-button--ghost" href="/">Back to AMED</Link>
+          <Link className="amed-button" href="/a#contact">Pitch Your Company</Link>
+          <Link className="amed-button amed-button--ghost" href="/a">Back to AMED</Link>
         </div>
       </section>
 

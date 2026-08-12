@@ -6,8 +6,8 @@ Last verified: 2026-08-07 (commit `33f0286` + uncommitted working tree).
 ## 1. What this repository actually is
 
 The repo was created from the **AI Website Cloner Template** (`ai-website-cloner-template`),
-but the template is only scaffolding. The real deliverable is a **single-page marketing
-experience for AMED Ventures**, a MedTech venture fund, plus one secondary route.
+but the template is only scaffolding. The real deliverable is a **multi-concept marketing
+site for AMED Ventures**, a MedTech venture fund, collected through a project portal.
 
 Consequence: `README.md`, `CHANGELOG.md`, `package.json` metadata and the generic parts of
 `AGENTS.md` still describe the *template*, not this site. Do not treat them as a description
@@ -29,10 +29,12 @@ Two source languages were merged:
 
 | Route | Entry | Notes |
 | --- | --- | --- |
-| `/` | `src/app/page.tsx` | The scroll experience. Fixed overlays over one WebGL canvas. |
+| `/` | `src/app/page.tsx` | Design-review portal with thumbnail cards linking all available versions. |
+| `/a` | `src/app/a/page.tsx` | The scroll experience. Fixed overlays over one WebGL canvas. |
+| `/b` | `src/app/b/page.tsx` | Editorial concept with portfolio, team, stories and contact in one flow. |
 | `/companies` | `src/app/companies/page.tsx` | Standalone dark portfolio index with filters. Has its own layout + CSS module and does *not* use the canvas. |
 
-Landing page composition (order matters — z-index and clock windows depend on it):
+Concept A (`/a`) composition (order matters — z-index and clock windows depend on it):
 
 ```
 ExperienceCanvas   fixed <canvas>, z-0, three.js points, reads the scroll clock
@@ -52,7 +54,7 @@ PitchFooter        in-flow, transparent over the canvas; owns PitchModal
 
 ## 3. The scroll clock — the core architecture
 
-Everything on `/` is driven by one scalar in `src/lib/scroll.ts`:
+Everything on `/a` is driven by one scalar in `src/lib/scroll.ts`:
 
 ```ts
 scrollTarget(scrollY, viewportHeight) → 0 … 4
@@ -100,7 +102,7 @@ how this site is built.** Actual conventions:
 - **Per-section accent system** (added 2026-08-07): each section owns a primary colour.
   `globals.css` defines `--accent-<section>` / `--accent-<section>-hot` pairs (hero cyan,
   focus indigo-violet, portfolio teal, team amber, companies coral).
-  `<SectionAccent>` writes `data-amed-section` on `<html>` — clock-driven on `/`, fixed via
+  `<SectionAccent>` writes `data-amed-section` on `<html>` — clock-driven on `/a`, fixed via
   the `section` prop on other routes — and `globals.css` maps that attribute to
   `--section-accent` / `--section-accent-hot`. **Components must read the section vars (or a
   local `--accent` aliased to a token), never a raw hue or `--cyan` directly.** The canvas
@@ -172,7 +174,7 @@ before you commit or revert anything. Themes:
    from `translateY(105%)` behind an `overflow: hidden` mask, with an `sr-only` copy of the
    full string for accessibility. It replaced the per-letter blur reveal in `HeroOverlay`
    too. Note the line breaks are **manually authored per heading** — they do not reflow.
-2. **New `ScrollCue` component** (untracked): fixed circular ↓ affordance. On `/` it walks a
+2. **New `ScrollCue` component** (untracked): fixed circular ↓ affordance. On `/a` it walks a
    `steps` list and retargets by observing section anchors; on `/companies` it is static.
 3. **Animated metric counters** in `HeroOverlay` (`$0→$100M+`, `12+`, `5+`), with a
    reduced-motion snap path.
@@ -183,7 +185,7 @@ before you commit or revert anything. Themes:
    `1.111vw` → `.78vw` type; the hero's buttons shrink further to `.5vw`. Verify this is
    intended, it is aggressive at 1440px.
 6. **Active-section highlighting** in `SiteHeader` (hash-driven) and a logo click handler
-   that forces a full `/` navigation.
+   that forces a full `/a` navigation.
 7. **`PortfolioOverlay` repurposed**: its headings now repeat the hero copy
    ("Funding MedTech Innovations that Matter") and the CTA changed from
    `/companies` → `#portfolio`.
@@ -205,7 +207,7 @@ ESLint errors the WIP left behind were fixed as follows; the patterns are worth 
   it is set, and render substitutes the final value. **Prefer this hook over
   `window.matchMedia(...)` inside effects for any new motion work.**
 - `@next/next/no-html-link-for-pages` in `src/app/companies/page.tsx` — the two closing CTAs
-  now use `next/link`. Rule of thumb: **route targets (`/`, `/#contact`, `/companies`) use
+  now use `next/link`. Rule of thumb: **route targets (`/a`, `/a#contact`, `/companies`) use
   `next/link`; same-page hash targets stay as raw `<a>`.**
 
 **Non-blocking loose ends:**

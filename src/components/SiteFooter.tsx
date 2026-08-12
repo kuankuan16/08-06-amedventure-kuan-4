@@ -16,17 +16,17 @@ const footerLinks = [
 /** The site's only footer: hairline, AMED lockup, location and copyright, section links. */
 export function SiteFooter() {
   const pathname = usePathname();
-  const onHome = pathname === "/";
+  const onExperience = pathname === "/a";
   const external = (href: string) => href.startsWith("http");
   const route = (href: string) => href.startsWith("/");
-  const sectionHref = (href: string) => external(href) || route(href) || onHome ? href : `/${href}`;
+  const sectionHref = (href: string) => external(href) || route(href) || onExperience ? href : `/a${href}`;
 
   return (
     <div className={styles.shell}>
       <div className={styles.rule} />
       <div className={styles.bottom}>
         <div className={styles.identity}>
-          <Link className={styles.lockup} href="/" aria-label="AMED Ventures home">
+          <Link className={styles.lockup} href="/a" aria-label="AMED Ventures home">
             <Image src="/brand/amed-logo-white.png" alt="AMED Ventures" width={320} height={120} />
           </Link>
           <div className={styles.identityMeta}>
