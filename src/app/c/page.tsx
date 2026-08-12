@@ -379,11 +379,6 @@ export default function ProposalC() {
 
       <section className={`${styles.heroBand} ${styles.heroHuman}`}>
         <div className={`${styles.section} ${styles.hero} ${styles.heroEditorial}`}>
-          <div className={styles.heroEditorialLabel}>
-            <span>AMED Ventures</span>
-            <span>MedTech · US ↔ Taiwan</span>
-          </div>
-
           <div className={styles.heroEditorialCopy}>
             <h1 aria-label="The right capital and the right partnership change how people live, heal and thrive.">
               <span><span>The right capital</span></span>
@@ -393,34 +388,23 @@ export default function ProposalC() {
               <span><span>heal and thrive.</span></span>
             </h1>
             <div className={styles.heroEditorialNote}>
-              <span aria-hidden>↘</span>
               <p>We stay with founders for the long run, from first clinical evidence through global scale.</p>
             </div>
           </div>
 
           <figure className={styles.heroEditorialPortrait}>
             <Image
-              src="/images/amed/hero-c-editorial-v2.jpg"
-              alt="A medical-device founder and clinician carefully reviewing a prototype together"
+              src="/images/amed/hero-c-editorial-v3.jpg"
+              alt="A medical-device founder and clinician reviewing a prototype together in natural daylight"
               width={972}
               height={1619}
               priority
             />
-            <figcaption>
-              <span>People behind progress</span>
-              <span>Built together</span>
-            </figcaption>
           </figure>
 
           <figure className={styles.heroEditorialDetail} aria-hidden="true">
             <Image src="/images/amed/hero-c-01.jpg" alt="" width={1983} height={793} />
           </figure>
-
-          <div className={styles.heroEditorialIndex} aria-label="AMED investment approach">
-            <div><span>01</span><strong>People</strong></div>
-            <div><span>02</span><strong>Evidence</strong></div>
-            <div><span>03</span><strong>Scale</strong></div>
-          </div>
 
           {/* The counters are keyed on the run counter: clicking the lockup remounts them so they
               count up again, while the cards themselves keep their revealed state. */}

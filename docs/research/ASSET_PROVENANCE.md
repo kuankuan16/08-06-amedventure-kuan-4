@@ -42,10 +42,13 @@ were used. Final JPEG assets:
 - `public/images/amed/hero-c-03.jpg`
 - `public/images/amed/hero-c-editorial-v2.jpg` — vertical founder-and-clinician documentary
   portrait generated with the built-in image-generation tool for the redesigned editorial hero.
+- `public/images/amed/hero-c-editorial-v3.jpg` — brighter natural-window-light replacement with
+  white founder and clinician subjects, low contrast and no embedded typography.
 
 The built-in edit workflow was also used on 2026-08-12 to repair only the visible studio
 background seams in the shared Fred Shen and Hank Huang portraits, preserving the supplied
-identities, pose, crop and clothing:
+identities, pose, crop and clothing. Fred received a second, stricter uniform-background pass
+after validating the portrait in its production circular crop:
 
 - `public/images/team-client/fred-shen-unified.png`
 - `public/images/team-client/hank-huang-unified.png`
