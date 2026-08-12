@@ -403,7 +403,7 @@ export default function ProposalC() {
           </figure>
 
           <figure className={styles.heroEditorialDetail} aria-hidden="true">
-            <Image src="/images/amed/hero-c-01.jpg" alt="" width={1983} height={793} />
+            <Image src="/images/amed/focus-cardiovascular.jpg" alt="" width={2336} height={1744} />
           </figure>
 
           {/* The counters are keyed on the run counter: clicking the lockup remounts them so they
