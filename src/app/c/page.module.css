@@ -107,25 +107,44 @@
 .carouselDot:hover { background: color-mix(in srgb, var(--brand) 65%, transparent); }
 .carouselDotActive { width: 1.6rem; background: var(--brand); }
 
-/* ---------- concept C: human-centred hero ---------- */
-/* Only the first section differs from B. The composition distils the references into a quiet
-   healthcare-venture opening: Novo-scale purpose, Sequoia restraint, NEA's relationship-first
-   voice, Frazier's medical confidence and First Round's lived-in builder photography. */
-.heroHuman { background: #f2eee7; }
-.heroHuman .hero { padding-top: 8.25rem; }
-.heroHumanIntro { margin-bottom: 3rem; display: grid; grid-template-columns: 1.45fr .55fr; gap: 1rem 5rem; align-items: end; }
-.heroHumanLabel { grid-column: 1 / -1; margin: 0 0 1.65rem; display: flex; align-items: center; gap: .8rem; color: var(--brand-deep); font: 500 .75rem/1 "Mulish", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
-.heroHumanLabel::after { content: ""; width: 2.3rem; height: 1px; background: currentColor; }
-.heroHumanIntro h1 { margin: 0; font: 400 clamp(3.6rem, 5.45vw, 5.2rem)/.94 var(--serif); letter-spacing: -.028em; }
-.heroHumanIntro h1 span { display: block; }
-.heroHumanIntro h1 em { color: var(--brand); font-style: normal; }
-.heroHumanIntro > p:last-child { max-width: 24rem; margin: 0 0 .45rem; color: var(--muted); font: 400 1.05rem/1.55 "Mulish", sans-serif; }
-.heroHuman .heroCarousel { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 1rem 1.5rem; justify-items: stretch; }
-.heroHuman .slogan { position: absolute; z-index: 2; left: 1.5rem; bottom: 1.5rem; min-height: 0; width: auto; margin: 0; padding: .7rem 1rem; border-radius: 999px; background: rgba(244,239,231,.86); color: #1b1916; font: 500 .72rem/1 "Mulish", sans-serif; letter-spacing: .12em; text-align: left; text-transform: uppercase; backdrop-filter: blur(12px); }
-.heroHuman .slogan > span { padding: 0; }
-.heroHuman .heroFigure { grid-column: 1 / -1; aspect-ratio: 16 / 6.4; background: #d4c9b9; }
-.heroHuman .heroSlide { object-position: center 50%; filter: saturate(.86) contrast(.98); }
-.heroHuman .carouselControls { grid-column: 2; justify-self: end; }
+/* ---------- concept C: human-centred editorial hero ---------- */
+/* Only the hero differs from B. The cover-like composition combines an enduring-partnership
+   voice, generous institutional typography and close documentary observation of the builders. */
+.heroHuman { overflow: hidden; background: #e9ece8; }
+.heroHuman .heroEditorial { min-height: 58vw; padding-top: 7.55vw; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto auto auto; column-gap: 1.1vw; }
+.heroEditorialLabel { grid-column: 1 / -1; grid-row: 1; padding-bottom: 1vw; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(27,25,22,.32); color: var(--brand-deep); font: 500 .72vw/1 "Mulish", sans-serif; letter-spacing: .15em; text-transform: uppercase; opacity: 0; animation: cFade .8s .05s var(--ease-out) forwards; }
+.heroEditorialCopy { z-index: 2; grid-column: 1 / 9; grid-row: 2; padding: 3.7vw 0 2.5vw; align-self: stretch; display: flex; flex-direction: column; }
+.heroEditorialCopy h1 { margin: 0; color: var(--ink-b); font: 400 5.35vw/.87 var(--serif); letter-spacing: -.045em; }
+.heroEditorialCopy h1 > span { display: block; overflow: hidden; padding: 0 .08em .09em 0; }
+.heroEditorialCopy h1 > span > span { display: block; transform: translateY(112%); animation: cLine 1s var(--ease-out) forwards; }
+.heroEditorialCopy h1 > span:nth-child(1) > span { animation-delay: .12s; }
+.heroEditorialCopy h1 > span:nth-child(2) > span { animation-delay: .19s; }
+.heroEditorialCopy h1 > span:nth-child(3) > span { animation-delay: .26s; }
+.heroEditorialCopy h1 > span:nth-child(4) > span { animation-delay: .33s; }
+.heroEditorialCopy h1 > span:nth-child(5) > span { animation-delay: .4s; }
+.heroEditorialCopy h1 em { color: var(--brand); font-style: italic; font-weight: 400; letter-spacing: -.055em; }
+.heroEditorialNote { width: 22vw; margin-top: auto; padding-top: 3.5vw; display: grid; grid-template-columns: auto 1fr; gap: .9vw; align-items: start; color: #4f5350; opacity: 0; transform: translateY(1vw); animation: cNote .9s .72s var(--ease-out) forwards; }
+.heroEditorialNote > span { color: var(--brand); font: 300 1.55vw/1 "Mulish", sans-serif; }
+.heroEditorialNote p { margin: 0; font: 400 .93vw/1.55 "Mulish", sans-serif; }
+.heroEditorialPortrait { position: relative; z-index: 1; grid-column: 9 / -1; grid-row: 2; width: 100%; margin: 1.7vw 0 0; align-self: start; overflow: hidden; aspect-ratio: .72; border-radius: 12vw 12vw 1.1vw 1.1vw; background: #d7d4ce; opacity: 0; transform: translateY(2vw); animation: cPortrait 1.15s .16s var(--ease-out) forwards; }
+.heroEditorialPortrait::after { content: ""; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,.32); border-radius: inherit; pointer-events: none; }
+.heroEditorialPortrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; filter: saturate(.82) contrast(.97); }
+.heroEditorialPortrait figcaption { position: absolute; right: 1vw; bottom: 1vw; left: 1vw; padding-top: .75vw; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.58); color: #fff; font: 500 .63vw/1 "Mulish", sans-serif; letter-spacing: .12em; text-transform: uppercase; text-shadow: 0 1px 14px rgba(0,0,0,.28); }
+.heroEditorialDetail { position: relative; z-index: 3; grid-column: 7 / 10; grid-row: 2; width: 13.4vw; margin: 0 0 2vw; align-self: end; justify-self: end; overflow: hidden; aspect-ratio: 1; border: .55vw solid #e9ece8; border-radius: 50%; background: #d7d4ce; opacity: 0; transform: translateY(1.5vw); animation: cDetail 1s .55s var(--ease-out) forwards; }
+.heroEditorialDetail img { width: 100%; height: 100%; object-fit: cover; object-position: 34% center; filter: saturate(.72) contrast(.96); }
+.heroEditorialIndex { grid-column: 1 / 7; grid-row: 3; padding: 1.15vw 0 1.6vw; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5vw; border-top: 1px solid rgba(27,25,22,.32); }
+.heroEditorialIndex div { display: grid; grid-template-columns: auto 1fr; gap: .65vw; align-items: baseline; }
+.heroEditorialIndex span { color: var(--brand); font: 500 .62vw/1 "Mulish", sans-serif; letter-spacing: .08em; }
+.heroEditorialIndex strong { color: var(--ink-b); font: 400 1.18vw/1 var(--serif); }
+.heroEditorial > .stats { grid-column: 1 / -1; grid-row: 4; }
+@keyframes cLine { to { transform: none; } }
+@keyframes cFade { to { opacity: 1; } }
+@keyframes cNote { to { opacity: 1; transform: none; } }
+@keyframes cPortrait { to { opacity: 1; transform: none; } }
+@keyframes cDetail { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .heroEditorialLabel, .heroEditorialCopy h1 > span > span, .heroEditorialNote, .heroEditorialPortrait, .heroEditorialDetail { opacity: 1; transform: none; animation: none; }
+}
 
 /* Four ruled columns under the hero — the same divider rhythm the rest of the site uses. */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 2.5rem; border-top: 1px solid var(--hairline); }
@@ -555,14 +574,21 @@
   .headerCta { height: 2.4rem; padding: 0 1rem; display: inline-flex; align-items: center; font-size: .75rem; letter-spacing: .04em; }
   .backToTop { right: .75rem; bottom: .75rem; width: 2.275rem; height: 2.275rem; }
   .hero { padding: 7rem 0 .75rem; }
-  .heroHuman .hero { padding-top: 6.5rem; }
-  .heroHumanIntro { margin-bottom: 2rem; grid-template-columns: 1fr; gap: 1.5rem; }
-  .heroHumanLabel { margin-bottom: .65rem; font-size: .68rem; }
-  .heroHumanIntro h1 { font-size: clamp(3rem, 8vw, 4.5rem); }
-  .heroHumanIntro > p:last-child { max-width: 32rem; margin: 0; font-size: .95rem; }
-  .heroHuman .heroFigure { aspect-ratio: 4 / 3; }
-  .heroHuman .slogan { left: 1rem; bottom: 1rem; font-size: .64rem; }
-  .heroHuman .carouselControls { grid-column: 1 / -1; justify-self: center; }
+  .heroHuman .heroEditorial { min-height: 0; padding-top: 6.5rem; grid-template-columns: repeat(8, minmax(0, 1fr)); grid-template-rows: auto auto auto auto auto; column-gap: .75rem; }
+  .heroEditorialLabel { padding-bottom: .8rem; font-size: .64rem; }
+  .heroEditorialCopy { grid-column: 1 / 6; grid-row: 2; padding: 2.6rem 0 2rem; }
+  .heroEditorialCopy h1 { font-size: clamp(3.15rem, 7.45vw, 4.25rem); line-height: .91; }
+  .heroEditorialNote { width: min(19rem, 72%); margin-top: 2.5rem; padding-top: 0; gap: .75rem; }
+  .heroEditorialNote > span { font-size: 1.25rem; }
+  .heroEditorialNote p { font-size: .9rem; }
+  .heroEditorialPortrait { grid-column: 6 / -1; grid-row: 2; margin-top: 2.4rem; aspect-ratio: .7; border-radius: 8rem 8rem .8rem .8rem; }
+  .heroEditorialPortrait figcaption { right: .75rem; bottom: .75rem; left: .75rem; padding-top: .6rem; font-size: .55rem; }
+  .heroEditorialDetail { grid-column: 5 / 7; grid-row: 2; width: 8rem; margin-bottom: 1.5rem; border-width: .35rem; }
+  .heroEditorialIndex { grid-column: 1 / 6; grid-row: 3; padding: 1rem 0 1.25rem; gap: 1rem; }
+  .heroEditorialIndex div { gap: .4rem; }
+  .heroEditorialIndex span { font-size: .55rem; }
+  .heroEditorialIndex strong { font-size: .95rem; }
+  .heroEditorial > .stats { grid-row: 5; }
   .contactPoints, .firmInner { grid-template-columns: 1fr; }
   .firmInner { gap: 2px; }
   .firmEvidence, .firmStatement { min-height: auto; padding: 2rem 1.5rem; }
@@ -623,10 +649,20 @@
 
 @media (max-width: 640px) {
   .aboutInner { grid-template-columns: 1fr; }
-  .heroHumanIntro h1 { font-size: clamp(2.25rem, 10.5vw, 2.8rem); line-height: .98; }
-  .heroHumanIntro h1 span { display: block; }
-  .heroHumanIntro > p:last-child { max-width: 21rem; font-size: .9rem; }
-  .heroHuman .slogan { display: none; }
+  .heroHuman .heroEditorial { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); padding-top: 5.75rem; }
+  .heroEditorialLabel span:last-child { display: none; }
+  .heroEditorialCopy { z-index: 4; grid-column: 1 / -1; grid-row: 2; padding: 2rem 0 1.65rem; }
+  .heroEditorialCopy h1 { font-size: clamp(2.8rem, 13.3vw, 4rem); line-height: .89; }
+  .heroEditorialCopy h1 > span:nth-child(3) { padding-right: 0; }
+  .heroEditorialCopy h1 em { color: var(--brand-deep); }
+  .heroEditorialNote { width: 62%; margin-top: 2rem; }
+  .heroEditorialPortrait { grid-column: 3 / -1; grid-row: 3; margin: 0; aspect-ratio: .72; border-radius: 9rem 9rem .75rem .75rem; }
+  .heroEditorialPortrait figcaption { font-size: .48rem; }
+  .heroEditorialPortrait figcaption span:last-child { display: none; }
+  .heroEditorialDetail { grid-column: 1 / 4; grid-row: 3; z-index: 3; width: 7.5rem; margin: 0 0 1.5rem; align-self: end; justify-self: start; }
+  .heroEditorialIndex { grid-column: 1 / -1; grid-row: 4; padding-top: 1.2rem; }
+  .heroEditorialIndex strong { font-size: .82rem; }
+  .heroEditorial > .stats { grid-row: 5; }
   .dialogWordmark { font-size: 2.15rem; }
   .dialogCopy { font-size: 17px; line-height: 1.55; }
   .dialogFacts { grid-template-columns: 1fr 1fr; align-items: baseline; gap: .45rem 1rem; }

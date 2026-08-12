@@ -4,7 +4,6 @@ import { type FormEvent, type MouseEvent as ReactMouseEvent, useEffect, useMemo,
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
-import { HeroCarousel, type HeroSlide } from "@/components/HeroCarousel";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { IconArrowLeft, IconArrowRight, IconArrowUpRight, IconGlobe, IconLinkedIn, IconMail } from "@/components/icons";
 import { FilterMenu } from "@/components/FilterMenu";
@@ -51,27 +50,6 @@ const team = [
     ["Michelle Wang", "", "", teamPortraitFallback],
   ]],
 ] as const;
-
-/* Concept C leads with the people doing the work: founders, clinicians and engineers gathered
-   around prototypes in lived-in startup spaces. The language stays close to the human problem
-   and the shared work, while the rest of proposal B's information system remains intact. */
-const heroSlides: HeroSlide[] = [
-  {
-    src: "/images/amed/hero-c-01.jpg",
-    alt: "Three medical-device founders examining a prototype together in their workshop",
-    headline: <><span><span>People behind progress</span></span></>,
-  },
-  {
-    src: "/images/amed/hero-c-02.jpg",
-    alt: "A medical-device founder and clinician reviewing a prototype side by side",
-    headline: <><span><span>People behind progress</span></span></>,
-  },
-  {
-    src: "/images/amed/hero-c-03.jpg",
-    alt: "A startup team sharing ideas around sketches and prototypes after a working session",
-    headline: <><span><span>People behind progress</span></span></>,
-  },
-];
 
 /** How many company cards the index opens with, and how many each "Load more" adds. */
 const PAGE_SIZE = 30;
@@ -400,30 +378,49 @@ export default function ProposalC() {
       </a>
 
       <section className={`${styles.heroBand} ${styles.heroHuman}`}>
-        <div className={`${styles.section} ${styles.hero}`}>
-          <div className={styles.heroHumanIntro}>
-            <p className={styles.heroHumanLabel}>Healthcare, built together</p>
-            <h1>
-              <span>Backing the people</span>
-              <span>who move care <em>forward.</em></span>
-            </h1>
-            <p>We partner with founders, clinicians and engineers turning deeply understood problems into enduring medical innovation.</p>
+        <div className={`${styles.section} ${styles.hero} ${styles.heroEditorial}`}>
+          <div className={styles.heroEditorialLabel}>
+            <span>AMED Ventures</span>
+            <span>MedTech · US ↔ Taiwan</span>
           </div>
-          <HeroCarousel
-          slides={heroSlides}
-          classes={{
-            root: styles.heroCarousel,
-            headline: styles.slogan,
-            frame: styles.heroFigure,
-            slide: styles.heroSlide,
-            slideActive: styles.heroSlideActive,
-            controls: styles.carouselControls,
-            arrow: styles.carouselArrow,
-            dots: styles.carouselDots,
-            dot: styles.carouselDot,
-            dotActive: styles.carouselDotActive,
-          }}
-        />
+
+          <div className={styles.heroEditorialCopy}>
+            <h1 aria-label="The right capital and the right partnership change how people live, heal and thrive.">
+              <span><span>The right capital</span></span>
+              <span><span>and the right</span></span>
+              <span><span><em>partnership</em> change</span></span>
+              <span><span>how people live,</span></span>
+              <span><span>heal and thrive.</span></span>
+            </h1>
+            <div className={styles.heroEditorialNote}>
+              <span aria-hidden>↘</span>
+              <p>We stay with founders for the long run, from first clinical evidence through global scale.</p>
+            </div>
+          </div>
+
+          <figure className={styles.heroEditorialPortrait}>
+            <Image
+              src="/images/amed/hero-c-editorial-v2.jpg"
+              alt="A medical-device founder and clinician carefully reviewing a prototype together"
+              width={972}
+              height={1619}
+              priority
+            />
+            <figcaption>
+              <span>People behind progress</span>
+              <span>Built together</span>
+            </figcaption>
+          </figure>
+
+          <figure className={styles.heroEditorialDetail} aria-hidden="true">
+            <Image src="/images/amed/hero-c-01.jpg" alt="" width={1983} height={793} />
+          </figure>
+
+          <div className={styles.heroEditorialIndex} aria-label="AMED investment approach">
+            <div><span>01</span><strong>People</strong></div>
+            <div><span>02</span><strong>Evidence</strong></div>
+            <div><span>03</span><strong>Scale</strong></div>
+          </div>
 
           {/* The counters are keyed on the run counter: clicking the lockup remounts them so they
               count up again, while the cards themselves keep their revealed state. */}

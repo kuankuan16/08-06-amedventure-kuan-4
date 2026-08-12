@@ -40,6 +40,15 @@ were used. Final JPEG assets:
 - `public/images/amed/hero-c-01.jpg`
 - `public/images/amed/hero-c-02.jpg`
 - `public/images/amed/hero-c-03.jpg`
+- `public/images/amed/hero-c-editorial-v2.jpg` — vertical founder-and-clinician documentary
+  portrait generated with the built-in image-generation tool for the redesigned editorial hero.
+
+The built-in edit workflow was also used on 2026-08-12 to repair only the visible studio
+background seams in the shared Fred Shen and Hank Huang portraits, preserving the supplied
+identities, pose, crop and clothing:
+
+- `public/images/team-client/fred-shen-unified.png`
+- `public/images/team-client/hank-huang-unified.png`
 
 ## Brand
 
