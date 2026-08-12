@@ -162,7 +162,7 @@ function InvestmentFocus() {
   );
 }
 
-const STORIES_PER_PAGE = 5;
+const STORIES_PER_PAGE = 10;
 
 const sortedPortfolioNews = [...portfolioNews].sort((a, b) => {
   if (a.date && b.date) return b.date.localeCompare(a.date);
