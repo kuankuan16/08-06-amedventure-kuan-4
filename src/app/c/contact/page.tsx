@@ -12,6 +12,7 @@ import {
 } from "../content";
 import styles from "../page.module.css";
 import { PageWord } from "../PageWord";
+import { RevealHeading } from "../RevealHeading";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -28,7 +29,11 @@ export default function ContactPage() {
         <div className={styles.section}>
           <div className={styles.contactPageIntro}>
             <p className={styles.tag}>Contact</p>
-            <h1 className={styles.display}>Tell us what you are building.</h1>
+            <RevealHeading
+              as="h1"
+              className={styles.display}
+              lines={["Tell us what you are building."]}
+            />
             <dl className={styles.contactPoints}>
               <div>
                 <dt>Offices</dt>

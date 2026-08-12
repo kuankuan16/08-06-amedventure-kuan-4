@@ -2978,7 +2978,7 @@
     sans-serif;
 }
 
-/* Pager: five stories to a page so the compact editorial index has a useful rhythm. */
+/* Pager: ten stories to a page so each page reads as a substantial editorial index. */
 .storyPager {
   display: flex;
   flex-wrap: wrap;
@@ -2987,6 +2987,7 @@
   gap: 1rem;
   margin-top: 2rem;
 }
+
 .storyPager p {
   margin: 0;
   color: var(--muted);
@@ -2996,6 +2997,7 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+
 .storyPager div {
   display: flex;
   flex-wrap: wrap;
@@ -4914,4 +4916,30 @@
   .aboutPage > .section {
     padding-bottom: calc(var(--section-tail) + 2rem);
   }
+}
+
+/* The button-label type spec is intentionally last so desktop and mobile overrides cannot drift. */
+:is(
+    .nav a,
+    .mobileNav a,
+    .footerGroup a,
+    .pill,
+    .heroCta,
+    .aboutV2Button,
+    .menuTrigger,
+    .menuOption,
+    .chip,
+    .clearAll,
+    .load,
+    .loadAll,
+    .storyFilter button,
+    .storyPager button,
+    .pitchButton
+  ) {
+  font-family: "Mulish", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

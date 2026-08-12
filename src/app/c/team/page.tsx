@@ -13,6 +13,7 @@ import {
 } from "../content";
 import styles from "../page.module.css";
 import { PageWord } from "../PageWord";
+import { RevealHeading } from "../RevealHeading";
 
 export default function TeamPage() {
   const [personIndex, setPersonIndex] = useState<number | null>(null);
@@ -44,11 +45,11 @@ export default function TeamPage() {
         <div className={styles.section}>
           <div className={styles.pageIntro}>
             <p className={styles.tag}>Team</p>
-            <h1 className={styles.display}>
-              Decades of building,
-              <br />
-              investing and operating.
-            </h1>
+            <RevealHeading
+              as="h1"
+              className={styles.display}
+              lines={["Decades of building,", "investing and operating."]}
+            />
             <p className={styles.lede}>
               Our team brings decades of combined experience across investment,
               business development, and operational management, from large

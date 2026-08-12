@@ -20,6 +20,7 @@ import {
 import { BackToTop, CFooter, CHeader } from "../components";
 import styles from "../page.module.css";
 import { PageWord } from "../PageWord";
+import { RevealHeading } from "../RevealHeading";
 
 const PAGE_SIZE = 30;
 const ALL = "All";
@@ -126,11 +127,14 @@ export default function CompaniesPage() {
         <div className={`${styles.section} ${styles.standaloneSection}`}>
           <div className={styles.pageIntro}>
             <p className={styles.tag}>Portfolio</p>
-            <h1 className={styles.display}>
-              Every company we back represents
-              <br />
-              lives that will be touched.
-            </h1>
+            <RevealHeading
+              as="h1"
+              className={styles.display}
+              lines={[
+                "Every company we back represents",
+                "lives that will be touched.",
+              ]}
+            />
             <p className={styles.lede}>
               AMED Ventures invests in medical technology and healthcare
               companies across cardiovascular, neurovascular, surgical, vision,

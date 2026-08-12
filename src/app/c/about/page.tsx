@@ -8,6 +8,7 @@ import { BackToTop, CFooter, CHeader } from "../components";
 import styles from "../page.module.css";
 import { AboutMarkFigure } from "./AboutMarkFigure";
 import { PageWord } from "../PageWord";
+import { RevealHeading } from "../RevealHeading";
 
 const pillars = [
   {
@@ -115,11 +116,10 @@ export default function AboutPage() {
               className={`${styles.aboutV2Feature} ${styles.reveal}`}
             >
               <div className={styles.aboutV2Copy}>
-                <h3>
-                  Decades of building,
-                  <br />
-                  investing and operating.
-                </h3>
+                <RevealHeading
+                  as="h3"
+                  lines={["Decades of building,", "investing and operating."]}
+                />
                 <p>
                   Our partners and advisors span device engineering, clinical
                   practice and global manufacturing — operators across the whole

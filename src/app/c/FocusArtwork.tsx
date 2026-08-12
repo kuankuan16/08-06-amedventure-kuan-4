@@ -4,10 +4,10 @@ import styles from "./page.module.css";
 export type FocusArtworkKind = "neurovascular" | "cardiovascular" | "surgical" | "intelligence";
 
 const artworkAssets: Record<FocusArtworkKind, string> = {
-  neurovascular: "/images/amed/focus-neurovascular-glass.png",
-  cardiovascular: "/images/amed/focus-cardiovascular-glass.png",
-  surgical: "/images/amed/focus-surgical-glass.png",
-  intelligence: "/images/amed/focus-digital-health-glass.png",
+  neurovascular: "/images/amed/focus-neurovascular-glass.jpg",
+  cardiovascular: "/images/amed/focus-cardiovascular-glass.jpg",
+  surgical: "/images/amed/focus-surgical-glass.jpg",
+  intelligence: "/images/amed/focus-digital-health-glass.jpg",
 };
 
 export function FocusArtwork({ artwork }: { artwork: FocusArtworkKind }) {

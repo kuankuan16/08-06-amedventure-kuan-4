@@ -20,6 +20,7 @@ import { companies } from "@/data/portfolio";
 import { BackToTop, CFooter, CHeader } from "./components";
 import { taipeiAddress, teamEmail, usOffice } from "./content";
 import { FocusArtwork, type FocusArtworkKind } from "./FocusArtwork";
+import { RevealHeading } from "./RevealHeading";
 import styles from "./page.module.css";
 
 const heroSlides = [
@@ -102,9 +103,14 @@ function InvestmentFocus() {
       <div className={styles.focusInner}>
         <div className={styles.focusHeading}>
           <p className={styles.focusEyebrow}>AMED Ventures</p>
-          <h2 id="investment-focus-heading">
-            Innovation with the potential to improve patient outcomes.
-          </h2>
+          <RevealHeading
+            as="h2"
+            id="investment-focus-heading"
+            lines={[
+              "Innovation with the potential",
+              "to improve patient outcomes.",
+            ]}
+          />
         </div>
         <div className={styles.focusApproach}>
           <p>
