@@ -5,10 +5,11 @@ import Image from "next/image";
 import styles from "./LeadershipSection.module.css";
 import { AnimatedHeading } from "./AnimatedHeading";
 
+/** Names and roles as supplied in AMED's website brief. Biographies are on the team page. */
 const highlights = [
-  ["Silicon Valley Network", "A San Francisco Bay Area vantage point on the entrepreneurs, clinicians and capital shaping the next generation of care."],
-  ["FDA & Regulatory Expertise", "Operational perspective that keeps clinical evidence, product strategy and the regulatory path moving together."],
-  ["Asian Supply Chain Bridge", "Cross-border fluency connecting medical technology with manufacturing, strategic and market partners across Asia."],
+  ["Managing Partners", "Michael Wang, Chairman & Managing Partner. William Tai and Joe Liu, Managing Partners."],
+  ["Venture Advisors", "Dr. TJ Liu, Dr. Kuan Chen and Fred Shen advise across clinical, technical and commercial questions."],
+  ["Investment Team", "Michelle Tsai, Jeremy Tseng, CFA, Bin Chou, Ph.D. and Jonathan Feng, spanning interventional technologies, MedTech CDMO, diagnostics and AI in healthcare."],
 ] as const;
 
 export function LeadershipSection() {
@@ -33,7 +34,7 @@ export function LeadershipSection() {
           <p className={`${styles.eyebrow} amed-tag`}>Partnership in practice</p>
           <AnimatedHeading reveal={visible} lines={["Led by seasoned", "MedTech", "entrepreneurs &", "global investors."]} className={`${styles.heading} amed-display`}>Led by seasoned MedTech entrepreneurs &amp; global investors.</AnimatedHeading>
           <p className={`${styles.body} amed-body`}>
-            AMED brings investment, business-development and operating experience from public companies and startups, providing founders and portfolio companies with value beyond capital.
+            Our team brings decades of combined experience across investment, business development and operational management, from large public companies to early-stage startups. We believe that with the right support, today&apos;s pioneering idea becomes tomorrow&apos;s global impact.
           </p>
         </div>
 

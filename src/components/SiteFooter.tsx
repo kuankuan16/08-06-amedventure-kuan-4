@@ -30,7 +30,7 @@ export function SiteFooter() {
             <Image src="/brand/amed-logo-white.png" alt="AMED Ventures" width={320} height={120} />
           </Link>
           <div className={styles.identityMeta}>
-            <p className="amed-tag">San Francisco Bay Area · US &amp; Asia</p>
+            <p className="amed-tag">San Francisco Bay Area · Taipei</p>
             <p className={styles.copyright}>© {new Date().getFullYear()} AMED Ventures. Investing in health that moves forward.</p>
           </div>
         </div>

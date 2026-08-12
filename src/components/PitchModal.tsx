@@ -5,6 +5,22 @@ import { createPortal } from "react-dom";
 import styles from "./PitchModal.module.css";
 import { AnimatedHeading } from "./AnimatedHeading";
 
+/** Codes for the markets AMED operates across; the brief requires a country code with every number. */
+const countryCodes = [
+  { code: "+1", country: "US / CA" },
+  { code: "+886", country: "TW" },
+  { code: "+81", country: "JP" },
+  { code: "+82", country: "KR" },
+  { code: "+86", country: "CN" },
+  { code: "+852", country: "HK" },
+  { code: "+65", country: "SG" },
+  { code: "+44", country: "UK" },
+  { code: "+61", country: "AU" },
+  { code: "+49", country: "DE" },
+  { code: "+33", country: "FR" },
+  { code: "+972", country: "IL" },
+] as const;
+
 type PitchModalProps = {
   open: boolean;
   onClose: () => void;
@@ -66,9 +82,20 @@ export function PitchModal({ open, onClose }: PitchModalProps) {
             <p className={styles.lede}>Tell us what you are building, the clinical need it answers and where you are in the journey.</p>
             <form className={styles.form} onSubmit={submit}>
               <label>Name<input ref={nameRef} name="name" autoComplete="name" required /></label>
-              <label>Email<input name="email" type="email" autoComplete="email" required /></label>
               <label>Company<input name="company" autoComplete="organization" required /></label>
-              <label>Stage<select name="stage" defaultValue="" required><option value="" disabled>Select stage</option><option>Pre-seed</option><option>Seed</option><option>Series A</option><option>Series B+</option></select></label>
+              <label>Email<input name="email" type="email" autoComplete="email" required /></label>
+              {/* AMED's brief asks for a country code alongside every number. */}
+              <label>Phone
+                <span className={styles.phone}>
+                  <select name="countryCode" defaultValue="+1" aria-label="Country calling code">
+                    {countryCodes.map(({ code, country }) => (
+                      <option value={code} key={`${code}-${country}`}>{code} {country}</option>
+                    ))}
+                  </select>
+                  <input name="phone" type="tel" inputMode="tel" autoComplete="tel-national" placeholder="Phone number" required />
+                </span>
+              </label>
+              <label>Stage<select name="stage" defaultValue="" required><option value="" disabled>Select stage</option><option>Pre-seed</option><option>Seed</option><option>Series A</option><option>Series B+</option><option>Growth</option></select></label>
               <label className={styles.thesis}>Short thesis<textarea name="thesis" rows={4} placeholder="The clinical problem, your approach and the evidence so far." required /></label>
               <button className={`${styles.submit} amed-button`} type="submit">Review &amp; Continue</button>
             </form>

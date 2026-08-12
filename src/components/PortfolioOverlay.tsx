@@ -11,23 +11,23 @@ type PortfolioOverlayProps = { clock?: number };
 const companies = [
   {
     name: "Imperative Care",
-    description: "Connected stroke and vascular-intervention technologies spanning treatment and recovery.",
+    description: "An end-to-end stroke and vascular platform across the continuum of neurovascular disease.",
     href: "https://imperativecare.com/",
   },
   {
     name: "Supira Medical",
-    description: "A low-profile, high-flow pVAD for high-risk PCI and cardiogenic shock.",
+    description: "A next-generation 10F percutaneous ventricular assist device for high-risk PCI.",
     href: "https://supiramedical.com/",
   },
   {
     name: "Instylla",
-    description: "Resorbable hydrogel embolics for interventional oncology and peripheral hemostasis.",
+    description: "The Embrace Hydrogel Embolic System for interventional oncology and peripheral hemostasis.",
     href: "https://instylla.com/",
   },
   {
-    name: "Kandu Health",
-    description: "Integrated BCI rehabilitation and personalized telehealth for stroke recovery.",
-    href: "https://kanduhealth.com/",
+    name: "Kandu",
+    description: "The IpsiHand brain-computer interface with AI-supported remote care for stroke recovery.",
+    href: "https://kandu.com/",
   },
 ] as const;
 
@@ -40,7 +40,7 @@ export function PortfolioOverlay({ clock: providedClock }: PortfolioOverlayProps
     <section className={`${styles.overlay} ${active ? styles.active : ""}`} style={{ opacity }} aria-hidden={!active} inert={!active}>
       <AnimatedHeading reveal={active} as="h2" lines={["Proof, not", "promise."]} className={`${styles.primary} amed-display`}>Proof, not promise.</AnimatedHeading>
       <p className={`${styles.secondary} amed-body`}>
-        A selection of the medical-device companies AMED backs — from first clinical evidence through commercial scale.
+        A selection of the MedTech companies AMED backs — from first clinical evidence through commercial scale.
       </p>
       <div className={styles.portfolios}>
         {companies.map(({ name, description, href }, index) => (

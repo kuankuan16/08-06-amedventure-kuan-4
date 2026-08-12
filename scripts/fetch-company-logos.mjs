@@ -11,6 +11,11 @@ const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 const OUT = "public/images/logos";
 
 const targets = [
+  { slug: "benthic-genomics", site: "https://www.benthic.bio/" },
+  { slug: "dynaflex-technologies", site: "https://www.dynaflextech.com/" },
+  { slug: "kt-medical", site: "https://ktmedical.co/" },
+  { slug: "verge-medical", site: "https://vergemedical.com/" },
+  { slug: "wiltrom", site: "https://www.wiltrom.com.tw/" },
   { slug: "imperative-care", site: "https://imperativecare.com/" },
   { slug: "supira-medical", site: "https://supiramedical.com/" },
   { slug: "instylla", site: "https://instylla.com/" },

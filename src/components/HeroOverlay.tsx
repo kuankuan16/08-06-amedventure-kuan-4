@@ -9,11 +9,13 @@ type Metric =
   | { target: number; prefix: string; suffix: string; label: string }
   | { text: string; label: string };
 
+// Counts are derived from the portfolio list in AMED's brief. AUM and years-investing were
+// marked "needed" in that brief and are deliberately absent until the firm supplies them.
 const metrics: readonly Metric[] = [
-  { target: 100, prefix: "$", suffix: "M+", label: "Capital Deployed" },
-  { target: 12, prefix: "", suffix: "+", label: "MedTech Portfolio Companies" },
-  { target: 5, prefix: "", suffix: "+", label: "FDA Breakthroughs / Clearances" },
-  { text: "US & Asia", label: "Cross-Border Network" },
+  { target: 16, prefix: "", suffix: "", label: "Active Portfolio Companies" },
+  { target: 4, prefix: "", suffix: "", label: "Realized Investments" },
+  { target: 8, prefix: "", suffix: "", label: "Investment Focus Areas" },
+  { target: 2, prefix: "", suffix: "", label: "Home Markets: US & Taiwan" },
 ] as const;
 
 const headline = "Funding MedTech Innovations that Matter.";

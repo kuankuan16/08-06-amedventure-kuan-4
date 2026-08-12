@@ -18,7 +18,7 @@
 .card h3 { margin: 2.1vw 0 .75vw; font-weight: 300; font-size: 1.75vw; line-height: 1; letter-spacing: -.025em; }
 .card p { margin: 0; max-width: 18vw; color: rgba(255,255,255,.62); font-size: .91vw; line-height: 1.35; }
 .card:hover span, .card:hover p { color: currentColor; }
-.cta { position: absolute; right: calc(var(--aside-right) + var(--aside-width) - var(--cta-width)); bottom: calc(var(--aside-bottom) - var(--aside-gap) - var(--cta-height)); width: var(--cta-width); min-height: var(--cta-height); white-space: nowrap; padding: 0 .4vw; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--chalk); background: var(--chalk); color: var(--ink); font: 500 .78vw/1.2 "Mulish", sans-serif; pointer-events: none; transition-delay: 280ms; transition-property: opacity, filter, transform, color, background, border-color; }
+.cta { position: absolute; right: calc(var(--aside-right) + var(--aside-width) - var(--cta-width)); bottom: calc(var(--aside-bottom) - var(--aside-gap) - var(--cta-height)); width: var(--cta-width); min-height: var(--cta-height); border-radius: var(--radius-control); white-space: nowrap; padding: 0 .4vw; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--chalk); background: var(--chalk); color: var(--ink); font: 500 .78vw/1.2 "Mulish", sans-serif; pointer-events: none; transition-delay: 280ms; transition-property: opacity, filter, transform, color, background, border-color; }
 .active .cta { pointer-events: auto; }
 .cta span { margin-left: .4em; }
 .cta:hover { border-color: var(--accent); background: var(--accent); color: var(--ink); }

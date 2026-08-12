@@ -4,18 +4,19 @@
   --navy-950: #050b23;
   --navy-900: #10163c;
   --indigo: #3f3f80;
-  --cyan: #0aafcf;
-  --cyan-hot: #76efff;
+  /* The single brand blue, sampled from the AMED lockup. Every light blue on the site is this
+     hue or a tint of it — never an approximation. */
+  --cyan: #00a8d0;
+  --cyan-hot: #7fd6ea;
   --ice: #f7f9fc;
   --chalk: #ffffff;
   --ink: #071022;
-  --signal: #40deec;
+  --signal: #00a8d0;
 
   /* One primary per section. `--section-accent` is switched by <SectionAccent> writing
      data-amed-section on <html>; components read the section vars, never the raw hues. */
-  /* Sampled from the AMED lockup so the hero reads as the brand blue. */
-  --accent-hero: #00a8d0;
-  --accent-hero-hot: #7fd6ea;
+  --accent-hero: var(--cyan);
+  --accent-hero-hot: var(--cyan-hot);
   --accent-focus: #8ea2ff;
   --accent-focus-hot: #bcc6ff;
   --accent-portfolio: #14c9bb;
@@ -26,7 +27,7 @@
   --accent-companies: var(--accent-portfolio);
   --accent-companies-hot: var(--accent-portfolio-hot);
   /* `-ink` cuts are the same hues darkened for legibility on the opaque white cards. */
-  --accent-hero-ink: #00708b;
+  --accent-hero-ink: #006a85;
   --accent-focus-ink: #4a52c4;
   --accent-portfolio-ink: #0b7d73;
   --accent-team-ink: #c25200;
@@ -37,6 +38,8 @@
   --line-dark: rgba(255,255,255,.14);
   --line-light: rgba(7,16,34,.15);
   --ease-out: cubic-bezier(.23,1,.32,1);
+  /* Controls echo the rounded squares of the AMED mark rather than the reference's sharp corners. */
+  --radius-control: .55rem;
 }
 
 :root[data-amed-section="focus"] { --section-accent: var(--accent-focus); --section-accent-hot: var(--accent-focus-hot); --section-accent-ink: var(--accent-focus-ink); }
@@ -61,7 +64,7 @@ img, video { display: block; }
 .amed-body { margin: 0; font-size: 1.111vw; line-height: 1.25; }
 .amed-overlay { position: fixed; inset: 0; z-index: 10; pointer-events: none; }
 .amed-glass { border: 1px solid rgba(255,255,255,.12); background: rgba(2,6,21,.78); backdrop-filter: blur(10px); }
-.amed-button { min-height: 2.48vw; padding: 0 1.54vw; display: inline-flex; align-items: center; justify-content: center; background: var(--chalk); color: var(--ink); font-size: .78vw; font-weight: 500; transition: color .22s, background .22s, border-color .22s; }
+.amed-button { min-height: 2.48vw; padding: 0 1.54vw; border-radius: var(--radius-control); display: inline-flex; align-items: center; justify-content: center; background: var(--chalk); color: var(--ink); font-size: .78vw; font-weight: 500; transition: color .22s, background .22s, border-color .22s; }
 .amed-button:hover { background: var(--section-accent); }
 .amed-button--ghost { color: var(--chalk); background: rgba(3,8,28,.72); border: 1px solid rgba(255,255,255,.3); }
 .amed-button--ghost:hover { color: var(--ink); border-color: var(--section-accent); background: var(--section-accent); }

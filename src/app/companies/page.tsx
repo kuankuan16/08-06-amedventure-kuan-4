@@ -10,38 +10,8 @@ import styles from "./page.module.css";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { ScrollCue } from "@/components/ScrollCue";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
-
-type Filter = "All" | "Cardiovascular" | "Neurovascular" | "Embolization" | "Surgical" | "Digital Health";
-
-type Company = {
-  name: string;
-  description: string;
-  focus: Exclude<Filter, "All">[];
-  href: string;
-  status?: string;
-  /** Official logo fetched from the company's own site by scripts/fetch-company-logos.mjs. */
-  logo?: string;
-};
-
-const filters: Filter[] = ["All", "Cardiovascular", "Neurovascular", "Embolization", "Surgical", "Digital Health"];
-
-const companies: Company[] = [
-  { name: "Imperative Care", description: "Connected technologies advancing stroke intervention, vascular care and recovery.", focus: ["Neurovascular", "Cardiovascular"], href: "https://imperativecare.com/", logo: "/images/logos/imperative-care.svg" },
-  { name: "Supira Medical", description: "A low-profile, high-flow percutaneous ventricular assist device for high-risk PCI and cardiogenic shock.", focus: ["Cardiovascular"], href: "https://supiramedical.com/", logo: "/images/logos/supira-medical.svg" },
-  { name: "Instylla", description: "Resorbable hydrogel embolics engineered for interventional oncology and peripheral hemostasis.", focus: ["Embolization"], href: "https://instylla.com/", logo: "/images/logos/instylla.svg" },
-  { name: "Kandu", description: "An integrated stroke-recovery platform combining BCI rehabilitation with personalized telehealth.", focus: ["Neurovascular", "Digital Health"], href: "https://kandu.com/", logo: "/images/logos/kandu.svg" },
-  { name: "Tioga Medical", description: "A transcatheter mitral valve replacement system designed to treat more patients with mitral regurgitation.", focus: ["Cardiovascular"], href: "https://tiogacardiovascular.com/", logo: "/images/logos/tioga-medical.png" },
-  { name: "Adona Medical", description: "Interatrial shunting and remote bi-atrial pressure monitoring for advanced heart failure.", focus: ["Cardiovascular", "Digital Health"], href: "https://adonamed.com/", logo: "/images/logos/adona-medical.png" },
-  { name: "Truvic Medical", description: "Peripheral thrombectomy innovation now operating as Imperative Care Vascular.", focus: ["Cardiovascular"], href: "https://imperativecare.com/", status: "Acquired by Imperative Care", logo: "/images/logos/truvic-medical.png" },
-  { name: "Atia Vision", description: "A modular, shape-changing intraocular lens intended to restore a full functional range of vision.", focus: ["Surgical"], href: "https://atiavision.com/", logo: "/images/logos/atia-vision.svg" },
-  { name: "Tulavi Therapeutics", description: "A fully absorbable hydrogel platform designed to support peripheral nerve healing.", focus: ["Surgical"], href: "https://tulavi.com/", logo: "/images/logos/tulavi-therapeutics.svg" },
-  { name: "Rejoni", description: "Hydrogel-based solutions created to preserve uterine health and reduce post-surgical adhesions.", focus: ["Surgical"], href: "https://rejoni.com/", logo: "/images/logos/rejoni.png" },
-  { name: "Neurolutions", description: "The FDA-cleared IpsiHand brain-computer interface for at-home upper-extremity stroke rehabilitation.", focus: ["Neurovascular", "Digital Health"], href: "https://www.neurolutions.com/", status: "Merged into Kandu", logo: "/images/logos/neurolutions.png" },
-  { name: "NuVera Medical", description: "Advanced intracardiac ultrasound imaging technology for complex cardiac procedures.", focus: ["Cardiovascular"], href: "https://www.prnewswire.com/news-releases/shifamed-announces-successful-acquisition-of-nuvera-medical-the-sixth-company-to-exit-associated-with-the-innovation-hub-301385956.html", status: "Acquired by Biosense Webster", logo: "/images/logos/nuvera-medical.png" },
-  { name: "Ostial Corporation", description: "Dual-balloon angioplasty systems designed for precise aorto-ostial stent apposition.", focus: ["Cardiovascular"], href: "https://ostialflash.com/", logo: "/images/logos/ostial-corporation.png" },
-  { name: "Akura Medical", description: "The Katana thrombectomy platform for efficient treatment of venous thromboembolism.", focus: ["Cardiovascular"], href: "https://www.akuramedical.com/", logo: "/images/logos/akura-medical.svg" },
-  { name: "Sealonix", description: "Next-generation biomaterial sealant patches for rapid hemostasis in surgery.", focus: ["Surgical"], href: "https://sealonix.com/", logo: "/images/logos/sealonix.png" },
-];
+import { portfolioNews } from "@/data/portfolio-news";
+import { companies, exited, filters, type Filter } from "@/data/portfolio";
 
 export default function CompaniesPage() {
   const [filter, setFilter] = useState<Filter>("All");
@@ -83,13 +53,13 @@ export default function CompaniesPage() {
         <p className={`${styles.kicker} amed-tag`}>[ Selected investments ]</p>
         <AnimatedHeading as="h1" lines={["Built beside the", "breakthroughs."]} className={`${styles.title} amed-display`}>Built beside the breakthroughs.</AnimatedHeading>
         <div className={styles.heroAside}>
-          <p>AMED partners with medical technology companies translating difficult clinical problems into precise, scalable systems of care.</p>
+          <p>Every company we back represents lives that will be touched. AMED takes an ecosystem approach to MedTech, from medical devices through contract manufacturing.</p>
           <a href="#all-companies">Explore the portfolio <span aria-hidden>↓</span></a>
         </div>
         <div className={styles.heroStats}>
-          <div><strong><AnimatedNumber target={15} pad={2} delay={900} /></strong><span>Selected investments</span></div>
-          <div><strong><AnimatedNumber target={5} pad={2} delay={1050} /></strong><span>Investment themes</span></div>
-          <div><strong>US ↔ ASIA</strong><span>Cross-border perspective</span></div>
+          <div><strong><AnimatedNumber target={16} pad={2} delay={900} /></strong><span>Active investments</span></div>
+          <div><strong><AnimatedNumber target={4} pad={2} delay={1050} /></strong><span>Realized investments</span></div>
+          <div><strong><AnimatedNumber target={8} pad={2} delay={1200} /></strong><span>Investment focus areas</span></div>
         </div>
       </section>
 
@@ -124,7 +94,7 @@ export default function CompaniesPage() {
                   {company.logo
                     ? <Image className={styles.logo} src={company.logo} alt={`${company.name} logo`} width={240} height={72} />
                     : <span className={styles.wordmark}>{company.name}</span>}
-                  {company.status && <span className={styles.status}>{company.status}</span>}
+                  <span className={styles.status}>{company.location} · {company.founded}</span>
                 </div>
                 <h3>{company.name}</h3>
                 <p>{company.description}</p>
@@ -136,6 +106,31 @@ export default function CompaniesPage() {
             );
           })}
         </div>
+
+        <div className={styles.exited}>
+          <p className={`${styles.sectionIndex} amed-tag`}>[ 03 ] Realized</p>
+          <ul>
+            {exited.map(({ name }) => <li key={name}>{name}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section className={styles.news}>
+        <div className={styles.newsHead}>
+          <p className={`${styles.kicker} ${styles.newsIndex} amed-tag`}>[ 04 ] Portfolio news</p>
+          <h2 className="amed-display">Milestones in the field.</h2>
+        </div>
+        <ul className={styles.newsList}>
+          {portfolioNews.map((item) => (
+            <li key={item.url}>
+              <a href={item.url} target="_blank" rel="noreferrer">
+                <span className={styles.newsCompany}>{item.company}</span>
+                <span className={styles.newsTitle}>{item.title}</span>
+                <span className={styles.newsSource}>{item.source} <span aria-hidden>↗</span></span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className={styles.closing} id="closing">

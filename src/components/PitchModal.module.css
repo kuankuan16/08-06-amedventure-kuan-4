@@ -26,3 +26,11 @@
   .thesis, .submit { grid-column: auto; }
   .submit { width: 100%; }
 }
+
+/* Country code + number share one row, per the contact requirements in AMED's brief. */
+.phone { display: grid; grid-template-columns: 8.5vw 1fr; gap: .4vw; }
+.phone select { min-width: 0; }
+
+@media (max-width: 1023.98px) {
+  .phone { grid-template-columns: 7.5rem 1fr; gap: .4rem; }
+}

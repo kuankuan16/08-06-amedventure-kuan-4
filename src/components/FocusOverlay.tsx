@@ -8,10 +8,10 @@ import styles from "./FocusOverlay.module.css";
 type FocusOverlayProps = { clock?: number };
 
 const focuses = [
-  { index: "01", title: "Cardiovascular", copy: "Advancing catheter-based therapies and circulatory support for high-risk cardiovascular care." },
-  { index: "02", title: "Neurovascular", copy: "Connecting stroke intervention with intelligent recovery across the patient journey." },
-  { index: "03", title: "Oncology & Embolization", copy: "Backing targeted embolic platforms for interventional oncology and peripheral hemostasis." },
-  { index: "04", title: "Surgical Innovations", copy: "Equipping clinicians with precision instruments and enabling technologies for surgery and ophthalmic care." },
+  { index: "01", title: "Long-Term Partnership", copy: "We stay with founders across the whole growth journey, from first clinical evidence through global scale." },
+  { index: "02", title: "High-Conviction Investing", copy: "Fewer, deeper positions in medical technology where the clinical case and the team both convince us." },
+  { index: "03", title: "Exceptional Entrepreneurs", copy: "Strategic guidance, industry expertise and operational support for the people building the category." },
+  { index: "04", title: "Meaningful Impact", copy: "Companies whose work changes how people live, heal and thrive — every company we back represents lives that will be touched." },
 ];
 
 export function FocusOverlay({ clock: providedClock }: FocusOverlayProps) {
@@ -27,10 +27,10 @@ export function FocusOverlay({ clock: providedClock }: FocusOverlayProps) {
       inert={!active}
     >
       <div className={styles.intro}>
-        <p className={`${styles.eyebrow} amed-tag`}>Strategic focus</p>
+        <p className={`${styles.eyebrow} amed-tag`}>Investment philosophy</p>
         <AnimatedHeading reveal={active} lines={["Capital follows clinical", "consequence."]} className={`${styles.heading} amed-display`}>Capital follows clinical consequence.</AnimatedHeading>
         <p className={`${styles.support} amed-body`}>
-          Specialist conviction across medical device categories where evidence, execution and patient outcomes align.
+          An ecosystem approach to MedTech — from medical devices to contract manufacturing — where industry partnership turns promising innovation into lasting growth.
         </p>
       </div>
 

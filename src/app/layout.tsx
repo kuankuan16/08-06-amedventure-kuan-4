@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500&amp;display=swap" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400&amp;display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500&amp;family=Lora:wght@400;500&amp;display=swap" />
       </head>
       <body>{children}</body>
     </html>

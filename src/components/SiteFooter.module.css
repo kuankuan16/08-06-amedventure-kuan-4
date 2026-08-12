@@ -19,7 +19,7 @@
   .identity img { width: 6.75rem; max-height: 2.6rem; }
   .identityMeta { padding-left: 1rem; gap: .35rem; }
   .identityMeta p { max-width: 22rem; }
-  .copyright { font-size: .68rem; }
+  .copyright { font-size: 0.9375rem; }
   .nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2.5rem; }
   .nav a { font-size: 1rem; }
 }
