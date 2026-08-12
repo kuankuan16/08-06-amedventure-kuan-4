@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#56B5D5"/>
+  <g transform="translate(240 150) scale(.7)" fill="none" stroke="#0B233A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+      <path id="iris-blade" d="M800 132C800 257 835 389 870 500"/>
+    </defs>
+    <polygon points="800,132 956,168 1081,267 1150,412 1150,588 1081,733 956,832 800,868 644,832 519,733 450,588 450,412 519,267 644,168"/>
+    <use href="#iris-blade"/>
+    <use href="#iris-blade" transform="rotate(25.714 800 500)"/>
+    <use href="#iris-blade" transform="rotate(51.428 800 500)"/>
+    <use href="#iris-blade" transform="rotate(77.142 800 500)"/>
+    <use href="#iris-blade" transform="rotate(102.856 800 500)"/>
+    <use href="#iris-blade" transform="rotate(128.57 800 500)"/>
+    <use href="#iris-blade" transform="rotate(154.284 800 500)"/>
+    <use href="#iris-blade" transform="rotate(180 800 500)"/>
+    <use href="#iris-blade" transform="rotate(205.714 800 500)"/>
+    <use href="#iris-blade" transform="rotate(231.428 800 500)"/>
+    <use href="#iris-blade" transform="rotate(257.142 800 500)"/>
+    <use href="#iris-blade" transform="rotate(282.856 800 500)"/>
+    <use href="#iris-blade" transform="rotate(308.57 800 500)"/>
+    <use href="#iris-blade" transform="rotate(334.284 800 500)"/>
+    <circle cx="800" cy="500" r="70"/>
+  </g>
+</svg>
