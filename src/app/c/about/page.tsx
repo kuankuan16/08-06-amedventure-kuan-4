@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { IconArrowUpRight } from "@/components/icons";
+import { IconArrowRight, IconArrowUpRight } from "@/components/icons";
 import { BackToTop, CFooter, CHeader } from "../components";
 import styles from "../page.module.css";
 import { AboutMarkFigure } from "./AboutMarkFigure";
@@ -132,7 +132,8 @@ export default function AboutPage() {
                 MedTech value chain.
               </p>
               <Link className={styles.aboutV2Button} href="/c/team">
-                Meet the team
+                <span>Meet the team</span>
+                <IconArrowRight />
               </Link>
             </div>
             <figure className={styles.aboutV2Image}>

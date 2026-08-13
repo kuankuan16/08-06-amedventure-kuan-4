@@ -195,7 +195,12 @@ export function FixedFilmHero() {
         </div>
 
         <div className={styles.contentFrame}>
-          <div className={styles.copy} key={activeSlide.id} aria-live="polite">
+          <div
+            className={styles.copy}
+            data-slide={activeSlide.id}
+            key={activeSlide.id}
+            aria-live="polite"
+          >
             <p className={styles.eyebrow}>
               <span>{activeSlide.index}</span>
               <i aria-hidden="true" />

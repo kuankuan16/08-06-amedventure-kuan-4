@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { type MouseEvent, useState, useSyncExternalStore } from "react";
 import { IconArrowRight } from "@/components/icons";
 import styles from "./page.module.css";
-import { taipeiOfficeDetailed, usOffice } from "./content";
+import { usOffice } from "./content";
 
 const links = [
   ["About", "/c/about"],
@@ -208,7 +208,11 @@ export function CFooter() {
         <div className={styles.footerIdentity}>
           <div className={styles.footerOffice}>
             <span>Taiwan</span>
-            <address>{taipeiOfficeDetailed}</address>
+            <address>
+              3F.-1, No. 3, Dunhua S. Rd., Songshan Dist.,
+              <br className={styles.footerMobileBreak} />
+              Taipei City 105, Taiwan (R.O.C.)
+            </address>
           </div>
           <div className={styles.footerOffice}>
             <span>United States</span>

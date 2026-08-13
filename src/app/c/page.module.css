@@ -1521,7 +1521,7 @@
     sans-serif;
 }
 .aboutV2Feature {
-  min-height: 25.5vw;
+  min-height: 28.5vw;
   margin-top: 5.6vw;
   display: grid;
   grid-template-columns: minmax(0, 4.7fr) minmax(0, 7.3fr);
@@ -1555,32 +1555,58 @@
     sans-serif;
 }
 .aboutV2Button {
-  width: max-content;
-  min-height: var(--control-h);
+  position: relative;
+  isolation: isolate;
+  width: min(15.25rem, 100%);
+  min-height: 3rem;
   margin-top: 1.9vw;
-  padding: 0 var(--control-px);
+  padding: 0 1.3rem;
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--ink-b) 44%, transparent);
   border-radius: 999px;
   color: var(--ink-b);
   font:
     500 0.875rem/1 "Mulish",
     sans-serif;
-  transition:
-    border-color 0.25s,
-    background 0.25s,
-    color 0.25s;
+  transition: color 0.3s, border-color 0.3s;
 }
-.aboutV2Button:hover {
-  border-color: var(--brand);
-  background: var(--brand);
+.aboutV2Button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: var(--ink-b);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.aboutV2Button svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.aboutV2Button:hover,
+.aboutV2Button:focus-visible {
+  border-color: var(--ink-b);
   color: #fff;
+}
+.aboutV2Button:hover::before,
+.aboutV2Button:focus-visible::before {
+  transform: scaleY(1);
+}
+.aboutV2Button:hover svg,
+.aboutV2Button:focus-visible svg {
+  transform: translateX(0.35rem);
 }
 .aboutV2Image {
   position: relative;
   min-width: 0;
-  min-height: 25.5vw;
+  min-height: 28.5vw;
   margin: 0;
   overflow: hidden;
 }
@@ -2654,6 +2680,15 @@
   filter: grayscale(1) contrast(1.42);
   opacity: 0.64;
 }
+/* The index uses an intentionally unified monochrome logo system; the profile dialog restores
+   each company's supplied brand artwork so the enlarged mark reads as the original identity. */
+.dialogLogo,
+.dialogLogo[src$="wiltrom.png"],
+.dialogLogo[src$="dynaflex-technologies.png"],
+.dialogLogo[src$="truvic-medical.png"] {
+  filter: none;
+  opacity: 1;
+}
 .dialogWordmark {
   font-family: var(--serif);
   font-size: 1.9rem;
@@ -3559,15 +3594,49 @@
   margin-top: 0.5rem;
 }
 .form .pillSolid {
+  position: relative;
+  isolation: isolate;
+  width: min(15.25rem, 100%);
+  min-width: 0;
+  min-height: 3rem;
+  padding: 0 1.3rem;
+  justify-content: space-between;
+  gap: 1.25rem;
+  overflow: hidden;
   background: transparent;
   border-color: #17201c;
   color: #17201c;
   letter-spacing: normal;
+  transition: color 0.3s, border-color 0.3s;
 }
-.form .pillSolid:hover {
+.form .pillSolid::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
   background: #17201c;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.form .pillSolid svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.form .pillSolid:hover,
+.form .pillSolid:focus-visible {
   border-color: #17201c;
   color: #fff;
+}
+.form .pillSolid:hover::before,
+.form .pillSolid:focus-visible::before {
+  transform: scaleY(1);
+}
+.form .pillSolid:hover svg,
+.form .pillSolid:focus-visible svg {
+  transform: translateX(0.35rem);
 }
 .wide {
   grid-column: 1 / -1;
@@ -3689,6 +3758,9 @@
     normal 400 0.66vw/1.5 "Mulish",
     sans-serif;
   text-align: left;
+}
+.footerMobileBreak {
+  display: none;
 }
 .footerOffice:last-child {
   justify-self: start;
@@ -3909,6 +3981,10 @@
   .pitchGlowB {
     animation: none;
   }
+  .aboutV2Button::before,
+  .aboutV2Button svg,
+  .form .pillSolid::before,
+  .form .pillSolid svg,
   .pitchWordMask > span,
   .pitchHeadingRule,
   .pitchButton::before,
@@ -4129,15 +4205,20 @@
 .companiesPage .load,
 .companiesPage .loadAll,
 .companiesPage .chip {
-  border-color: transparent;
-  background: color-mix(in srgb, var(--brand) 28%, #fff);
-  color: var(--ink-b);
+  border-color: rgba(243, 243, 242, 0.34);
+  background: transparent;
+  color: rgba(243, 243, 242, 0.72);
 }
 .companiesPage .chip:hover,
 .companiesPage .chip:focus-visible {
-  border-color: transparent;
-  background: color-mix(in srgb, var(--brand) 38%, #fff);
-  color: var(--ink-b);
+  border-color: var(--brand);
+  background: transparent;
+  color: var(--brand);
+}
+.companiesPage .menuCount {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
 }
 .companiesPage .menuTrigger:hover,
 .companiesPage .menuTriggerOpen,
@@ -4771,7 +4852,7 @@
     margin-top: 2rem;
   }
   .aboutV2Image {
-    min-height: 23rem;
+    min-height: 26rem;
   }
   .aboutV2Image svg {
     width: 5rem;
@@ -5272,7 +5353,9 @@
     text-wrap: balance;
   }
   .aboutPageHero .quote > span > span {
-    white-space: nowrap;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: normal;
   }
   .aboutPageHero .quoteFigure {
     width: min(100%, 18rem);
@@ -5312,7 +5395,7 @@
     font-size: 1.125rem;
   }
   .aboutV2Image {
-    min-height: 16.5rem;
+    min-height: 19rem;
   }
   .aboutV2Image svg {
     display: none;
@@ -5333,14 +5416,34 @@
     padding: 1.65rem 0;
   }
   .teamPeople {
-    grid-template-columns: 1fr;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    overflow: visible;
+  }
+  .teamPeople li {
+    min-width: 0;
   }
   .person {
-    padding: 2rem 1rem 2.6rem;
+    min-width: 0;
+    padding: 1.5rem 0.35rem 2rem;
   }
   .person figure {
-    width: min(16.5rem, 76vw);
-    max-width: none;
+    width: min(100%, 8.75rem);
+    max-width: 100%;
+    margin-bottom: 1.25rem;
+  }
+  .personName {
+    max-width: 100%;
+    font-size: clamp(0.96rem, 4.3vw, 1.12rem);
+    line-height: 1.18;
+    overflow-wrap: anywhere;
+  }
+  .personRole {
+    max-width: 100%;
+    margin-top: 0.35rem;
+    font-size: clamp(0.7rem, 3.2vw, 0.82rem);
+    line-height: 1.3;
   }
   .person::before {
     transform: scaleY(0);
@@ -5560,6 +5663,57 @@
   .footerIdentity {
     grid-column: 1 / -1;
   }
+  .footerIdentity {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+  .footerOffice:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
+  .footerOffice:last-child {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .companiesPage .cardFactsRealized {
+    justify-content: flex-start;
+  }
+  .companiesPage .menuTrigger,
+  .companiesPage .load,
+  .companiesPage .loadAll,
+  .companiesPage .chip {
+    border-color: rgba(243, 243, 242, 0.34);
+    background: transparent;
+    color: rgba(243, 243, 242, 0.72);
+  }
+  .companiesPage .chip:hover,
+  .companiesPage .chip:focus-visible {
+    border-color: var(--brand);
+    background: transparent;
+    color: var(--brand);
+  }
+  .companiesPage .menuCount {
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+  }
+  .companiesPage .menuTrigger:focus-visible {
+    outline: none;
+  }
+  .companiesPage .tile {
+    border: 0;
+    background: #fff;
+  }
+  .companiesPage .cardInfo {
+    background: #bed7f6;
+  }
+  .companiesPage .cardLogo {
+    --logo-base: 5.75cqi;
+    max-width: 68%;
+  }
+  .footerMobileBreak {
+    display: initial;
+  }
   .footerNav ul {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: none;
@@ -5657,21 +5811,34 @@
     align-items: center;
   }
   .dialogFacts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     align-items: start;
-    gap: 1rem 1.25rem;
+    justify-items: start;
+    gap: 0.85rem;
   }
   .dialogFacts li {
     width: 100%;
-    display: grid;
-    grid-template-columns: auto auto minmax(0, 1fr);
-    align-items: start;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
     gap: 0.25rem;
     text-align: left;
   }
   .dialogFacts li:last-child {
     justify-self: stretch;
     text-align: left;
+  }
+  .aboutPage .pageWordStage {
+    width: calc(100% - 2.5rem);
+    box-sizing: border-box;
+    padding-right: 0.08em;
+    padding-left: 0.08em;
+    overflow: hidden;
+  }
+  .aboutPage .pageWord {
+    max-width: 100%;
+    padding: 0.08em 0.04em 0.12em;
+    letter-spacing: -0.035em;
   }
   .focusAreas {
     gap: 1.25rem;

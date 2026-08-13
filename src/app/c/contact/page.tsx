@@ -1,6 +1,7 @@
 "use client";
 
 import { type FormEvent, useEffect, useState } from "react";
+import { IconArrowRight } from "@/components/icons";
 import { filters } from "@/data/portfolio";
 import { BackToTop, CFooter, CHeader } from "../components";
 import {
@@ -153,7 +154,8 @@ export default function ContactPage() {
                 className={`${styles.pill} ${styles.pillSolid}`}
                 type="submit"
               >
-                Send introduction
+                <span>Send introduction</span>
+                <IconArrowRight />
               </button>
               {sent ? (
                 <p className={styles.sent} role="status">

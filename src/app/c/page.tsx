@@ -139,7 +139,6 @@ function InvestmentFocus() {
             {focusAreas.map((area, index) => (
               <li
                 className={styles.progressiveItem}
-                data-hover-object="chip"
                 data-reveal
                 key={area}
                 style={
