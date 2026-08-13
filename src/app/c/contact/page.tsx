@@ -1,21 +1,27 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { filters } from "@/data/portfolio";
 import { BackToTop, CFooter, CHeader } from "../components";
 import {
   countryCodes,
   fundingStages,
-  taipeiAddress,
+  taipeiOffice,
   teamEmail,
   usOffice,
 } from "../content";
 import styles from "../page.module.css";
-import { PageWord } from "../PageWord";
 import { RevealHeading } from "../RevealHeading";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [headingsVisible, setHeadingsVisible] = useState(false);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setHeadingsVisible(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSent(true);
@@ -25,27 +31,28 @@ export default function ContactPage() {
       <CHeader />
       <BackToTop />
       <main className={styles.contactPage}>
-        <PageWord tone="dark">CONTACT</PageWord>
         <div className={styles.section}>
           <div className={styles.contactPageIntro}>
-            <p className={styles.tag}>Contact</p>
             <RevealHeading
               as="h1"
+              active={headingsVisible}
               className={styles.display}
               lines={["Tell us what you are building."]}
             />
             <dl className={styles.contactPoints}>
               <div>
                 <dt>Offices</dt>
-                <dd>
-                  {taipeiAddress}
-                  <br />
-                  {usOffice}
+                <dd className={styles.officeLocations}>
+                  <span>{taipeiOffice}</span>
+                  <span>{usOffice}</span>
                 </dd>
               </div>
               <div>
                 <dt>Industry</dt>
-                <dd>MedTech venture capital · Healthcare innovation</dd>
+                <dd className={styles.industryLines}>
+                  <span>MedTech venture capital</span>
+                  <span>Healthcare innovation</span>
+                </dd>
               </div>
               <div>
                 <dt>Email</dt>
@@ -56,7 +63,12 @@ export default function ContactPage() {
             </dl>
           </div>
           <form className={styles.form} onSubmit={submit}>
-            <p className={styles.formLabel}>Pitch your company</p>
+            <RevealHeading
+              as="h2"
+              active={headingsVisible}
+              className={styles.formLabel}
+              lines={["Pitch your company"]}
+            />
             <label>
               Name
               <input name="name" autoComplete="name" required />

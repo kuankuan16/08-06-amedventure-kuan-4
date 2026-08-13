@@ -64,16 +64,22 @@ export default function AboutPage() {
         <section className={styles.section}>
           <div className={`${styles.aboutInner} ${styles.aboutPageHero}`}>
             <div data-reveal className={styles.reveal}>
-              <p className={styles.tag}>About</p>
+              <p className={styles.tag}>Founding conviction</p>
               <blockquote
                 className={`${styles.quote} ${styles.lineReveal}`}
                 data-reveal
               >
                 <span>
-                  <span>The right capital and the right partnership</span>
+                  <span>The right capital and</span>
                 </span>
                 <span>
-                  <span>change how people live, heal and thrive.</span>
+                  <span>the right partnership</span>
+                </span>
+                <span>
+                  <span>change how people live,</span>
+                </span>
+                <span>
+                  <span>heal and thrive.</span>
                 </span>
               </blockquote>
               <hr className={styles.quoteRule} />
@@ -111,40 +117,6 @@ export default function AboutPage() {
                 standard of care.
               </p>
             </div>
-            <div
-              data-reveal
-              className={`${styles.aboutV2Feature} ${styles.reveal}`}
-            >
-              <div className={styles.aboutV2Copy}>
-                <RevealHeading
-                  as="h3"
-                  lines={["Decades of building,", "investing and operating."]}
-                />
-                <p>
-                  Our partners and advisors span device engineering, clinical
-                  practice and global manufacturing — operators across the whole
-                  MedTech value chain.
-                </p>
-                <Link className={styles.aboutV2Button} href="/c/team">
-                  Meet the team
-                </Link>
-              </div>
-              <figure className={styles.aboutV2Image}>
-                <Image
-                  src="/images/amed/about-expertise-team.jpg"
-                  alt="AMED operators collaborating on a medical device prototype"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                />
-                <svg
-                  viewBox="0 0 200 800"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                >
-                  <path d="M0 0 H62 C130 120 20 260 88 400 C150 530 30 640 70 800 H0 Z" />
-                </svg>
-              </figure>
-            </div>
           </section>
           <div className={styles.pillars}>
             {pillars.map(({ title, copy }, index) => (
@@ -171,6 +143,40 @@ export default function AboutPage() {
                 </p>
               </article>
             ))}
+          </div>
+          <div
+            data-reveal
+            className={`${styles.aboutV2Feature} ${styles.reveal}`}
+          >
+            <div className={styles.aboutV2Copy}>
+              <RevealHeading
+                as="h3"
+                lines={["Decades of building,", "investing and operating."]}
+              />
+              <p>
+                Our partners and advisors span device engineering, clinical
+                practice and global manufacturing — operators across the whole
+                MedTech value chain.
+              </p>
+              <Link className={styles.aboutV2Button} href="/c/team">
+                Meet the team
+              </Link>
+            </div>
+            <figure className={styles.aboutV2Image}>
+              <Image
+                src="/images/amed/about-expertise-team.jpg"
+                alt="AMED operators collaborating on a medical device prototype"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+              <svg
+                viewBox="0 0 200 800"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path d="M0 0 H62 C130 120 20 260 88 400 C150 530 30 640 70 800 H0 Z" />
+              </svg>
+            </figure>
           </div>
         </section>
       </main>

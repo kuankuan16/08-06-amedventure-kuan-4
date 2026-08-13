@@ -3,16 +3,56 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
 import { IconArrowRight } from "@/components/icons";
 import styles from "./page.module.css";
-import { taipeiAddress, usOffice } from "./content";
+import { taipeiOfficeDetailed, usOffice } from "./content";
 
 const links = [
   ["About", "/c/about"],
   ["Portfolio", "/c/companies"],
   ["Team", "/c/team"],
 ] as const;
+
+function HomeLogo({
+  className,
+  priority = false,
+}: {
+  className: string;
+  priority?: boolean;
+}) {
+  const pathname = usePathname();
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (pathname !== "/c") return;
+
+    event.preventDefault();
+    window.history.replaceState(null, "", "/c");
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  };
+
+  return (
+    <Link
+      className={className}
+      href="/c"
+      aria-label="AMED Ventures home"
+      onClick={handleClick}
+    >
+      <Image
+        src="/brand/amed-logo-light.png"
+        alt="AMED Ventures"
+        width={320}
+        height={120}
+        priority={priority}
+      />
+    </Link>
+  );
+}
 
 export function CHeader() {
   const pathname = usePathname();
@@ -31,19 +71,7 @@ export function CHeader() {
       <header
         className={`${styles.header} ${scrolled ? styles.headerScrolled : ""}`}
       >
-        <Link
-          className={styles.brand}
-          href="/c"
-          aria-label="AMED Ventures home"
-        >
-          <Image
-            src="/brand/amed-logo-light.png"
-            alt="AMED Ventures"
-            width={320}
-            height={120}
-            priority
-          />
-        </Link>
+        <HomeLogo className={styles.brand} priority />
         <nav className={styles.nav} aria-label="Primary navigation">
           {links.map(([label, href]) => (
             <Link
@@ -116,18 +144,7 @@ export function CFooter() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerInner}>
-        <Link
-          className={styles.footerLogo}
-          href="/c"
-          aria-label="AMED Ventures home"
-        >
-          <Image
-            src="/brand/amed-logo-light.png"
-            alt="AMED Ventures"
-            width={320}
-            height={120}
-          />
-        </Link>
+        <HomeLogo className={styles.footerLogo} />
         <nav
           className={`${styles.footerGroup} ${styles.footerNav}`}
           aria-label="Footer navigation"
@@ -155,11 +172,11 @@ export function CFooter() {
         </nav>
         <div className={styles.footerIdentity}>
           <div className={styles.footerOffice}>
-            <span>Taipei</span>
-            <address>{taipeiAddress}</address>
+            <span>Taiwan</span>
+            <address>{taipeiOfficeDetailed}</address>
           </div>
           <div className={styles.footerOffice}>
-            <span>San Francisco</span>
+            <span>United States</span>
             <address>{usOffice}</address>
           </div>
         </div>

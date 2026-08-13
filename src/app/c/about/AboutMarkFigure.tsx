@@ -64,7 +64,7 @@ export function AboutMarkFigure() {
         autoplay: false,
         animationData: aboutPixelsLottie,
         rendererSettings: {
-          preserveAspectRatio: "xMidYMid meet",
+          preserveAspectRatio: "xMidYMid slice",
           progressiveLoad: true,
           hideOnTransparent: true,
         },
@@ -98,32 +98,34 @@ export function AboutMarkFigure() {
   }, [reducedMotion]);
 
   return (
-    <figure className={styles.quoteFigure} data-reveal>
-      <svg
-        viewBox="0 0 420 680"
-        role="img"
-        aria-label="A founder and clinical partner examining a transparent heart prototype together"
-      >
-        <defs>
-          <clipPath id="amedClinicalLensAboutPage">
-            <rect x="45" y="10" width="330" height="660" rx="165" />
-          </clipPath>
-        </defs>
-        <image
-          href="/images/amed/about-hands-medtech.jpg"
-          x="-34"
-          y="-52"
-          width="462"
-          height="748"
-          preserveAspectRatio="xMidYMid slice"
-          clipPath="url(#amedClinicalLensAboutPage)"
-        />
-      </svg>
+    <>
+      <figure className={styles.quoteFigure} data-reveal>
+        <svg
+          viewBox="0 0 480 610"
+          role="img"
+          aria-label="A founder and clinical partner examining a transparent heart prototype together"
+        >
+          <defs>
+            <clipPath id="amedClinicalLensAboutPage">
+              <rect x="35" y="10" width="410" height="590" rx="205" />
+            </clipPath>
+          </defs>
+          <image
+            href="/images/amed/about-hands-medtech.jpg"
+            x="-12"
+            y="-52"
+            width="520"
+            height="748"
+            preserveAspectRatio="xMidYMid slice"
+            clipPath="url(#amedClinicalLensAboutPage)"
+          />
+        </svg>
+      </figure>
       <span
         ref={lottieRef}
-        className={styles.quoteLottiePixels}
+        className={styles.aboutPageLottiePixels}
         aria-hidden="true"
       />
-    </figure>
+    </>
   );
 }

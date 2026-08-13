@@ -10,4 +10,11 @@
 - Pitch: opens a compact modal form. Escape and backdrop click close it; submit is a local stub.
 - Reduced motion: reveals resolve instantly, pointer response is off, shader time freezes, static particles still illustrate the forms.
 - Responsive: 1440 desktop artboard, 768 stacked tablet, 390 single-column phone; metric and portfolio grids collapse from 4/2 columns to 2/1.
+# Proposal C V7 fixed-film hero (2026-08-13)
 
+- The home hero is a time-driven four-film carousel with an `8200ms` interval.
+- Videos crossfade for `1400ms`; the active video receives a subtle nine-second Ken Burns scale.
+- The four ruled controls are both progress indicators and direct slide selectors. Hover pauses the current timer; click selects and resets it.
+- A `168dvh` runway keeps the film frame fixed/sticky while the hero content fades and rises.
+- The project adaptation retains a deep AMED navy film grade. Mid-scroll, a distinct white-on-black brand statement takes over and then travels upward as the following light section pushes directly into view.
+- Reduced motion disables timed cycling, video playback, Ken Burns transforms and reveal translations.

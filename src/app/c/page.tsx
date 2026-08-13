@@ -13,10 +13,9 @@ import {
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { newsTypes, portfolioNews, type NewsType } from "@/data/portfolio-news";
 import { BackToTop, CFooter, CHeader } from "./components";
-import { taipeiAddress, teamEmail, usOffice } from "./content";
-import { FocusParticleField } from "./FocusParticleField";
+import { taipeiOffice, teamEmail, usOffice } from "./content";
 import { FocusArtwork, type FocusArtworkKind } from "./FocusArtwork";
-import { HeroMorphField } from "./HeroMorphField";
+import { FixedFilmHero } from "./FixedFilmHero";
 import { RevealHeading } from "./RevealHeading";
 import styles from "./page.module.css";
 
@@ -74,7 +73,6 @@ function InvestmentFocus() {
       id="investment-focus"
       aria-labelledby="investment-focus-heading"
     >
-      <FocusParticleField className={styles.focusParticleField} />
       <div className={styles.focusInner}>
         <div className={styles.focusHeading}>
           <p className={styles.focusEyebrow}>AMED Ventures</p>
@@ -82,22 +80,21 @@ function InvestmentFocus() {
             as="h2"
             id="investment-focus-heading"
             lines={[
-              "Innovation with the potential",
-              "to improve patient outcomes.",
+              "Backing the technologies",
+              "that move care forward.",
             ]}
           />
         </div>
         <div className={styles.focusApproach}>
           <p>
-            AMED Ventures invests primarily in medical technology and healthcare
-            companies developing innovative solutions with the potential to
-            improve patient outcomes and healthcare delivery.
+            From cardiovascular and neurovascular platforms to surgical,
+            vision and connected care, we look for ideas with a clear clinical
+            purpose.
           </p>
           <p>
-            AMED Ventures takes a high-conviction, long-term investment
-            approach, partnering closely with founders by providing strategic
-            guidance, industry expertise, operational support, and access to a
-            global network throughout each company&apos;s growth journey.
+            Across Asia and the United States, we support teams turning
+            technical insight into solutions that can earn trust in real care
+            settings.
           </p>
         </div>
         <div
@@ -260,43 +257,15 @@ export default function ProposalC() {
   );
 
   return (
-    <div className={styles.page} ref={pageRef} id="top">
+    <div
+      className={`${styles.page} ${styles.homePage}`}
+      ref={pageRef}
+      id="top"
+    >
       <CHeader />
       <BackToTop />
       <main className={styles.pageBody}>
-        <section className={styles.heroMorph} data-morph-hero>
-          <div className={styles.heroMorphSticky}>
-            <HeroMorphField className={styles.heroMorphField} />
-            <div className={`${styles.section} ${styles.heroMorphContent}`}>
-              <p className={styles.heroMorphEyebrow}>
-                <i aria-hidden="true" />
-                AMED Ventures · Medical technology venture capital
-              </p>
-              <h1>
-                <span><span>The right capital and</span></span>
-                <span><span>the right <em>partnership</em></span></span>
-                <span><span>change how people live,</span></span>
-                <span><span>heal and thrive.</span></span>
-              </h1>
-              <div className={styles.heroMorphSupport}>
-                <p>
-                  AMED Ventures is a venture and growth capital investment firm
-                  dedicated to the MedTech sector.
-                </p>
-                <Link className={styles.heroMorphCta} href="/c/companies">
-                  Explore our portfolio <IconArrowRight />
-                </Link>
-              </div>
-              <div className={styles.heroMorphMeta} aria-label="Investment profile">
-                <p><strong>US · Asia</strong><span>Investment footprint</span></p>
-                <p><strong>Early–Growth</strong><span>Stage focus</span></p>
-              </div>
-            </div>
-            <div className={styles.heroMorphScroll} aria-hidden="true">
-              <span>Scroll</span><i><b /></i>
-            </div>
-          </div>
-        </section>
+        <FixedFilmHero />
 
         <InvestmentFocus />
 
@@ -442,10 +411,9 @@ export default function ProposalC() {
                 </div>
                 <div>
                   <dt>Offices</dt>
-                  <dd>
-                    {taipeiAddress}
-                    <br />
-                    {usOffice}
+                  <dd className={styles.officeLocations}>
+                    <span>{taipeiOffice}</span>
+                    <span>{usOffice}</span>
                   </dd>
                 </div>
               </dl>

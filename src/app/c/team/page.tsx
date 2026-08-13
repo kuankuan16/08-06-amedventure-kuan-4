@@ -14,6 +14,7 @@ import {
 import styles from "../page.module.css";
 import { PageWord } from "../PageWord";
 import { RevealHeading } from "../RevealHeading";
+import { TeamPixelField } from "./TeamPixelField";
 
 export default function TeamPage() {
   const [personIndex, setPersonIndex] = useState<number | null>(null);
@@ -41,10 +42,11 @@ export default function TeamPage() {
       <CHeader />
       <BackToTop />
       <main className={`${styles.team} ${styles.standaloneTeam}`}>
+        <TeamPixelField />
         <PageWord>TEAM</PageWord>
         <div className={styles.section}>
           <div className={styles.pageIntro}>
-            <p className={styles.tag}>Team</p>
+            <p className={styles.tag}>Investment &amp; operating team</p>
             <RevealHeading
               as="h1"
               className={styles.display}

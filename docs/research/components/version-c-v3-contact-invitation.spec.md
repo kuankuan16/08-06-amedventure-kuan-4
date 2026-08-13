@@ -80,7 +80,7 @@
 - Heading: `Building something that belongs in a hospital?`
 - Body: `We read everything. If you are early, technical and serious about the clinical bar, we would like to hear from you.`
 - CTA: `Send us your deck`
-- Address order remains client-mandated: Taipei first, then San Francisco Bay Area.
+- Office order remains client-mandated: Taipei first, then San Francisco; only city and country are shown.
 
 ## Responsive Behavior
 - **Desktop 1440px:** centered 12-column lower grid and full `7vw` heading.

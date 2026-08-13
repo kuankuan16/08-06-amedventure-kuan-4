@@ -1,8 +1,10 @@
 import styles from "./page.module.css";
 
 export const teamEmail = "info@amedventures.com";
-export const taipeiAddress = "3F.-1, No. 3, Dunhua S. Rd., Songshan Dist., Taipei City 105, Taiwan (R.O.C.)";
-export const usOffice = "San Francisco Bay Area, USA";
+export const taipeiOffice = "Taipei, Taiwan";
+export const taipeiOfficeDetailed =
+  "3F.-1, No. 3, Dunhua S. Rd., Songshan Dist., Taipei City 105, Taiwan (R.O.C.)";
+export const usOffice = "San Francisco, USA";
 export const teamPortraitFallback = "/images/amed/team-placeholder-02.jpg";
 export const teamLinkedIn = "https://www.linkedin.com/";
 

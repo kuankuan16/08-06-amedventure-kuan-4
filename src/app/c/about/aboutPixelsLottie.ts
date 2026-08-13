@@ -5,7 +5,7 @@ const pixelSpecs = [
   {
     home: [72, 120],
     entry: [-210, -120],
-    size: 18,
+    size: 6,
     drift: [
       [28, -22],
       [-18, 34],
@@ -17,7 +17,7 @@ const pixelSpecs = [
   {
     home: [510, 62],
     entry: [810, -210],
-    size: 28,
+    size: 9,
     drift: [
       [-38, 26],
       [24, 44],
@@ -29,7 +29,7 @@ const pixelSpecs = [
   {
     home: [570, 250],
     entry: [860, 170],
-    size: 16,
+    size: 5,
     drift: [
       [-22, -34],
       [30, 18],
@@ -41,7 +41,7 @@ const pixelSpecs = [
   {
     home: [18, 358],
     entry: [-250, 380],
-    size: 24,
+    size: 8,
     drift: [
       [32, 28],
       [-14, -38],
@@ -53,7 +53,7 @@ const pixelSpecs = [
   {
     home: [482, 470],
     entry: [820, 520],
-    size: 18,
+    size: 6,
     drift: [
       [-30, 22],
       [24, -34],
@@ -65,7 +65,7 @@ const pixelSpecs = [
   {
     home: [78, 605],
     entry: [-230, 690],
-    size: 30,
+    size: 10,
     drift: [
       [26, -38],
       [40, 18],
@@ -77,7 +77,7 @@ const pixelSpecs = [
   {
     home: [540, 708],
     entry: [830, 920],
-    size: 22,
+    size: 7,
     drift: [
       [-34, -26],
       [20, -42],
@@ -89,7 +89,7 @@ const pixelSpecs = [
   {
     home: [288, 774],
     entry: [310, 1060],
-    size: 15,
+    size: 5,
     drift: [
       [-26, -30],
       [36, -10],
@@ -97,6 +97,30 @@ const pixelSpecs = [
       [24, 18],
     ],
     opacity: 60,
+  },
+  {
+    home: [326, 112],
+    entry: [326, -170],
+    size: 5,
+    drift: [
+      [18, 14],
+      [-14, 30],
+      [24, -10],
+      [-18, -16],
+    ],
+    opacity: 54,
+  },
+  {
+    home: [382, 152],
+    entry: [690, 92],
+    size: 7,
+    drift: [
+      [-20, 22],
+      [16, -18],
+      [26, 16],
+      [-12, 26],
+    ],
+    opacity: 68,
   },
 ] as const;
 

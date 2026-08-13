@@ -6,6 +6,7 @@ import styles from "./page.module.css";
 
 type RevealHeadingProps = {
   as: "h1" | "h2" | "h3";
+  active?: boolean;
   className?: string;
   id?: string;
   lines: readonly ReactNode[];
@@ -13,6 +14,7 @@ type RevealHeadingProps = {
 
 export function RevealHeading({
   as: Heading,
+  active,
   className = "",
   id,
   lines,
@@ -22,6 +24,7 @@ export function RevealHeading({
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (active !== undefined) return;
     const heading = headingRef.current;
     if (!heading || reducedMotion) return;
     const observer = new IntersectionObserver(
@@ -34,11 +37,13 @@ export function RevealHeading({
     );
     observer.observe(heading);
     return () => observer.disconnect();
-  }, [reducedMotion]);
+  }, [active, reducedMotion]);
+
+  const isVisible = active ?? visible;
 
   return (
     <Heading
-      className={`${className} ${styles.lineReveal} ${visible || reducedMotion ? styles.revealVisible : ""}`}
+      className={`${className} ${styles.lineReveal} ${isVisible || reducedMotion ? styles.revealVisible : ""}`}
       id={id}
       ref={headingRef}
     >

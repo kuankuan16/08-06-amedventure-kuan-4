@@ -1,12 +1,13 @@
 # Page Topology
 
-1. Loader — fixed black curtain; accelerating cyan/indigo vessel particles; 000→100 bar.
-2. Header — fixed centered glass pill; AMED logo, section links, Contact button; mobile fullscreen menu.
-3. Hero track — 200lvh; fixed copy, full-screen particle vessel/orb, four metrics, dual CTA.
-4. Focus track — 200lvh; particle form opens into a two-arm clinical flow field; four focus labels and co-investor wall.
-5. Portfolio track — 200lvh; particles converge into a paired cerebral/cardiovascular silhouette; 2×2 portfolio proof cards.
-6. Leadership card — in-flow opaque white inset card rising over the live shader; team authority and generated founder image.
-7. Pitch/footer — transparent over the live scene; large pitch statement, modal trigger, compact footer navigation.
+## Current `/c` experience
 
-The page uses one shared 0→4 scroll clock. Fixed overlays gate by clock windows; in-flow cards use IntersectionObserver. Desktop is artboard-scaled; under 1024px the overlays become stacked real-pixel layouts and pointer reactions are disabled.
+1. Header — fixed translucent white bar; AMED logo returns to `/c#top`; About, Portfolio, Team and Contact navigation; compact mobile menu.
+2. Fixed-film hero — four full-viewport healthcare films, timed crossfades, ruled progress controls and a `168svh` sticky runway. A deep navy grade shifts into a white-on-black brand statement, which moves upward as the editorial content pushes directly into view.
+3. Investment focus — client-facing focus statement, two supporting paragraphs and four focus cards.
+4. About preview — founder-first institutional introduction with a direct Team route.
+5. Story — filtered portfolio milestones with pagination.
+6. Pitch us — dark invitation band and direct Contact route.
+7. Footer — white institutional footer; both logo placements return to `/c#top`.
 
+Desktop uses the 1440px artboard regime. Under `1023.98px`, layout values switch to `rem`/`clamp()`; the hero controls collapse to a two-column grid on phones. Timed film playback, Ken Burns movement and reveal translations stop under reduced motion.

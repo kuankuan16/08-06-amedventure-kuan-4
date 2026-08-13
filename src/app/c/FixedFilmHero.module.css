@@ -1,0 +1,553 @@
+.hero {
+  position: relative;
+  z-index: 1;
+  height: 168svh;
+  background: var(--home-field, var(--paper));
+}
+
+.stickyFrame {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: #061321;
+  color: #f7f7f3;
+}
+
+.film {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+.videoLayer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.84) saturate(0.98) contrast(0.94);
+  transition: transform 9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brightGrade,
+.readabilityWash,
+.paperBlend {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.brightGrade {
+  background:
+    linear-gradient(180deg, rgba(5, 17, 31, 0.16), rgba(5, 15, 28, 0.42)),
+    linear-gradient(105deg, rgba(5, 16, 29, 0.54) 0%, rgba(5, 17, 31, 0.1) 48%, rgba(5, 17, 31, 0.3) 100%);
+}
+
+.readabilityWash {
+  background:
+    linear-gradient(180deg, transparent 0 32%, rgba(4, 13, 26, 0.18) 65%, rgba(4, 13, 26, 0.7) 100%),
+    linear-gradient(90deg, rgba(4, 13, 26, 0.56) 0%, rgba(4, 13, 26, 0.22) 44%, transparent 76%);
+}
+
+.contentFrame {
+  --hero-rail-width: min(58vw, 48rem);
+  position: relative;
+  z-index: 2;
+  width: min(92vw, var(--wide));
+  height: 100%;
+  margin: 0 auto;
+  padding: 6.2vw 0 4.2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0;
+  will-change: opacity, transform;
+}
+
+.copy {
+  position: absolute;
+  top: 51%;
+  left: 0;
+  max-width: 64vw;
+  transform: translateY(-50%);
+}
+
+.eyebrow {
+  margin: 0 0 2vw;
+  display: flex;
+  align-items: center;
+  gap: 0.64vw;
+  color: var(--cyan-hot);
+  font: 500 15px/1 "Mulish", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  animation: rise 0.9s var(--ease-out) both;
+}
+
+.eyebrow i {
+  width: 2.15vw;
+  height: 1px;
+  background: color-mix(in srgb, var(--cyan-hot) 48%, transparent);
+}
+
+.copy h1 {
+  margin: 0;
+  color: #f7f7f3;
+  font: 300 65px/var(--display-leading) var(--display-face);
+  letter-spacing: var(--display-tracking);
+}
+
+.lineMask {
+  display: block;
+  overflow: hidden;
+  padding: 0.06em 0 0.2em;
+}
+
+.lineMask > span {
+  display: block;
+  transform: translateY(105%);
+  animation: maskUp 1.15s var(--ease-out) forwards;
+}
+
+.body {
+  width: var(--hero-rail-width);
+  max-width: 100%;
+  margin: 1.5vw 0 0;
+  color: rgba(247, 247, 243, 0.74);
+  font: 400 24px/1.55 "Mulish", sans-serif;
+  letter-spacing: normal;
+  text-wrap: pretty;
+  animation: rise 1s 0.32s var(--ease-out) both;
+}
+
+.navigation {
+  margin-top: 1.8vw;
+  padding-top: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3vw;
+  border-top: 0;
+}
+
+.navigation ol {
+  width: var(--hero-rail-width);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.9vw;
+  list-style: none;
+}
+
+.navigation li {
+  min-width: 0;
+  flex: 1;
+}
+
+.navigation button {
+  width: 100%;
+  padding: 0;
+  display: block;
+  border: 0;
+  color: rgba(247, 247, 243, 0.42);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.progressTrack {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  display: block;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.progressTrack > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--brand);
+}
+
+.navLabel {
+  margin-top: 0.48vw;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55vw;
+  font: 400 0.82vw/1.25 "Mulish", sans-serif;
+}
+
+.navLabel > span:first-child {
+  color: var(--cyan-hot);
+  font-size: 0.7vw;
+  letter-spacing: 0.12em;
+}
+
+.navigation button[aria-current="true"] .navLabel > span:last-child,
+.navigation button:hover .navLabel > span:last-child,
+.navigation button:focus-visible .navLabel > span:last-child {
+  color: #f7f7f3;
+}
+
+.scrollCue {
+  margin-top: auto;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.38vw;
+  color: var(--cyan-hot);
+  font: 500 0.52vw/1 "Mulish", sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.scrollCueCircle {
+  position: relative;
+  width: 2.9vw;
+  height: 2.9vw;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--cyan-hot) 55%, transparent);
+  border-radius: 50%;
+}
+
+.scrollCueCircle svg {
+  width: 1.22vw;
+  height: 1.55vw;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 24;
+  animation: scrollStroke 1.8s ease-in-out infinite;
+}
+
+.handoff {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(84, 173, 209, 0.13), transparent 30%),
+    linear-gradient(145deg, rgba(4, 13, 26, 0.94), #061321 60%);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.handoffCopy {
+  width: min(92vw, var(--wide));
+  margin: 0 auto;
+  padding-top: 4vw;
+  will-change: opacity, transform;
+}
+
+.handoffEyebrow {
+  margin: 0 0 1.8vw;
+  color: var(--cyan-hot);
+  font: 500 0.78vw/1 "Mulish", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.handoffCopy h2 {
+  max-width: 68vw;
+  margin: 0;
+  color: #f7f7f3;
+  font: 300 clamp(3rem, 5.8vw, 5.5rem)/1.08 var(--serif);
+  letter-spacing: -0.025em;
+  perspective: 800px;
+}
+
+.handoffLine {
+  display: block;
+  overflow: hidden;
+  padding: 0.02em 0 0.14em;
+}
+
+.handoffLine > span {
+  display: block;
+  transform-origin: 0 100%;
+  will-change: transform, opacity, filter;
+}
+
+.handoffBody {
+  max-width: 39vw;
+  margin: 2.2vw 0 0;
+  color: rgba(247, 247, 243, 0.72);
+  font: 400 24px/1.55 "Mulish", sans-serif;
+  letter-spacing: normal;
+  text-wrap: pretty;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes maskUp {
+  from { transform: translateY(105%); }
+  to { transform: none; }
+}
+
+@keyframes scrollPulse {
+  from { transform: translateY(-105%); }
+  55%,
+  to { transform: translateY(105%); }
+}
+
+@keyframes scrollStroke {
+  0% {
+    opacity: 0.35;
+    stroke-dashoffset: 24;
+    transform: translateY(-10%);
+  }
+  45%,
+  72% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    transform: none;
+  }
+  100% {
+    opacity: 0.35;
+    stroke-dashoffset: 0;
+    transform: translateY(8%);
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .contentFrame {
+    width: calc(100% - 2.5rem);
+    padding: 7rem 0 3.5rem;
+    gap: 0;
+  }
+
+  .copy {
+    top: 51%;
+    width: 100%;
+    max-width: 46rem;
+    min-width: 0;
+  }
+
+  .eyebrow {
+    margin-bottom: 1.75rem;
+    gap: 0.55rem;
+    font-size: 15px;
+  }
+
+  .eyebrow i {
+    width: 1.8rem;
+  }
+
+  .copy h1 {
+    font-size: clamp(2.75rem, 6.5vw, 3.75rem);
+    line-height: var(--display-leading);
+  }
+
+  .body {
+    width: 100%;
+    max-width: 34rem;
+    margin-top: 1.4rem;
+    font-size: 1.5rem;
+  }
+
+  .navigation {
+    margin-top: 1.75rem;
+    padding-top: 0;
+    gap: 1.5rem;
+  }
+
+  .navigation ol {
+    width: min(100%, 44rem);
+    gap: 0.75rem;
+  }
+
+  .navLabel {
+    margin-top: 0.42rem;
+    gap: 0.45rem;
+    font-size: 0.76rem;
+  }
+
+  .navLabel > span:first-child {
+    font-size: 0.65rem;
+  }
+
+  .scrollCue {
+    margin-top: auto;
+    gap: 0.42rem;
+    font-size: 0.58rem;
+  }
+
+  .scrollCueCircle {
+    width: 2.9rem;
+    height: 2.9rem;
+  }
+
+  .scrollCueCircle svg {
+    width: 1.15rem;
+    height: 1.45rem;
+  }
+
+  .paperBlend {
+    height: 8rem;
+  }
+
+  .handoffCopy {
+    width: calc(100% - 2.5rem);
+    padding-top: 4rem;
+  }
+
+  .handoffEyebrow {
+    margin-bottom: 1.4rem;
+    font-size: 0.72rem;
+  }
+
+  .handoffCopy h2 {
+    max-width: 48rem;
+    font-size: clamp(3.25rem, 8vw, 5.4rem);
+  }
+
+  .handoffBody {
+    max-width: 34rem;
+    margin-top: 1.6rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    height: 166svh;
+  }
+
+  .contentFrame {
+    width: calc(100% - 3rem);
+    padding: 6rem 0 2rem;
+    gap: 0;
+  }
+
+  .video {
+    object-position: 58% center;
+    filter: brightness(0.8) saturate(0.94) contrast(0.94);
+  }
+
+  .brightGrade {
+    background: rgba(4, 13, 26, 0.24);
+  }
+
+  .readabilityWash {
+    background:
+      linear-gradient(180deg, transparent 0 24%, rgba(4, 13, 26, 0.34) 58%, rgba(4, 13, 26, 0.78) 100%),
+      linear-gradient(90deg, rgba(4, 13, 26, 0.4), transparent 86%);
+  }
+
+  .eyebrow {
+    margin-bottom: 1.45rem;
+    gap: 0.45rem;
+    font-size: 0.65rem;
+  }
+
+  .copy h1 {
+    font-size: clamp(2.35rem, 10vw, 3rem);
+    line-height: var(--display-leading);
+  }
+
+  .body {
+    max-width: 100%;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .navigation {
+    padding-top: 1rem;
+  }
+
+  .navigation ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1rem;
+  }
+
+  .navLabel {
+    margin-top: 0.35rem;
+    font-size: 0.72rem;
+  }
+
+  .scrollCue {
+    display: none;
+  }
+
+  .handoffCopy {
+    width: calc(100% - 3rem);
+    padding-top: 3rem;
+  }
+
+  .handoffEyebrow {
+    margin-bottom: 1.15rem;
+    font-size: 0.65rem;
+    line-height: 1.4;
+  }
+
+  .handoffCopy h2 {
+    max-width: none;
+    font-size: clamp(2.55rem, 12vw, 3.45rem);
+  }
+
+  .handoffBody {
+    max-width: 100%;
+    margin-top: 1.35rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .videoLayer,
+  .video,
+  .film,
+  .contentFrame,
+  .handoffCopy {
+    transition: none;
+  }
+
+  .eyebrow,
+  .body,
+  .lineMask > span {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .scrollCue b {
+    animation: none;
+    transform: none;
+  }
+
+  .scrollCueCircle svg {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .handoff {
+    display: none;
+  }
+}

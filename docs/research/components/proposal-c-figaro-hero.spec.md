@@ -19,7 +19,7 @@
 1. `heroFigaro` section inside the existing white hero band.
 2. `heroSloganRail`: two identical groups for a seamless oversized slogan marquee.
 3. `heroCinema`: wide carousel frame with four existing hero photographs, quiet image controls, small editorial note and CTA.
-4. `heroPositions`: the existing “US · Asia” and “Early–Growth” facts.
+4. `heroPositions`: the existing “Asia · US” and “Early–Growth” facts.
 5. `heroLogoRail`: two identical logo groups using selected current portfolio company logos; no heading/label.
 
 ## States and behaviours

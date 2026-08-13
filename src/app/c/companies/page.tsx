@@ -126,7 +126,7 @@ export default function CompaniesPage() {
         <PageWord tone="dark">PORTFOLIO</PageWord>
         <div className={`${styles.section} ${styles.standaloneSection}`}>
           <div className={styles.pageIntro}>
-            <p className={styles.tag}>Portfolio</p>
+            <p className={styles.tag}>Selected investments</p>
             <RevealHeading
               as="h1"
               className={styles.display}
@@ -238,16 +238,18 @@ export default function CompaniesPage() {
                     <span
                       className={`${styles.cardFacts} ${company.status === "Realized" ? styles.cardFactsRealized : ""}`}
                     >
-                      <span>
-                        {company.status === "Realized"
-                          ? ""
-                          : company.location || company.status}
-                      </span>
-                      <span>
-                        {company.founded
-                          ? `Founded ${company.founded}`
-                          : company.status}
-                      </span>
+                      {company.status === "Realized" ? (
+                        <span className={styles.cardRealizedBadge}>Realized</span>
+                      ) : (
+                        <>
+                          <span>{company.location || company.status}</span>
+                          <span>
+                            {company.founded
+                              ? `Founded ${company.founded}`
+                              : company.status}
+                          </span>
+                        </>
+                      )}
                     </span>
                   </span>
                   <span className={styles.cardRest}>

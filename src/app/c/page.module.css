@@ -62,6 +62,10 @@
   background: var(--paper);
   color: var(--ink-b);
 }
+.homePage {
+  --home-field: var(--band);
+  background: var(--home-field);
+}
 
 .page ::selection {
   color: var(--paper);
@@ -96,7 +100,7 @@
   margin: var(--s60) 0 0;
   font-family: var(--display-face);
   font-weight: 300;
-  font-size: clamp(var(--t-large), 5.2vw, 4.2rem);
+  font-size: clamp(var(--t-large), 4.8vw, 3.75rem);
   line-height: var(--display-leading);
   letter-spacing: var(--display-tracking);
   text-wrap: balance;
@@ -265,47 +269,19 @@
 .heroBand {
   background: #fff;
 }
-/* V3 morph-field translated into AMED's bright editorial palette. The canvas stays inert
-   under a sticky copy layer while local scroll progress and pointer position shape the field. */
 .heroMorph {
   position: relative;
-  height: 190svh;
+  height: 100svh;
   overflow: clip;
-  background: #edf1f2;
+  background: var(--paper);
   color: var(--ink-b);
 }
 .heroMorphSticky {
-  position: sticky;
-  top: 0;
+  position: relative;
   height: 100svh;
   display: flex;
   align-items: center;
   overflow: hidden;
-}
-.heroMorphField {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  pointer-events: none;
-}
-.heroMorphField::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 72% 44%, rgba(255, 255, 255, 0.12), transparent 34%),
-    linear-gradient(90deg, rgba(237, 241, 242, 0.96) 0 25%, rgba(237, 241, 242, 0.48) 55%, transparent 78%);
-}
-.heroMorphField canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-}
-.heroMorphField[data-webgl-fallback="true"] {
-  background:
-    radial-gradient(circle at 72% 42%, rgba(84, 173, 209, 0.26) 0 0.32rem, transparent 0.38rem),
-    radial-gradient(circle at 78% 54%, rgba(84, 173, 209, 0.2) 0 0.22rem, transparent 0.28rem),
-    radial-gradient(circle at 65% 62%, rgba(41, 118, 154, 0.16) 0 0.18rem, transparent 0.24rem);
 }
 .heroMorphContent {
   position: relative;
@@ -1244,6 +1220,10 @@
   background: var(--band);
   color: #1b1916;
 }
+.aboutPage {
+  position: relative;
+  isolation: isolate;
+}
 .about .tag {
   color: var(--brand);
 }
@@ -1260,33 +1240,33 @@
   min-width: 0;
 }
 .aboutPageHero {
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 4.15vw;
-  align-items: center;
-  padding-top: 0.85vw;
+  grid-template-columns: minmax(0, 8.15fr) minmax(0, 3.85fr);
+  gap: 2.4vw;
+  align-items: start;
+  padding-top: 0;
 }
-/* About content follows the homepage scale: 67px is the absolute display ceiling, while
+/* About content follows the homepage scale: 60px is the display ceiling, while
    evidence and card headings step down to the same editorial ranks used by Focus and Story. */
 .aboutPageHero .quote {
-  max-width: 49vw;
-  margin-top: 2.5vw;
-  font-size: clamp(2.625rem, 4.4vw, 4.1875rem);
+  max-width: 60vw;
+  margin-top: var(--s60);
+  font-size: clamp(2.625rem, 4vw, 3.75rem);
   line-height: 1.04;
 }
 .aboutPageHero .quoteRule {
-  margin-top: 3.4vw;
-  margin-bottom: 2vw;
+  margin-top: var(--s50);
+  margin-bottom: var(--s40);
 }
 .aboutPageHero .quoteFigure {
-  width: min(100%, 23.5vw);
-  margin-top: 1.15vw;
+  width: min(100%, 24vw);
+  margin-top: -2.25vw;
   justify-self: center;
 }
 .quote {
   max-width: 44rem;
   margin: var(--s60) 0 0;
   font-family: var(--display-face);
-  font-size: clamp(var(--t-large), 5.2vw, 4.2rem);
+  font-size: clamp(var(--t-large), 4.8vw, 3.75rem);
   font-weight: 300;
   line-height: var(--display-leading);
   letter-spacing: var(--display-tracking);
@@ -1339,28 +1319,28 @@
   display: block;
   filter: saturate(0.82) contrast(0.97) brightness(1.03);
 }
-/* Lottie owns the one-time inward flight and the perpetual ambient orbit. Pointer movement is
-   applied to this outer layer only, leaving Lottie's internal transforms uninterrupted. */
-.quoteLottiePixels {
+/* Lottie owns the one-time inward flight and perpetual orbit across the whole About page.
+   Pointer movement is applied to this outer layer only, leaving its internal paths intact. */
+.aboutPageLottiePixels {
   position: absolute;
-  z-index: 3;
-  inset: -11% -18% -10% -17%;
+  z-index: 4;
+  inset: 0;
   display: block;
-  overflow: visible;
+  overflow: hidden;
   pointer-events: none;
   will-change: transform;
 }
-.quoteLottiePixels > svg {
+.aboutPageLottiePixels > svg {
   width: 100% !important;
   height: 100% !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 @media (prefers-reduced-motion: reduce) {
   .quoteRule {
     transform: none;
     transition: none;
   }
-  .quoteLottiePixels {
+  .aboutPageLottiePixels {
     transform: none !important;
   }
 }
@@ -1473,7 +1453,7 @@
 /* About V2 reference: the institutional statement opens into a joined sage-and-image feature.
    It keeps the source's asymmetric wave while inheriting Version C's type and control system. */
 .aboutV2 {
-  margin-top: 7.8vw;
+  margin-top: 3.8vw;
   padding-top: 0;
   border-top: 0;
   color: var(--ink-b);
@@ -1486,9 +1466,9 @@
   align-items: start;
 }
 .aboutV2Intro h2 {
-  grid-column: 2;
+  grid-column: 1;
   grid-row: 1;
-  max-width: 41vw;
+  max-width: 29vw;
   margin: 0;
   font: 400 clamp(1.5rem, 1.75vw, 2rem)/1.18 var(--serif);
   letter-spacing: -0.006em;
@@ -1498,22 +1478,25 @@
 }
 .aboutV2Intro > p {
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 1;
   max-width: 41vw;
   margin: 0;
   color: color-mix(in srgb, var(--ink-b) 68%, transparent);
   font:
-    400 18px/1.65 "Mulish",
+    400 20px/1.65 "Mulish",
     sans-serif;
 }
 .aboutV2Feature {
   min-height: 25.5vw;
-  margin-top: 4.7vw;
+  margin-top: 5.6vw;
   display: grid;
   grid-template-columns: minmax(0, 4.7fr) minmax(0, 7.3fr);
   overflow: hidden;
   border-radius: var(--r-lg);
   background: #dfeadf;
+}
+.aboutPage > .section > .aboutV2Feature {
+  margin-top: 5.6vw;
 }
 .aboutV2Copy {
   z-index: 2;
@@ -1753,22 +1736,8 @@
   isolation: isolate;
   overflow: hidden;
   padding: calc(var(--s80) + var(--s70)) 0 var(--section-tail);
-  background: #f1f3f3;
+  background: transparent;
   color: var(--ink-b);
-}
-.focusParticleField {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.76;
-}
-.focusParticleField canvas {
-  position: sticky;
-  top: 0;
-  width: 100% !important;
-  height: 100svh !important;
-  display: block;
 }
 .focusInner {
   position: relative;
@@ -1798,7 +1767,7 @@
   grid-column: span 9;
   max-width: var(--content);
   margin: 0;
-  font: 300 clamp(var(--t-large), 5.2vw, 4.2rem)/var(--display-leading)
+  font: 300 clamp(var(--t-large), 4.8vw, 3.75rem)/var(--display-leading)
     var(--serif);
   letter-spacing: var(--display-tracking);
   text-wrap: balance;
@@ -1811,7 +1780,7 @@
   margin: 0;
   color: var(--muted);
   font:
-    400 1.12rem/1.6 "Mulish",
+    400 20px/1.6 "Mulish",
     sans-serif;
 }
 .focusApproach p + p {
@@ -1972,14 +1941,15 @@
   list-style: none;
 }
 .focusAreas li {
+  --focus-tag-color: var(--muted);
   min-height: 0;
   padding: 0.68rem 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--focus-tag-color);
   border-radius: 999px;
-  color: var(--muted);
+  color: var(--focus-tag-color);
   font:
     500 0.9375rem/1 "Mulish",
     sans-serif;
@@ -2357,7 +2327,21 @@
   text-align: right;
 }
 .cardFactsRealized {
-  color: var(--brand);
+  justify-content: center;
+}
+.cardRealizedBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(1.35rem, 1.55vw, 1.55rem);
+  padding: 0 clamp(0.55rem, 0.72vw, 0.72rem);
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  font:
+    500 clamp(0.6875rem, 0.68vw, 0.75rem)/1 "Mulish",
+    sans-serif;
+  letter-spacing: 0.02em;
 }
 /* Optical sizing: a tall stacked mark and a long wordmark look nothing alike at the same width,
    so each logo's height is k × --logo-base with k = sqrt(15 / ink aspect ratio), which lands
@@ -2910,7 +2894,7 @@
 .personDialog {
   width: min(100%, 56rem);
   padding: 3.4rem 3rem;
-  background: var(--brand);
+  background: #bed7f6;
 }
 /* Portrait at the list size, held to the top-left: its circle starts level with the cap line
    of the name beside it. */
@@ -2996,7 +2980,7 @@
 .personDialogFoot a:hover {
   border-color: #26302c;
   background: #26302c;
-  color: var(--brand);
+  color: #bed7f6;
 }
 
 /* ---------- news ---------- */
@@ -3361,6 +3345,14 @@
   font-size: 1.1rem;
   font-weight: 300;
 }
+.officeLocations {
+  display: grid;
+  gap: 0.72em;
+}
+.industryLines {
+  display: grid;
+  gap: 0.18em;
+}
 
 /* The word climbs out of its mask and moves directly into the title position. */
 .contactStage {
@@ -3488,6 +3480,10 @@
 .form textarea {
   resize: vertical;
 }
+.contactPage .form textarea {
+  min-height: 4.5rem;
+  height: 4.5rem;
+}
 .formFoot {
   grid-column: 1 / -1;
   display: flex;
@@ -3532,6 +3528,11 @@
 .pageBody {
   background: var(--paper);
 }
+.homePage .pageBody {
+  position: relative;
+  z-index: 1;
+  background: var(--home-field);
+}
 .tail {
   position: relative;
   padding: var(--section-tail) 0 0;
@@ -3539,21 +3540,26 @@
   color: var(--paper);
 }
 .footer {
-  padding: 3.55vw max(4vw, calc((100vw - var(--wide)) / 2)) 0.85vw;
+  position: relative;
+  z-index: 1;
+  padding: 3.05vw max(4vw, calc((100vw - var(--wide)) / 2)) 0.72vw;
   border-top: 0;
   background: #fff;
   color: var(--ink-b);
+}
+.homePage .footer {
+  background: #fff;
 }
 .footerInner {
   width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.25fr 1.55fr 2.2fr;
+  grid-template-columns: 0.92fr 1.32fr 2.61fr;
   align-items: start;
-  gap: 4.8vw;
+  column-gap: 4.4vw;
 }
 .footerLogo img {
-  width: 12.2vw;
+  width: 10.6vw;
   height: auto;
 }
 .footerGroup ul {
@@ -3578,14 +3584,21 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-flow: row;
   grid-template-rows: none;
-  gap: 0.88vw 3vw;
+  gap: 0.58vw 1.35vw;
+}
+.footerNav {
+  align-self: start;
+  transform: translateY(calc(-0.35vw - 6px));
 }
 .footerIdentity {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 38vw);
+  justify-self: end;
   align-items: start;
-  gap: 0.8vw;
+  gap: 3vw;
   text-align: left;
+  transform: translateY(calc(-0.35vw - 6px));
 }
 .footerOffice {
   display: grid;
@@ -3612,9 +3625,17 @@
     sans-serif;
   text-align: left;
 }
+.footerOffice:last-child {
+  justify-self: start;
+  justify-items: start;
+  text-align: left;
+}
+.footerOffice:last-child address {
+  text-align: left;
+}
 .footerBase {
-  margin-top: 1.7vw;
-  padding-top: 0.85vw;
+  margin-top: 1.35vw;
+  padding-top: 0.72vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -3627,11 +3648,16 @@
   letter-spacing: 0.015em;
   text-align: left;
 }
+.footerBase > span:last-child {
+  margin-left: auto;
+  text-align: right;
+}
 
 /* Pixel-for-pixel structural port of /v3#contact; only the chartreuse interaction colour is
    translated to the AMED logo cyan, as requested for Version C. */
 .pitchUs {
   position: relative;
+  z-index: 2;
   isolation: isolate;
   min-height: 76svh;
   display: flex;
@@ -3655,6 +3681,9 @@
 }
 .pitchEyebrow {
   margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s30);
   color: var(--cyan-hot);
   font:
     500 var(--t-small)/1 "Mulish",
@@ -3662,17 +3691,25 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
+.pitchEyebrow::before {
+  content: "";
+  width: 1.6rem;
+  height: 1px;
+  background: currentColor;
+}
 .pitchKineticHeading {
-  max-width: var(--content);
+  width: 100%;
+  max-width: none;
   margin: var(--s60) 0 0;
   color: #f7f3ea;
-  font: 300 clamp(var(--t-large), 5.2vw, 4.2rem)/var(--display-leading)
+  font: 300 clamp(var(--t-large), 4.8vw, 3.75rem)/var(--display-leading)
     var(--serif);
   letter-spacing: var(--display-tracking);
   text-wrap: balance;
 }
 .pitchWords {
   display: block;
+  max-width: var(--content);
 }
 .pitchWordMask {
   display: inline-block;
@@ -3719,7 +3756,7 @@
 .pitchButton {
   position: relative;
   isolation: isolate;
-  min-width: 15.4vw;
+  min-width: 13.25vw;
   height: max(2.72vw, 2.75rem);
   margin-top: 2.5vw;
   padding: 0 0.82vw 0 1.25vw;
@@ -3822,7 +3859,7 @@
   margin: 0 auto;
   padding: 9.5vw 0 0.28em;
   overflow: hidden;
-  font: 300 9.4vw/0.84 var(--display-face);
+  font: 300 9.4vw/0.84 "Cormorant Garamond", var(--display-face);
 }
 .pageWordStageDark {
   color: var(--paper);
@@ -3858,13 +3895,138 @@
   max-width: 62rem;
 }
 .standaloneTeam {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: 100vh;
   background: var(--band);
 }
+.standaloneTeam > .pageWordStage,
+.standaloneTeam > .section {
+  position: relative;
+  z-index: 2;
+}
+.teamPageLottiePixels {
+  position: absolute;
+  z-index: 1;
+  inset: 0 -8% 0 8%;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.64;
+}
+.teamPageLottieCanvas {
+  position: absolute;
+  inset: -1% -4% 0 -2%;
+  display: block;
+  will-change: transform;
+}
+.teamPageLottieCanvas > svg {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+.teamPageLottiePixels > i {
+  position: absolute;
+  display: block;
+  border-radius: 24%;
+  background: var(--brand);
+  opacity: 0.58;
+  animation: teamPixelDrift 8s ease-in-out infinite alternate;
+}
+.teamPixelUpperA {
+  top: 4.8%;
+  right: 7.5%;
+  width: 0.52vw;
+  height: 0.52vw;
+}
+.teamPixelUpperB {
+  top: 10.5%;
+  right: 15.5%;
+  width: 0.38vw;
+  height: 0.38vw;
+  animation-delay: -2.7s !important;
+  animation-duration: 10.5s !important;
+  opacity: 0.4 !important;
+}
+.teamPixelUpperC {
+  top: 16.8%;
+  right: 4.2%;
+  width: 0.7vw;
+  height: 0.7vw;
+  animation-delay: -5.1s !important;
+  animation-duration: 12s !important;
+}
+.teamPixelAccent {
+  top: 7.2%;
+  right: 2.4%;
+  width: 0.92vw;
+  height: 0.92vw;
+  background: #159fd3 !important;
+  opacity: 0.94 !important;
+  animation-delay: -1.8s !important;
+  animation-duration: 7.5s !important;
+}
+.teamPixelMidLarge {
+  top: 25.5%;
+  right: 18%;
+  width: 2.35vw;
+  height: 2.35vw;
+  background: #54add1 !important;
+  opacity: 0.68 !important;
+  animation-delay: -4.6s !important;
+  animation-duration: 15s !important;
+}
+.teamPixelRightA {
+  top: 31%;
+  right: 10.5%;
+  width: 0.46vw;
+  height: 0.46vw;
+  animation-delay: -3.8s !important;
+  animation-duration: 11s !important;
+  opacity: 0.46 !important;
+}
+.teamPixelRightB {
+  top: 43%;
+  right: 4.8%;
+  width: 0.62vw;
+  height: 0.62vw;
+  animation-delay: -7.2s !important;
+  animation-duration: 13s !important;
+  opacity: 0.52 !important;
+}
+@keyframes teamPixelDrift {
+  0% {
+    transform: translate3d(-0.4vw, 0.65vw, 0) rotate(-4deg);
+  }
+  50% {
+    transform: translate3d(0.75vw, -0.45vw, 0) rotate(5deg);
+  }
+  100% {
+    transform: translate3d(-0.15vw, -1vw, 0) rotate(-2deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .teamPageLottieCanvas {
+    transform: none !important;
+  }
+  .teamPageLottiePixels > i {
+    animation: none;
+  }
+}
 .companiesPage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: 100vh;
   background: #26262a;
   color: var(--paper);
+}
+.companiesPage > .pageWordStage,
+.companiesPage > .standaloneSection,
+.contactPage > .section {
+  position: relative;
+  z-index: 2;
 }
 .companiesPage .tag,
 .companiesPage .cardFactsRealized {
@@ -3902,9 +4064,15 @@
   color: #1b1916;
 }
 .contactPage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: 100vh;
   background: #26262a;
   color: var(--paper);
+}
+.contactPage > .section {
+  padding-top: max(9rem, 11vw);
 }
 .contactPage .tag {
   color: var(--brand);
@@ -3912,16 +4080,20 @@
 .contactPage .display {
   color: var(--paper);
   max-width: none;
+  margin-top: 0;
   white-space: nowrap;
 }
 .contactPageIntro {
-  max-width: 68rem;
+  max-width: none;
+}
+.contactPage .contactPoints {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .contactPage .contactPoints dd {
   color: rgba(243, 243, 242, 0.86);
 }
 .contactPage .form {
-  margin-top: 5vw;
+  margin-top: 2vw;
 }
 @media (prefers-reduced-motion: reduce) {
   .pageWord {
@@ -4411,7 +4583,7 @@
     grid-column: 1;
     grid-row: auto;
     max-width: 39rem;
-    font-size: 18px;
+    font-size: 20px;
   }
   .aboutV2Feature {
     min-height: 0;
@@ -4590,14 +4762,14 @@
   }
   .focusHeading h2 {
     max-width: none;
-    font-size: clamp(var(--t-large), 5.2vw, 4.2rem);
+    font-size: clamp(var(--t-large), 4.8vw, 3.75rem);
   }
   .focusApproach {
     max-width: none;
     margin: 3rem 0 0 25%;
   }
   .focusApproach p {
-    font-size: 18px;
+    font-size: 20px;
   }
   .focusApproach p + p {
     margin-top: 1.5rem;
@@ -4713,7 +4885,12 @@
   .footerIdentity {
     grid-column: 1 / -1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
     column-gap: 2rem;
+    transform: translateY(calc(-0.25rem - 6px));
+  }
+  .footerNav {
+    transform: translateY(calc(-0.25rem - 6px));
   }
   .footerLogo img {
     width: 7.75rem;
@@ -4753,7 +4930,7 @@
   .pitchKineticHeading {
     max-width: 100%;
     margin-top: 1.75rem;
-    font-size: clamp(var(--t-large), 5.2vw, 4.2rem);
+    font-size: clamp(var(--t-large), 4.8vw, 3.75rem);
   }
   .pitchHeadingRule {
     margin-top: 0.75rem;
@@ -4828,12 +5005,12 @@
   }
   .aboutPageHero .quote {
     max-width: none;
-    margin-top: 2.5rem;
+    margin-top: var(--s60);
     font-size: clamp(2.8rem, 6.4vw, 3.75rem);
   }
   .aboutPageHero .quoteRule {
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+    margin-top: var(--s50);
+    margin-bottom: var(--s40);
   }
   .aboutPageHero .quoteFigure {
     width: min(100%, 19rem);
@@ -4855,8 +5032,8 @@
   .heroMorphSticky {
     align-items: flex-start;
   }
-  .heroMorphField::before {
-    background: linear-gradient(180deg, rgba(237, 241, 242, 0.92) 0 45%, rgba(237, 241, 242, 0.28) 80%, transparent);
+  .pageMorphField::before {
+    background: linear-gradient(180deg, rgba(216, 219, 218, 0.92) 0 45%, rgba(216, 219, 218, 0.28) 80%, transparent);
   }
   .heroMorphContent {
     padding-top: 6.75rem;
@@ -4869,8 +5046,11 @@
   .heroMorphContent h1 {
     max-width: none;
     margin-top: 1.35rem;
-    font-size: clamp(3rem, 14vw, 4.3rem);
-    line-height: 0.97;
+    font-size: clamp(1.75rem, 7vw, 2.1rem);
+    line-height: 1.02;
+  }
+  .heroMorphContent h1 > span {
+    white-space: nowrap;
   }
   .heroMorphSupport {
     margin-top: 1.8rem;
@@ -4914,6 +5094,9 @@
     font-size: clamp(1.25rem, 6vw, 1.65rem);
     letter-spacing: -0.02em;
   }
+  .contactPage .contactPoints {
+    grid-template-columns: 1fr;
+  }
   .aboutPageHero {
     grid-template-columns: 1fr;
     gap: 3.25rem;
@@ -4942,7 +5125,7 @@
     font-size: clamp(1.55rem, 7vw, 1.85rem);
   }
   .aboutV2Intro > p {
-    font-size: 1.125rem;
+    font-size: 20px;
   }
   .aboutV2Feature {
     grid-template-columns: 1fr;
@@ -5162,7 +5345,7 @@
     gap: 3.5rem;
   }
   .pitchButton {
-    width: 100%;
+    width: min(100%, 18rem);
     height: 2.65rem;
   }
   .pitchGrid dl {
@@ -5215,14 +5398,14 @@
     grid-column: 1;
   }
   .focusHeading h2 {
-    font-size: clamp(var(--t-large), 5.2vw, 4.2rem);
+    font-size: clamp(var(--t-large), 4.8vw, 3.75rem);
     line-height: var(--display-leading);
   }
   .focusApproach {
     margin: 3rem 0 0;
   }
   .focusApproach p {
-    font-size: 1.125rem;
+    font-size: 20px;
   }
   .focusCards {
     width: calc(100% + 2.5rem);
@@ -5270,7 +5453,7 @@
     padding: 3rem 0 4.8rem;
   }
   .pitchKineticHeading {
-    font-size: clamp(var(--t-large), 5.2vw, 4.2rem);
+    font-size: clamp(var(--t-large), 4.8vw, 3.75rem);
     line-height: var(--display-leading);
   }
   .pitchHeadingRule {
