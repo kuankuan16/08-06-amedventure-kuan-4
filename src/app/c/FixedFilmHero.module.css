@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   z-index: 1;
-  height: 168svh;
+  height: 100svh;
   background: var(--home-field, var(--paper));
 }
 
@@ -25,7 +25,7 @@
 .videoLayer {
   position: absolute;
   inset: 0;
-  transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: opacity 680ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .video {
@@ -35,7 +35,7 @@
   object-fit: cover;
   object-position: center;
   filter: brightness(0.84) saturate(0.98) contrast(0.94);
-  transition: transform 9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 5.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .brightGrade,
@@ -75,10 +75,18 @@
 
 .copy {
   position: absolute;
-  top: 51%;
+  top: auto;
+  bottom: 15.2vw;
   left: 0;
   max-width: 64vw;
-  transform: translateY(-50%);
+}
+
+@media (min-width: 1024px) {
+  .copy {
+    top: 49%;
+    bottom: auto;
+    transform: translateY(-45%);
+  }
 }
 
 .eyebrow {
@@ -102,7 +110,7 @@
 .copy h1 {
   margin: 0;
   color: #f7f7f3;
-  font: 300 65px/var(--display-leading) var(--display-face);
+  font: 300 72px/var(--display-leading) var(--display-face);
   letter-spacing: var(--display-tracking);
 }
 
@@ -119,18 +127,22 @@
 }
 
 .body {
-  width: var(--hero-rail-width);
+  width: min(46vw, 42rem);
   max-width: 100%;
   margin: 1.5vw 0 0;
   color: rgba(247, 247, 243, 0.74);
   font: 400 24px/1.55 "Mulish", sans-serif;
   letter-spacing: normal;
-  text-wrap: pretty;
+  text-wrap: balance;
   animation: rise 1s 0.32s var(--ease-out) both;
 }
 
 .navigation {
-  margin-top: 1.8vw;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 11.4vw;
+  margin: 0;
   padding-top: 0;
   display: flex;
   align-items: flex-end;
@@ -185,6 +197,8 @@
   align-items: baseline;
   gap: 0.55vw;
   font: 400 0.82vw/1.25 "Mulish", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .navLabel > span:first-child {
@@ -200,16 +214,28 @@
 }
 
 .scrollCue {
-  margin-top: auto;
-  align-self: center;
+  position: absolute;
+  left: 50%;
+  bottom: 2.7vw;
+  margin: 0;
+  transform: translateX(-50%);
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.38vw;
   color: var(--cyan-hot);
+  border: 0;
+  background: transparent;
   font: 500 0.52vw/1 "Mulish", sans-serif;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  cursor: pointer;
+}
+
+.scrollCue:focus-visible {
+  outline: 1px solid var(--cyan-hot);
+  outline-offset: 0.45vw;
 }
 
 .scrollCueCircle {
@@ -233,64 +259,6 @@
   stroke-linejoin: round;
   stroke-dasharray: 24;
   animation: scrollStroke 1.8s ease-in-out infinite;
-}
-
-.handoff {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  display: grid;
-  align-items: center;
-  background:
-    radial-gradient(circle at 82% 22%, rgba(84, 173, 209, 0.13), transparent 30%),
-    linear-gradient(145deg, rgba(4, 13, 26, 0.94), #061321 60%);
-  pointer-events: none;
-  will-change: opacity;
-}
-
-.handoffCopy {
-  width: min(92vw, var(--wide));
-  margin: 0 auto;
-  padding-top: 4vw;
-  will-change: opacity, transform;
-}
-
-.handoffEyebrow {
-  margin: 0 0 1.8vw;
-  color: var(--cyan-hot);
-  font: 500 0.78vw/1 "Mulish", sans-serif;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.handoffCopy h2 {
-  max-width: 68vw;
-  margin: 0;
-  color: #f7f7f3;
-  font: 300 clamp(3rem, 5.8vw, 5.5rem)/1.08 var(--serif);
-  letter-spacing: -0.025em;
-  perspective: 800px;
-}
-
-.handoffLine {
-  display: block;
-  overflow: hidden;
-  padding: 0.02em 0 0.14em;
-}
-
-.handoffLine > span {
-  display: block;
-  transform-origin: 0 100%;
-  will-change: transform, opacity, filter;
-}
-
-.handoffBody {
-  max-width: 39vw;
-  margin: 2.2vw 0 0;
-  color: rgba(247, 247, 243, 0.72);
-  font: 400 24px/1.55 "Mulish", sans-serif;
-  letter-spacing: normal;
-  text-wrap: pretty;
 }
 
 @keyframes rise {
@@ -342,7 +310,8 @@
   }
 
   .copy {
-    top: 51%;
+    top: auto;
+    bottom: 13rem;
     width: 100%;
     max-width: 46rem;
     min-width: 0;
@@ -359,7 +328,7 @@
   }
 
   .copy h1 {
-    font-size: clamp(2.75rem, 6.5vw, 3.75rem);
+    font-size: clamp(2.9rem, 7vw, 4.5rem);
     line-height: var(--display-leading);
   }
 
@@ -371,7 +340,10 @@
   }
 
   .navigation {
-    margin-top: 1.75rem;
+    left: 0;
+    right: 0;
+    bottom: 9.75rem;
+    margin: 0;
     padding-top: 0;
     gap: 1.5rem;
   }
@@ -392,7 +364,8 @@
   }
 
   .scrollCue {
-    margin-top: auto;
+    bottom: 2.6rem;
+    margin: 0;
     gap: 0.42rem;
     font-size: 0.58rem;
   }
@@ -411,31 +384,11 @@
     height: 8rem;
   }
 
-  .handoffCopy {
-    width: calc(100% - 2.5rem);
-    padding-top: 4rem;
-  }
-
-  .handoffEyebrow {
-    margin-bottom: 1.4rem;
-    font-size: 0.72rem;
-  }
-
-  .handoffCopy h2 {
-    max-width: 48rem;
-    font-size: clamp(3.25rem, 8vw, 5.4rem);
-  }
-
-  .handoffBody {
-    max-width: 34rem;
-    margin-top: 1.6rem;
-    font-size: 1.5rem;
-  }
 }
 
 @media (max-width: 640px) {
   .hero {
-    height: 166svh;
+    height: 100svh;
   }
 
   .contentFrame {
@@ -473,12 +426,19 @@
   .body {
     max-width: 100%;
     margin-top: 1rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 1.5;
   }
 
+  .copy {
+    top: 44%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+
   .navigation {
-    padding-top: 1rem;
+    bottom: 1.5rem;
+    padding-top: 0;
   }
 
   .navigation ol {
@@ -496,27 +456,30 @@
     display: none;
   }
 
-  .handoffCopy {
-    width: calc(100% - 3rem);
-    padding-top: 3rem;
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .copy {
+    top: 47.5%;
+    bottom: auto;
+    transform: translateY(-45%);
   }
 
-  .handoffEyebrow {
-    margin-bottom: 1.15rem;
-    font-size: 0.65rem;
-    line-height: 1.4;
+  .copy h1 {
+    font-size: 60px;
   }
 
-  .handoffCopy h2 {
-    max-width: none;
-    font-size: clamp(2.55rem, 12vw, 3.45rem);
+  .eyebrow {
+    margin-bottom: 1.25vw;
   }
 
-  .handoffBody {
-    max-width: 100%;
-    margin-top: 1.35rem;
-    font-size: 1.5rem;
-    line-height: 1.5;
+  .body {
+    margin-top: 1vw;
+    font-size: 20px;
+  }
+
+  .navigation {
+    bottom: 8.8vw;
   }
 }
 
@@ -524,8 +487,7 @@
   .videoLayer,
   .video,
   .film,
-  .contentFrame,
-  .handoffCopy {
+  .contentFrame {
     transition: none;
   }
 
@@ -545,9 +507,5 @@
   .scrollCueCircle svg {
     animation: none;
     stroke-dashoffset: 0;
-  }
-
-  .handoff {
-    display: none;
   }
 }

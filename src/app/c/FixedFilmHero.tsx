@@ -1,70 +1,77 @@
 "use client";
 
 import Image from "next/image";
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import gsap from "gsap";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import styles from "./FixedFilmHero.module.css";
 
-const slideDuration = 8_200;
+const slideDuration = 4_500;
+const crossfadeDuration = 680;
 
-const slides = [
+type FilmSlide = {
+  id: string;
+  index: string;
+  label: string;
+  navLabel: string;
+  headline: readonly string[];
+  body: string;
+  video: string | null;
+  poster: string;
+};
+
+const slides: readonly FilmSlide[] = [
   {
-    id: "healthcare",
+    id: "partnership",
     index: "01",
-    label: "Healthcare",
-    headline: ["Capital that reaches", "the bedside."],
-    body: "We back the medical technologies that change what a clinician can actually do — on an ordinary Tuesday morning, in a real hospital.",
-    video: "/videos/v7-fixed-film/01-healthcare.mp4",
-    poster: "/videos/v7-fixed-film/poster-01.jpg",
+    label: "Long-term partnership",
+    navLabel: "Partnership",
+    headline: ["Long-term", "partnership."],
+    body: "We stay with founders for the long run, from first clinical evidence through global scale.",
+    video: "/videos/v7-fixed-film/web/01-partnership.mp4",
+    poster: "/images/amed/hero-investment-01-partnership.jpg",
   },
   {
-    id: "therapeutics",
+    id: "conviction",
     index: "02",
-    label: "Therapeutics",
-    headline: ["From molecule", "to medicine."],
-    body: "Discovery is slow, expensive and unforgiving. We fund the teams with the rigour — and the patience — to carry a candidate all the way through.",
-    video: "/videos/v7-fixed-film/02-drug-discovery.mp4",
-    poster: "/videos/v7-fixed-film/poster-02.jpg",
+    label: "High-conviction investing",
+    navLabel: "Conviction",
+    headline: ["High-conviction", "investing."],
+    body: "Fewer, deeper positions in medical technology where the clinical case and team convince us.",
+    video: "/videos/v7-fixed-film/web/02-conviction.mp4",
+    poster: "/images/amed/hero-investment-02-conviction.jpg",
   },
   {
-    id: "intelligence",
+    id: "entrepreneurs",
     index: "03",
-    label: "Applied AI",
-    headline: ["Intelligence, applied", "to biology."],
-    body: "Models that read the scan, design the molecule, and flag the patient who is about to deteriorate. Built to be used in practice, not demonstrated on stage.",
-    video: "/videos/v7-fixed-film/03-ai-innovation.mp4",
-    poster: "/videos/v7-fixed-film/poster-03.jpg",
+    label: "Exceptional entrepreneurs",
+    navLabel: "Founders",
+    headline: ["Exceptional", "entrepreneurs."],
+    body: "Strategic guidance, deep industry expertise and hands-on support for the teams building it.",
+    video: "/videos/v7-fixed-film/web/03-founders.mp4",
+    poster: "/images/amed/hero-investment-03-entrepreneurs.jpg",
   },
   {
     id: "impact",
     index: "04",
-    label: "Partnership",
-    headline: ["Patient capital.", "Human partnership."],
-    body: "Behind every breakthrough is a team carrying uncertainty for years. We bring patient capital, operating perspective, and a partnership that stays close when the work gets difficult.",
-    video: null,
-    poster: "/videos/v7-fixed-film/04-partnership.png",
+    label: "Meaningful impact",
+    navLabel: "Impact",
+    headline: ["Meaningful", "impact."],
+    body: "What we build is finally measured in outcomes for the patients on the other end of it.",
+    video: "/videos/v7-fixed-film/web/04-impact.mp4",
+    poster: "/images/amed/hero-investment-04-impact.jpg",
   },
-] as const;
+];
 
 export function FixedFilmHero() {
   const reducedMotion = usePrefersReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const handoffCopyRef = useRef<HTMLDivElement>(null);
-  const handoffTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const previousIndexRef = useRef<number | null>(null);
   const cycleStartRef = useRef(0);
   const pausedRef = useRef(false);
   const cycleProgressRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [cycleProgress, setCycleProgress] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -94,41 +101,24 @@ export function FixedFilmHero() {
   }, [reducedMotion]);
 
   useEffect(() => {
+    const outgoingIndex = previousIndexRef.current;
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
       if (index === activeIndex && !reducedMotion) {
         video.currentTime = 0;
         void video.play().catch(() => undefined);
-      } else {
+      } else if (index !== outgoingIndex) {
         video.pause();
       }
     });
+    previousIndexRef.current = activeIndex;
+
+    if (outgoingIndex === null || outgoingIndex === activeIndex) return;
+    const pauseOutgoing = window.setTimeout(() => {
+      videoRefs.current[outgoingIndex]?.pause();
+    }, crossfadeDuration);
+    return () => window.clearTimeout(pauseOutgoing);
   }, [activeIndex, reducedMotion]);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    let frame = 0;
-
-    const update = () => {
-      frame = 0;
-      const rect = section.getBoundingClientRect();
-      const travel = Math.max(1, section.offsetHeight - window.innerHeight);
-      setScrollProgress(Math.min(1, Math.max(0, -rect.top / travel)));
-    };
-    const requestUpdate = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-    return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
 
   const selectSlide = useCallback((index: number) => {
     cycleStartRef.current = performance.now();
@@ -137,88 +127,26 @@ export function FixedFilmHero() {
     setActiveIndex(index);
   }, []);
 
-  const activeSlide = slides[activeIndex];
-  const frameOpacity = reducedMotion ? 1 : 1 - scrollProgress;
-  const contentOpacity = reducedMotion
-    ? 1
-    : 1 - Math.min(1, scrollProgress * 1.55);
-  const handoffProgress = reducedMotion
-    ? 0
-    : Math.min(1, Math.max(0, (scrollProgress - 0.34) / 0.2));
-
-  useLayoutEffect(() => {
-    const copy = handoffCopyRef.current;
-    if (!copy || reducedMotion) return;
-
-    const context = gsap.context(() => {
-      const timeline = gsap.timeline({ paused: true });
-
-      timeline
-        .fromTo(
-          `.${styles.handoffEyebrow}`,
-          { autoAlpha: 0, y: 22, letterSpacing: "0.32em" },
-          {
-            autoAlpha: 1,
-            y: 0,
-            letterSpacing: "0.16em",
-            duration: 0.3,
-            ease: "power3.out",
-          },
-        )
-        .fromTo(
-          `.${styles.handoffLine} > span`,
-          { autoAlpha: 0, yPercent: 112, rotateX: -18, filter: "blur(12px)" },
-          {
-            autoAlpha: 1,
-            yPercent: 0,
-            rotateX: 0,
-            filter: "blur(0px)",
-            duration: 0.58,
-            stagger: 0.075,
-            ease: "power4.out",
-          },
-          0.06,
-        )
-        .fromTo(
-          `.${styles.handoffBody}`,
-          { autoAlpha: 0, y: 34, filter: "blur(8px)" },
-          {
-            autoAlpha: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.36,
-            ease: "power3.out",
-          },
-          0.48,
-        );
-
-      handoffTimelineRef.current = timeline;
-    }, copy);
-
-    return () => {
-      handoffTimelineRef.current = null;
-      context.revert();
-    };
+  const scrollPastHero = useCallback(() => {
+    const nextSection = document.getElementById("investment-focus");
+    if (!nextSection) return;
+    nextSection.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
   }, [reducedMotion]);
 
-  useEffect(() => {
-    if (reducedMotion) return;
-    handoffTimelineRef.current?.progress(handoffProgress);
-  }, [handoffProgress, reducedMotion]);
+  const activeSlide = slides[activeIndex];
 
   return (
-    <section className={styles.hero} ref={sectionRef} aria-label="AMED Ventures">
+    <section
+      className={styles.hero}
+      ref={sectionRef}
+      aria-label="AMED Ventures"
+      data-motion-static
+    >
       <div className={styles.stickyFrame}>
-        <div
-          className={styles.film}
-          aria-hidden="true"
-          style={{
-            opacity: frameOpacity,
-            transform: reducedMotion
-              ? "none"
-              : `scale(${1 - 0.035 * scrollProgress})`,
-          }}
-        >
+        <div className={styles.film} aria-hidden="true">
           {slides.map((slide, index) => (
             <div
               className={styles.videoLayer}
@@ -235,7 +163,7 @@ export function FixedFilmHero() {
                   poster={slide.poster}
                   muted
                   playsInline
-                  preload={index === 0 ? "auto" : "metadata"}
+                  preload="auto"
                   style={{
                     transform:
                       index === activeIndex && !reducedMotion
@@ -266,15 +194,7 @@ export function FixedFilmHero() {
           <div className={styles.readabilityWash} />
         </div>
 
-        <div
-          className={styles.contentFrame}
-          style={{
-            opacity: contentOpacity,
-            transform: reducedMotion
-              ? "none"
-              : `translate3d(0, ${-60 * scrollProgress}px, 0)`,
-          }}
-        >
+        <div className={styles.contentFrame}>
           <div className={styles.copy} key={activeSlide.id} aria-live="polite">
             <p className={styles.eyebrow}>
               <span>{activeSlide.index}</span>
@@ -292,15 +212,6 @@ export function FixedFilmHero() {
             </h1>
             <p className={styles.body}>{activeSlide.body}</p>
           </div>
-
-          <span className={styles.scrollCue} aria-hidden="true">
-            <span className={styles.scrollCueCircle}>
-              <svg viewBox="0 0 20 20" focusable="false">
-                <path d="M10 2.5v13M7.25 12.75 10 15.5l2.75-2.75" />
-              </svg>
-            </span>
-            <span>Scroll</span>
-          </span>
 
           <div className={styles.navigation}>
             <ol>
@@ -334,7 +245,7 @@ export function FixedFilmHero() {
                       </span>
                       <span className={styles.navLabel}>
                         <span>{slide.index}</span>
-                        <span>{slide.label}</span>
+                        <span>{slide.navLabel}</span>
                       </span>
                     </button>
                   </li>
@@ -342,34 +253,20 @@ export function FixedFilmHero() {
               })}
             </ol>
           </div>
-        </div>
 
-        <div
-          className={styles.handoff}
-          aria-hidden={handoffProgress < 0.05}
-          style={{ opacity: handoffProgress }}
-        >
-          <div className={styles.handoffCopy} ref={handoffCopyRef}>
-            <p className={styles.handoffEyebrow}>
-              A standard worth building toward
-            </p>
-            <h2>
-              <span className={styles.handoffLine}>
-                <span>Breakthroughs matter</span>
-              </span>
-              <span className={styles.handoffLine}>
-                <span>when patients feel</span>
-              </span>
-              <span className={styles.handoffLine}>
-                <span>the difference.</span>
-              </span>
-            </h2>
-            <p className={styles.handoffBody}>
-              We invest in the long work between a promising idea and trusted
-              care — where evidence, execution and endurance turn possibility
-              into practice.
-            </p>
-          </div>
+          <button
+            className={styles.scrollCue}
+            type="button"
+            aria-label="Continue to AMED investment focus"
+            onClick={scrollPastHero}
+          >
+            <span className={styles.scrollCueCircle}>
+              <svg viewBox="0 0 20 20" focusable="false">
+                <path d="M10 2.5v13M7.25 12.75 10 15.5l2.75-2.75" />
+              </svg>
+            </span>
+            <span>Scroll</span>
+          </button>
         </div>
 
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FilterMenu } from "@/components/FilterMenu";
 import { IconGlobe } from "@/components/icons";
 import {
@@ -21,6 +21,7 @@ import { BackToTop, CFooter, CHeader } from "../components";
 import styles from "../page.module.css";
 import { PageWord } from "../PageWord";
 import { RevealHeading } from "../RevealHeading";
+import { useReveals } from "../useReveals";
 
 const PAGE_SIZE = 30;
 const ALL = "All";
@@ -41,7 +42,6 @@ export default function CompaniesPage() {
   const [sort, setSort] = useState<SortOption>("Recent");
   const [shown, setShown] = useState(PAGE_SIZE);
   const [active, setActive] = useState<PortfolioEntry | null>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
   const toggle =
     <T extends string>(setter: (update: (current: T[]) => T[]) => void) =>
     (value: string) => {
@@ -76,6 +76,10 @@ export default function CompaniesPage() {
     );
   }, [focusAreas, regionFilter, statusFilter, sort]);
   const shownCompanies = visibleCompanies.slice(0, shown);
+  const gridRef = useReveals<HTMLDivElement>(
+    styles.cardVisible,
+    `${shownCompanies.length}-${focusAreas.join("-")}-${regionFilter.join("-")}-${statusFilter.join("-")}`,
+  );
   const activeFilters = [...focusAreas, ...regionFilter, ...statusFilter];
   const clearFilters = () => {
     setFocusAreas([]);
@@ -97,26 +101,6 @@ export default function CompaniesPage() {
       window.removeEventListener("keydown", onKey);
     };
   }, [active]);
-
-  useEffect(() => {
-    const root = gridRef.current;
-    if (!root) return;
-    const targets = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-reveal]"),
-    );
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.cardVisible);
-            observer.unobserve(entry.target);
-          }
-        }),
-      { threshold: 0.08 },
-    );
-    targets.forEach((target) => observer.observe(target));
-    return () => observer.disconnect();
-  }, [shownCompanies]);
 
   return (
     <div className={styles.page} id="top">
@@ -227,6 +211,7 @@ export default function CompaniesPage() {
               <button
                 type="button"
                 className={styles.card}
+                data-hover-object="card"
                 data-reveal
                 key={company.name}
                 onClick={() => setActive(company)}

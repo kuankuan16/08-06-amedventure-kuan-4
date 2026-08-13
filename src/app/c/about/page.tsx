@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import { IconArrowUpRight } from "@/components/icons";
 import { BackToTop, CFooter, CHeader } from "../components";
 import styles from "../page.module.css";
 import { AboutMarkFigure } from "./AboutMarkFigure";
 import { PageWord } from "../PageWord";
 import { RevealHeading } from "../RevealHeading";
+import { useReveals } from "../useReveals";
 
 const pillars = [
   {
@@ -30,30 +30,7 @@ const pillars = [
 ] as const;
 
 export default function AboutPage() {
-  const pageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const root = pageRef.current;
-    if (!root) return;
-    const targets = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-reveal]"),
-    );
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      targets.forEach((target) => target.classList.add(styles.revealVisible));
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add(styles.revealVisible);
-          observer.unobserve(entry.target);
-        }),
-      { threshold: 0.08, rootMargin: "0px 0px -6%" },
-    );
-    targets.forEach((target) => observer.observe(target));
-    return () => observer.disconnect();
-  }, []);
+  const pageRef = useReveals<HTMLDivElement>(styles.revealVisible);
 
   return (
     <div className={styles.page} ref={pageRef} id="top">
@@ -94,21 +71,15 @@ export default function AboutPage() {
             aria-labelledby="about-v2-heading"
           >
             <div className={styles.aboutV2Intro}>
-              <h2
+              <RevealHeading
+                as="h2"
                 id="about-v2-heading"
-                data-reveal
-                className={`${styles.reveal} ${styles.lineReveal}`}
-              >
-                <span>
-                  <span>Built for the founders</span>
-                </span>
-                <span>
-                  <span>building what medicine</span>
-                </span>
-                <span>
-                  <span>becomes.</span>
-                </span>
-              </h2>
+                lines={[
+                  "Built for the founders",
+                  "building what medicine",
+                  "becomes.",
+                ]}
+              />
               <p data-reveal className={styles.reveal}>
                 AMED Ventures is a dedicated MedTech venture firm investing
                 across the United States and Taiwan. We pair operating
@@ -122,6 +93,7 @@ export default function AboutPage() {
             {pillars.map(({ title, copy }, index) => (
               <article
                 className={styles.pillar}
+                data-hover-object="feature"
                 data-reveal
                 key={title.join(" ")}
               >
@@ -146,6 +118,7 @@ export default function AboutPage() {
           </div>
           <div
             data-reveal
+            data-hover-object="media"
             className={`${styles.aboutV2Feature} ${styles.reveal}`}
           >
             <div className={styles.aboutV2Copy}>

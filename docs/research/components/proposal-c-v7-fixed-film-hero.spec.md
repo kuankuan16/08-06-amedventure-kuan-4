@@ -68,7 +68,7 @@
 - top padding: `24px`
 - desktop layout: four equal flex items, max width `48rem`, gap `32px`
 - item rule: full width, `1px`
-- active progress fill: AMED cyan; width driven from `0% → 100%` over `8200ms`
+- active progress fill: AMED cyan; width driven from `0% → 100%` over `6000ms`
 - item label top margin: `12px`
 - click selects a slide and resets the timer
 - pointer hover pauses the timer without changing slide
@@ -85,7 +85,7 @@
 
 ### Automatic cycle
 - **Trigger:** `requestAnimationFrame`
-- **Duration per slide:** `8200ms`
+- **Duration per slide:** `6000ms`
 - **Transition:** video crossfade `1400ms`; headline is remounted by slide id and repeats its mask reveal.
 
 ### Direct selection
@@ -102,25 +102,25 @@
 - no translated/blurred entry
 - the first frame remains readable, and direct slide controls still work
 
-## Text Content — Verbatim from V7
+## Text Content — AMED investment philosophy
 
-### 01 — Healthcare
-- Headline: `Capital that reaches` / `the bedside.`
-- Body: `We back the medical technologies that change what a clinician can actually do — on an ordinary Tuesday morning, in a real hospital.`
+### 01 — Long-term partnership
+- Headline: `Long-term` / `partnership.`
+- Body: `We stay with founders for the long run, from first clinical evidence through global scale.`
 
-### 02 — Therapeutics
-- Headline: `From molecule` / `to medicine.`
-- Body: `Discovery is slow, expensive and unforgiving. We fund the teams with the rigour — and the patience — to carry a candidate all the way through.`
+### 02 — High-conviction investing
+- Headline: `High-conviction` / `investing.`
+- Body: `Fewer, deeper positions in medical technology where the clinical case and team convince us.`
 
-### 03 — Applied AI
-- Headline: `Intelligence, applied` / `to biology.`
-- Body: `Models that read the scan, design the molecule, and flag the patient who is about to deteriorate. Built to be used in practice, not demonstrated on stage.`
+### 03 — Exceptional entrepreneurs
+- Headline: `Exceptional` / `entrepreneurs.`
+- Body: `Strategic guidance, deep industry expertise and hands-on support for the teams building it.`
 
-### 04 — In Practice
-- Headline: `Proven where` / `it matters.`
-- Body: `Nothing counts until it works in a real operating room, on a real patient, at real scale. That is the only result we underwrite.`
+### 04 — Meaningful impact
+- Headline: `Meaningful` / `impact.`
+- Body: `What we build is finally measured in outcomes for the patients on the other end of it.`
 
-These four short hero narratives do not duplicate the About page's institutional overview or its long-term partnership paragraphs.
+The sequence follows the four Investment Philosophy points supplied in the client brief. Slide 01 uses the former partnership visual from slide 04; slide 04 uses the former bedside visual from slide 01.
 
 ## Handoff Copy
 - Eyebrow: `A standard worth building toward`
@@ -128,11 +128,20 @@ These four short hero narratives do not duplicate the About page's institutional
 - Body: `We invest in the long work between a promising idea and trusted care — where evidence, execution and endurance turn possibility into practice.`
 
 ## Assets
-- `public/videos/v7-fixed-film/01-healthcare.mp4`
-- `public/videos/v7-fixed-film/02-drug-discovery.mp4`
-- `public/videos/v7-fixed-film/03-ai-innovation.mp4`
-- `public/videos/v7-fixed-film/04-applied-impact.mp4`
-- matching `poster-01.jpg` through `poster-04.jpg`
+
+All four stills were generated through Higgsfield CLI with GPT Image 2,
+`quality: low`, `resolution: 2k`, and 16:9 framing. Each Higgsfield video was
+then generated from its matching still so the cast, lighting, and composition
+remain continuous.
+
+- `public/images/amed/hero-investment-01-partnership.jpg`
+- `public/videos/v7-fixed-film/01-partnership.mp4`
+- `public/images/amed/hero-investment-02-conviction.jpg`
+- `public/videos/v7-fixed-film/02-conviction.mp4`
+- `public/images/amed/hero-investment-03-entrepreneurs.jpg`
+- `public/videos/v7-fixed-film/03-founders.mp4`
+- `public/images/amed/hero-investment-04-impact.jpg`
+- `public/videos/v7-fixed-film/04-impact.mp4`
 
 ## Responsive Behavior
 - **Desktop (1440px):** bottom-left editorial copy; four horizontal navigation items; desktop scroll cue.

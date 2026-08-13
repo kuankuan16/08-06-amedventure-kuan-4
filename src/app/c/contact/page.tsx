@@ -69,19 +69,19 @@ export default function ContactPage() {
               className={styles.formLabel}
               lines={["Pitch your company"]}
             />
-            <label>
+            <label data-hover-object="field">
               Name
               <input name="name" autoComplete="name" required />
             </label>
-            <label>
+            <label data-hover-object="field">
               Company
               <input name="company" autoComplete="organization" required />
             </label>
-            <label>
+            <label data-hover-object="field">
               Email
               <input name="email" type="email" autoComplete="email" required />
             </label>
-            <label>
+            <label data-hover-object="field">
               Phone
               <span className={styles.phoneRow}>
                 <select
@@ -102,7 +102,7 @@ export default function ContactPage() {
                 />
               </span>
             </label>
-            <label>
+            <label data-hover-object="field">
               Website or deck
               <input
                 name="link"
@@ -111,7 +111,7 @@ export default function ContactPage() {
                 placeholder="https://"
               />
             </label>
-            <label>
+            <label data-hover-object="field">
               Headquarters
               <input
                 name="location"
@@ -119,7 +119,7 @@ export default function ContactPage() {
                 placeholder="City, country"
               />
             </label>
-            <label>
+            <label data-hover-object="field">
               Focus area
               <select name="focus" defaultValue="">
                 <option value="" disabled>
@@ -133,7 +133,7 @@ export default function ContactPage() {
                 <option>Other</option>
               </select>
             </label>
-            <label>
+            <label data-hover-object="field">
               Stage
               <select name="stage" defaultValue="">
                 <option value="" disabled>
@@ -144,7 +144,7 @@ export default function ContactPage() {
                 ))}
               </select>
             </label>
-            <label className={styles.wide}>
+            <label className={styles.wide} data-hover-object="field">
               What are you building, and what does this round unlock?
               <textarea name="message" rows={4} required />
             </label>

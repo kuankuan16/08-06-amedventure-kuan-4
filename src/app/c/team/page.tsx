@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 import { IconArrowLeft, IconArrowRight, IconMail } from "@/components/icons";
 import { BackToTop, CFooter, CHeader } from "../components";
 import {
@@ -14,10 +14,12 @@ import {
 import styles from "../page.module.css";
 import { PageWord } from "../PageWord";
 import { RevealHeading } from "../RevealHeading";
+import { useReveals } from "../useReveals";
 import { TeamPixelField } from "./TeamPixelField";
 
 export default function TeamPage() {
   const [personIndex, setPersonIndex] = useState<number | null>(null);
+  const pageRef = useReveals<HTMLDivElement>(styles.revealVisible);
   const person = personIndex === null ? null : roster[personIndex];
   useEffect(() => {
     if (personIndex === null) return;
@@ -38,7 +40,7 @@ export default function TeamPage() {
   }, [personIndex]);
 
   return (
-    <div className={styles.page} id="top">
+    <div className={styles.page} id="top" ref={pageRef}>
       <CHeader />
       <BackToTop />
       <main className={`${styles.team} ${styles.standaloneTeam}`}>
@@ -59,9 +61,17 @@ export default function TeamPage() {
             </p>
           </div>
           <div className={styles.teamRows}>
-            {team.map(([group, members]) => (
+            {team.map(([group, members], groupIndex) => (
               <div className={styles.teamRow} key={group}>
-                <div className={styles.teamRowHead}>
+                <div
+                  className={`${styles.teamRowHead} ${styles.progressiveItem}`}
+                  data-reveal
+                  style={
+                    {
+                      "--progressive-delay": `${groupIndex * 70}ms`,
+                    } as CSSProperties
+                  }
+                >
                   <h3>
                     {group.split(" ").map((word) => (
                       <span key={word}>{word}</span>
@@ -69,11 +79,21 @@ export default function TeamPage() {
                   </h3>
                 </div>
                 <ul className={styles.teamPeople}>
-                  {members.map(([name, role, , portrait]) => (
-                    <li key={name}>
+                  {members.map(([name, role, , portrait], memberIndex) => (
+                    <li
+                      className={styles.progressiveItem}
+                      data-reveal
+                      key={name}
+                      style={
+                        {
+                          "--progressive-delay": `${memberIndex * 90}ms`,
+                        } as CSSProperties
+                      }
+                    >
                       <button
                         type="button"
                         className={styles.person}
+                        data-hover-object="card"
                         onClick={() =>
                           setPersonIndex(
                             roster.findIndex((entry) => entry.name === name),

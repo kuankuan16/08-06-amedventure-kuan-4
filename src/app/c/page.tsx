@@ -1,11 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import {
   IconArrowRight,
   IconArrowUpRight,
@@ -17,6 +13,7 @@ import { taipeiOffice, teamEmail, usOffice } from "./content";
 import { FocusArtwork, type FocusArtworkKind } from "./FocusArtwork";
 import { FixedFilmHero } from "./FixedFilmHero";
 import { RevealHeading } from "./RevealHeading";
+import { useReveals } from "./useReveals";
 import styles from "./page.module.css";
 
 const featuredFocusAreas: {
@@ -106,7 +103,14 @@ function InvestmentFocus() {
             return (
               <article
                 key={area.title.join(" ")}
-                className={selected ? styles.focusCardSelected : ""}
+                data-hover-object="feature"
+                data-reveal
+                className={`${styles.progressiveItem} ${selected ? styles.focusCardSelected : ""}`}
+                style={
+                  {
+                    "--progressive-delay": `${index * 90}ms`,
+                  } as CSSProperties
+                }
                 onMouseEnter={() => setSelectedArea(index)}
                 onMouseLeave={() => setSelectedArea(null)}
               >
@@ -128,10 +132,24 @@ function InvestmentFocus() {
           })}
         </div>
         <div className={styles.focusAreas}>
-          <p>Areas may include</p>
+          <p className={styles.progressiveItem} data-reveal>
+            Areas may include
+          </p>
           <ul>
-            {focusAreas.map((area) => (
-              <li key={area}>{area}</li>
+            {focusAreas.map((area, index) => (
+              <li
+                className={styles.progressiveItem}
+                data-hover-object="chip"
+                data-reveal
+                key={area}
+                style={
+                  {
+                    "--progressive-delay": `${index * 65}ms`,
+                  } as CSSProperties
+                }
+              >
+                {area}
+              </li>
             ))}
           </ul>
         </div>
@@ -156,33 +174,6 @@ function formatStoryDate(date: string) {
     year: "numeric",
     timeZone: "UTC",
   });
-}
-
-function useReveal<T extends HTMLElement>(
-  visibleClass: string,
-  refreshKey = "initial",
-) {
-  const ref = useRef<T>(null);
-  useEffect(() => {
-    const root = ref.current;
-    if (!root) return;
-    const targets = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-reveal]"),
-    );
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(visibleClass);
-            observer.unobserve(entry.target);
-          }
-        }),
-      { threshold: 0.08, rootMargin: "0px 0px -6%" },
-    );
-    targets.forEach((target) => observer.observe(target));
-    return () => observer.disconnect();
-  }, [refreshKey, visibleClass]);
-  return ref;
 }
 
 function KineticPitchHeading({ text }: { text: string }) {
@@ -238,7 +229,7 @@ function KineticPitchHeading({ text }: { text: string }) {
 export default function ProposalC() {
   const [newsFilter, setNewsFilter] = useState<NewsType | "All">("All");
   const [newsPage, setNewsPage] = useState(0);
-  const pageRef = useReveal<HTMLDivElement>(
+  const pageRef = useReveals<HTMLDivElement>(
     styles.revealVisible,
     `${newsFilter}-${newsPage}`,
   );
@@ -255,7 +246,6 @@ export default function ProposalC() {
     page * STORIES_PER_PAGE,
     (page + 1) * STORIES_PER_PAGE,
   );
-
   return (
     <div
       className={`${styles.page} ${styles.homePage}`}
@@ -320,12 +310,26 @@ export default function ProposalC() {
             </thead>
             <tbody>
               {visibleNews.map((item) => (
-                <tr className={styles.storyRow} data-reveal key={item.url}>
+                <tr
+                  className={styles.storyRow}
+                  data-hover-object="row"
+                  data-reveal
+                  key={item.url}
+                >
                   <td className={styles.storyTitleCell}>
                     <div className={styles.storyTitleInner}>
-                      <a href={item.url} target="_blank" rel="noreferrer">
-                        {item.title}
+                      <a
+                        className={styles.storyRowLink}
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Read ${item.title}`}
+                      >
+                        <span className="sr-only">{item.title}</span>
                       </a>
+                      <span className={styles.storyTitleText} aria-hidden="true">
+                        {item.title}
+                      </span>
                       <span className={styles.storySource}>{item.source}</span>
                     </div>
                   </td>

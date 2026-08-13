@@ -1,0 +1,62 @@
+.loader {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #fff;
+  background: #061321;
+  pointer-events: all;
+  will-change: clip-path;
+  animation: loaderCurtain 1.05s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.logoWindow {
+  width: 17.8vw;
+  overflow: hidden;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  display: block;
+  will-change: transform;
+  transform: translateY(120%);
+  animation: logoPass 0.76s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+@keyframes logoPass {
+  0% { transform: translateY(120%); }
+  40%, 62% { transform: translateY(0); }
+  100% { transform: translateY(-120%); }
+}
+
+@keyframes loaderCurtain {
+  0%, 54% { clip-path: inset(0% 0% 0% 0%); }
+  100% { clip-path: inset(0% 0% 100% 0%); }
+}
+
+@media (max-width: 1023.98px) {
+  .logoWindow { width: clamp(13rem, 38vw, 20rem); }
+}
+
+@media (max-width: 640px) {
+  .logoWindow { width: min(68vw, 17rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    animation: loaderFade 0.45s ease-out both;
+  }
+
+  .logo {
+    transform: none;
+    animation: none;
+  }
+}
+
+@keyframes loaderFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

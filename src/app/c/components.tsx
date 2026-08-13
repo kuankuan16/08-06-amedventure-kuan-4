@@ -3,16 +3,51 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type MouseEvent, useEffect, useState } from "react";
+import { type MouseEvent, useState, useSyncExternalStore } from "react";
 import { IconArrowRight } from "@/components/icons";
 import styles from "./page.module.css";
 import { taipeiOfficeDetailed, usOffice } from "./content";
 
 const links = [
   ["About", "/c/about"],
-  ["Portfolio", "/c/companies"],
+  ["Portfolio", "/c/portfolio"],
   ["Team", "/c/team"],
 ] as const;
+
+const scrollSubscribers = new Set<() => void>();
+let scrollSnapshot = false;
+
+const updateScrollSnapshot = () => {
+  const next = window.scrollY > 12;
+  if (next === scrollSnapshot) return;
+  scrollSnapshot = next;
+  scrollSubscribers.forEach((subscriber) => subscriber());
+};
+
+const subscribeToScroll = (subscriber: () => void) => {
+  scrollSubscribers.add(subscriber);
+  if (scrollSubscribers.size === 1) {
+    scrollSnapshot = window.scrollY > 12;
+    window.addEventListener("scroll", updateScrollSnapshot, { passive: true });
+  }
+  return () => {
+    scrollSubscribers.delete(subscriber);
+    if (scrollSubscribers.size === 0) {
+      window.removeEventListener("scroll", updateScrollSnapshot);
+    }
+  };
+};
+
+const getScrollSnapshot = () => scrollSnapshot;
+const getServerScrollSnapshot = () => false;
+
+function useScrolled() {
+  return useSyncExternalStore(
+    subscribeToScroll,
+    getScrollSnapshot,
+    getServerScrollSnapshot,
+  );
+}
 
 function HomeLogo({
   className,
@@ -39,6 +74,7 @@ function HomeLogo({
   return (
     <Link
       className={className}
+      data-hover-object="brand"
       href="/c"
       aria-label="AMED Ventures home"
       onClick={handleClick}
@@ -57,14 +93,7 @@ function HomeLogo({
 export function CHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const scrolled = useScrolled();
 
   return (
     <>
@@ -121,22 +150,28 @@ export function CHeader() {
 }
 
 export function BackToTop() {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const visible = useScrolled();
+
+  const scrollToTop = () => {
+    window.history.replaceState(null, "", window.location.pathname);
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  };
+
   return (
-    <a
+    <button
+      type="button"
       className={`${styles.backToTop} ${visible ? styles.backToTopVisible : ""}`}
-      href="#top"
       aria-label="Back to top"
       inert={!visible}
+      onClick={scrollToTop}
     >
       <IconArrowRight />
-    </a>
+    </button>
   );
 }
 
@@ -157,7 +192,7 @@ export function CFooter() {
               <Link href="/c/about">About</Link>
             </li>
             <li>
-              <Link href="/c/companies">Portfolio</Link>
+              <Link href="/c/portfolio">Portfolio</Link>
             </li>
             <li>
               <Link href="/c#news">Story</Link>

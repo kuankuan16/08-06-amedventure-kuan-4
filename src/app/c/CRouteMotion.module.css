@@ -1,0 +1,92 @@
+.motionRoot {
+  min-height: 100%;
+  --scroll-lift: 0px;
+  --interaction-time: 520ms;
+  --interaction-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motionRoot main > :not([data-motion-static]) {
+  translate: 0 var(--scroll-lift);
+}
+
+.motionRoot [data-hover-object="media"] img {
+  transition:
+    scale 720ms var(--interaction-ease),
+    filter 720ms var(--interaction-ease);
+}
+
+.motionRoot [data-hover-object="card"] img {
+  transition: filter 720ms var(--interaction-ease);
+}
+
+.motionRoot [data-hover-object="chip"] {
+  transition:
+    color var(--interaction-time) var(--interaction-ease),
+    border-color var(--interaction-time) var(--interaction-ease),
+    background-color var(--interaction-time) var(--interaction-ease);
+}
+
+.motionRoot [data-hover-object="field"] {
+  transition:
+    color var(--interaction-time) var(--interaction-ease),
+    background-color var(--interaction-time) var(--interaction-ease);
+}
+
+.motionRoot [data-hover-object="brand"] {
+  transition:
+    opacity var(--interaction-time) var(--interaction-ease),
+    filter var(--interaction-time) var(--interaction-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motionRoot [data-hover-object="media"]:hover img,
+  .motionRoot [data-hover-object="media"]:focus-within img {
+    scale: 1.025;
+    filter: saturate(1.03) brightness(1.02);
+  }
+
+  .motionRoot [data-hover-object="card"]:hover img,
+  .motionRoot [data-hover-object="card"]:focus-visible img {
+    filter: saturate(1.04) brightness(1.025);
+  }
+
+  .motionRoot [data-hover-object="chip"]:hover {
+    color: var(--ink-b, #1b1916);
+    border-color: var(--brand, var(--cyan));
+    background: color-mix(in srgb, var(--brand, var(--cyan)) 12%, transparent);
+  }
+
+  .motionRoot [data-hover-object="field"]:hover {
+    color: color-mix(in srgb, var(--navy-900) 76%, var(--cyan));
+    background: color-mix(in srgb, var(--cyan) 3%, transparent);
+  }
+
+  .motionRoot [data-hover-object="field"]:hover :is(input, select, textarea) {
+    border-bottom-color: var(--cyan);
+  }
+
+  .motionRoot [data-hover-object="brand"]:hover,
+  .motionRoot [data-hover-object="brand"]:focus-visible {
+    opacity: 0.82;
+    filter: saturate(1.08);
+  }
+}
+
+:global(html.lenis),
+:global(html.lenis body) { height: auto; }
+
+:global(.lenis.lenis-smooth) { scroll-behavior: auto !important; }
+:global(.lenis.lenis-smooth [data-lenis-prevent]) { overscroll-behavior: contain; }
+:global(.lenis.lenis-stopped) { overflow: clip; }
+:global(.lenis.lenis-smooth iframe) { pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .motionRoot main > :not([data-motion-static]) {
+    translate: none;
+  }
+
+  .motionRoot [data-hover-object] img {
+    scale: 1;
+    filter: none;
+  }
+}
