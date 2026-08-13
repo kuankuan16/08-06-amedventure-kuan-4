@@ -5717,6 +5717,11 @@
     background: transparent;
     color: inherit;
   }
+  .companiesPage .menuCount[data-count-kind="value"] {
+    border: 0;
+    background: var(--brand);
+    color: #fff;
+  }
   .companiesPage .menuTrigger:focus-visible {
     outline: none;
   }
