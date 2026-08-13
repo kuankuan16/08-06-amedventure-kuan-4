@@ -4129,7 +4129,15 @@
 .companiesPage .load,
 .companiesPage .loadAll,
 .companiesPage .chip {
-  border-color: rgba(243, 243, 242, 0.34);
+  border-color: transparent;
+  background: color-mix(in srgb, var(--brand) 28%, #fff);
+  color: var(--ink-b);
+}
+.companiesPage .chip:hover,
+.companiesPage .chip:focus-visible {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--brand) 38%, #fff);
+  color: var(--ink-b);
 }
 .companiesPage .menuTrigger:hover,
 .companiesPage .menuTriggerOpen,
@@ -5257,7 +5265,14 @@
     gap: 3.25rem;
   }
   .aboutPageHero .quote {
-    font-size: clamp(2.45rem, 10.5vw, 3.1rem);
+    max-width: 100%;
+    margin-top: 2.25rem;
+    font-size: clamp(2rem, 8.8vw, 2.45rem);
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  .aboutPageHero .quote > span > span {
+    white-space: nowrap;
   }
   .aboutPageHero .quoteFigure {
     width: min(100%, 18rem);
@@ -5309,6 +5324,36 @@
   }
   .pillar:first-child {
     border-top: 0;
+  }
+  .teamRow {
+    padding-bottom: 1.25rem;
+  }
+  .teamRowHead {
+    min-height: 6rem;
+    padding: 1.65rem 0;
+  }
+  .teamPeople {
+    grid-template-columns: 1fr;
+  }
+  .person {
+    padding: 2rem 1rem 2.6rem;
+  }
+  .person figure {
+    width: min(16.5rem, 76vw);
+    max-width: none;
+  }
+  .person::before {
+    transform: scaleY(0);
+  }
+  .person:hover::before,
+  .person:focus-visible::before {
+    transform: scaleY(0);
+  }
+  .person:hover > *,
+  .person:focus-visible > *,
+  .person:hover figure,
+  .person:focus-visible figure {
+    transform: none;
   }
   .heroHuman .heroV3 {
     display: grid;
@@ -5563,31 +5608,70 @@
     font-size: 20px;
   }
   .focusCards {
-    width: calc(100% + 2.5rem);
-    margin: 4rem -1.25rem 0;
-    padding: 0 1.25rem 1rem;
-    display: flex;
-    gap: 0.75rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-  .focusCards::-webkit-scrollbar {
-    display: none;
+    width: 100%;
+    margin: 3.25rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    overflow: visible;
   }
   .focusCards > article {
-    width: 82vw;
-    flex: none;
-    scroll-snap-align: center;
+    width: 100%;
+    min-width: 0;
+    padding-top: 0.85rem;
   }
   .focusCardIndex {
-    padding: 0 0.75rem;
+    padding: 0 0.25rem;
+    margin-bottom: 1rem;
   }
-  .focusCards > article:first-child {
-    scroll-snap-align: start;
+  .focusArtwork {
+    aspect-ratio: 4 / 3;
   }
-  .focusCards > article:last-child {
-    scroll-snap-align: end;
+  .focusCardCopy {
+    padding: 1.35rem 0.25rem 1.75rem;
+  }
+  .focusCardCopy > span {
+    margin-top: 1.15rem;
+  }
+  .companiesPage .resultBar {
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .companiesPage .resultCount {
+    width: 100%;
+    line-height: 1.45;
+  }
+  .companiesPage .chips {
+    width: 100%;
+    align-items: center;
+    gap: 0.65rem 0.85rem;
+  }
+  .companiesPage .chip {
+    min-height: 2.25rem;
+    padding: 0 0.85rem;
+  }
+  .companiesPage .clearAll {
+    min-height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  .dialogFacts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 1rem 1.25rem;
+  }
+  .dialogFacts li {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr);
+    align-items: start;
+    gap: 0.25rem;
+    text-align: left;
+  }
+  .dialogFacts li:last-child {
+    justify-self: stretch;
+    text-align: left;
   }
   .focusAreas {
     gap: 1.25rem;
